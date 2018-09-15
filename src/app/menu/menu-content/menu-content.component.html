@@ -1,0 +1,22 @@
+<div class="col-md-12">
+  <mat-card class="pt-1 mt-1">
+    <mat-card-content>
+      <div *ngIf="tabs.length === 0; else content">
+        <h2 style="display: flex; justify-content: center; margin: 300px">Select a service.</h2>
+      </div>
+      <ng-template #content>
+        <mat-tab-group [color]="'accent'" [backgroundColor]="" [selectedIndex]="selectedTab">
+          <div *ngFor="let tab of tabs; let i = index">
+            <mat-tab>
+              <ng-template mat-tab-label>
+                <strong> {{tab.name}} &nbsp;&nbsp;&nbsp;</strong>
+                <mat-icon style="cursor: pointer;" (click)="onClose(i)">close</mat-icon>
+              </ng-template>
+              <app-api-details [serviceContent]="tab.id" (delete)="onClose(i)"></app-api-details>
+            </mat-tab>
+          </div>
+        </mat-tab-group>
+      </ng-template>
+    </mat-card-content>
+  </mat-card>
+</div>

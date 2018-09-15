@@ -1,12 +1,88 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
-.shadow {
-  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
+.mat-shadow {
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12) !important;
 }
 
 
-body {
+html, body {
+  margin: 0;
+  height: 100%;
   background-color: #fbfbfb !important;
-  font-family: 'Gill Sans', Calibri, 'Trebuchet MS', sans-serif !important;
+}
+
+body {
+  font-family: 'Roboto',sans-serif !important;
+  font-size: 12px !important;
+  line-height: 16px !important;
+}
+
+button {
+  outline: none !important;
+}
+
+.container-flex {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.card-flex {
+  flex: auto;
+  width: 540px;
+  margin: 8px;
+}
+
+.button-flex {
+  display: flex;
+  justify-content: end;
+  margin: 8px;
+}
+
+.mat-raised-button {
+  outline: none !important;
+}
+
+.mat-list-item {
+  font-size: 14px !important;
+  height: 35px !important;
+}
+
+.mat-form-field {
+  font-size: 14px !important;
+}
+
+.mat-card {
+  padding: 15px !important;
+}
+
+.mat-card-title {
+/*  margin: 0 !important; */
+  font-size: 16px !important;
+}
+/*
+.mat-form-field-appearance-legacy .mat-form-field-underline {
+  height:0px !important;
+} */
+
+.mat-form-field-underline {
+  background-color: white !important;
+}
+/*
+.mat-form-field-label-wrapper {
+  top: 0.25em !important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  top: 1.5em !important;
+}
+ */
+
+.mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 0.7em 0 0.7em 0 !important;
+}
+
+textarea {
+  min-height: 15px !important;
 }

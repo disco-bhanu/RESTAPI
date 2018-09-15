@@ -6,6 +6,7 @@ import { renderModuleFactory } from '@angular/platform-server';
 import { enableProdMode } from '@angular/core';
 
 import * as express from 'express';
+import * as bodyParser from 'body-parser';
 import { join } from 'path';
 import { readFileSync } from 'fs';
 
@@ -53,6 +54,8 @@ app.get('/', (req, res) => {
   res.render(join(DIST_FOLDER, 'browser', 'index.html'), { req });
 });
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/server', router);
 
 // Start up the Node server

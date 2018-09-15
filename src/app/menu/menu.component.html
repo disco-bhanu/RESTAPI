@@ -1,0 +1,53 @@
+<!-- *ngIf="isHandset$ | async" -->
+<mat-toolbar color="primary" class="mat-elevation-z2">
+  <button
+    type="button"
+    aria-label="Toggle sidenav"
+    mat-icon-button
+    (click)="drawer.toggle()"
+    style="outline: none"
+    >
+    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+  </button>
+  <span> REST API </span>
+  <span style="flex: 1 1 auto"></span>
+  <button mat-icon-button [matMenuTriggerFor]="menu" style="outline: 0">
+    <mat-icon>more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item style="outline: 0" (click)="onNewService()">New Service</button>
+  </mat-menu>
+</mat-toolbar>
+<mat-sidenav-container class="sidenav-container mt-2">
+
+  <mat-sidenav
+    #drawer
+    class="sidenav mat-shadow mt-1"
+
+    fixedInViewport="false"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="!(isHandset$ | async)">
+    <!-- <mat-toolbar color="warn">RESTAPI</mat-toolbar> -->
+
+    <mat-nav-list>
+      <app-search></app-search>
+      <div *ngFor="let item of items; let i = index" class="mt-3">
+          <a mat-list-item (click)="onExpand(i)" > {{item.name}} <span style="flex: 1 1 auto"></span><mat-icon>expand_more</mat-icon></a>
+          <div *ngIf="item.expanded">
+              <div *ngFor="let service of item.services; ">
+                  <a class="pl-3" mat-list-item (click)="onSelect(item.id,service.id)"> {{service.name}} </a>
+              </div>
+          </div>
+      </div>
+
+      <!--  <a class="pl-3" mat-list-item >Link 1 <span style="flex: 1 1 auto"></span><mat-icon>expand_more</mat-icon></a>
+        <a class="pl-3" mat-list-item >Link 1 <span style="flex: 1 1 auto"></span><mat-icon>expand_more</mat-icon></a> -->
+
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-menu-content (delete)="onDelete($event)"></app-menu-content>
+    <!-- Add Content Here -->
+  </mat-sidenav-content>
+</mat-sidenav-container>
