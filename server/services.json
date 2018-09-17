@@ -9,10 +9,10 @@
         "description": "blah blah blah",
         "url": "google1.com",
         "method": "post",
-        "headers": {
-          "contentType": "json",
-          "dataType": "json"
-        },
+        "headers": [
+          { "key": "contentType", "value": "json"},
+          { "key": "dataType", "value": "json"}
+        ],
         "sampleRequest": "",
         "sampleResponse": ""
       },
@@ -22,10 +22,10 @@
         "description": "blah blah blah",
         "url": "google2.com",
         "method": "post",
-        "headers": {
-          "contentType": "json",
-          "dataType": "json"
-        },
+        "headers": [
+          { "key": "contentType", "value": "json"},
+          { "key": "dataType", "value": "json"}
+        ],
         "sampleRequest": "",
         "sampleResponse": ""
       },
@@ -35,10 +35,10 @@
         "description": "blah blah blah",
         "url": "google3.com",
         "method": "post",
-        "headers": {
-          "contentType": "json",
-          "dataType": "json"
-        },
+        "headers": [
+          { "key": "contentType", "value": "json"},
+          { "key": "dataType", "value": "json"}
+        ],
         "sampleRequest": "",
         "sampleResponse": ""
       },
@@ -48,10 +48,10 @@
         "description": "blah blah blah",
         "url": "google4.com",
         "method": "post",
-        "headers": {
-          "contentType": "json",
-          "dataType": "json"
-        },
+        "headers": [
+          { "key": "contentType", "value": "json"},
+          { "key": "dataType", "value": "json"}
+        ],
         "sampleRequest": "",
         "sampleResponse": ""
       },
@@ -61,10 +61,10 @@
         "description": "blah blah blah",
         "method": "post",
         "url": "google5.com",
-        "headers": {
-          "contentType": "json",
-          "dataType": "json"
-        },
+        "headers": [
+          { "key": "contentType", "value": "json"},
+          { "key": "dataType", "value": "json"}
+        ],
         "sampleRequest": "",
         "sampleResponse": ""
       }
@@ -79,10 +79,10 @@
         "description": "blah blah blah",
         "url": "google6.com",
         "method": "post",
-        "headers": {
-          "contentType": "json",
-          "dataType": "json"
-        },
+        "headers": [
+          { "key": "contentType", "value": "json"},
+          { "key": "dataType", "value": "json"}
+        ],
         "sampleRequest": "",
         "sampleResponse": ""
       },
@@ -92,10 +92,10 @@
         "description": "blah blah blah",
         "url": "google7.com",
         "method": "post",
-        "headers": {
-          "contentType": "json",
-          "dataType": "json"
-        },
+        "headers": [
+          { "key": "contentType", "value": "json"},
+          { "key": "dataType", "value": "json"}
+        ],
         "sampleRequest": "",
         "sampleResponse": ""
       },
@@ -105,10 +105,10 @@
         "description": "blah blah blah",
         "url": "google8.com",
         "method": "post",
-        "headers": {
-          "contentType": "json",
-          "dataType": "json"
-        },
+        "headers": [
+          { "key": "contentType", "value": "json"},
+          { "key": "dataType", "value": "json"}
+        ],
         "sampleRequest": "",
         "sampleResponse": ""
       },
@@ -118,10 +118,10 @@
         "description": "blah blah blah",
         "url": "google9.com",
         "method": "post",
-        "headers": {
-          "contentType": "json",
-          "dataType": "json"
-        },
+        "headers": [
+          { "key": "contentType", "value": "json"},
+          { "key": "dataType", "value": "json"}
+        ],
         "sampleRequest": "Test1",
         "sampleResponse": "Testt1"
       },
@@ -131,10 +131,10 @@
         "description": "blah blah blah",
         "url": "google10.com",
         "method": "post",
-        "headers": {
-          "contentType": "json",
-          "dataType": "json"
-        },
+        "headers": [
+          { "key": "contentType", "value": "json"},
+          { "key": "dataType", "value": "json"}
+        ],
         "sampleRequest": "Test2",
         "sampleResponse": "Testst3"
       }
