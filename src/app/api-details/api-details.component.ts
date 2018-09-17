@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
+import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { APIService } from '../shared/api.service';
 import { Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material';
@@ -23,21 +23,21 @@ export class ApiDetailsComponent implements OnInit {
 
   newService = false;
 
+  changeTabOnSend = 0;
+
   headermenu;
 
   serviceId;
-
-  headergroup: FormGroup = new FormGroup({});
 
   headers = [];
 
   newheader = false;
 
-  methodOptions: string[] = ['get', 'post'];
+  methodOptions: string[] = ['GET', 'POST', 'PUT', 'DELETE', 'HEAD'];
 
   key: HTMLInputElement;
 
-  headerOptions: string[] = [
+  headerKeyOptions: string[] = [
     'Accept', 'Accept-Charset', 'Accept-Encoding', 'Accept-Language', 'Accept-Datetime', 'Access-Control-Request-Method',
     'Access-Control-Request-Headers', 'Authorization', 'Cache-Control', 'Connection', 'Content-Length', 'Content-MD5',
     'Content-Type', 'Cookie', 'Date', 'Expect', 'Forwarded', 'From', 'Host', 'If-Match', 'If-Modified-Since',
@@ -47,9 +47,22 @@ export class ApiDetailsComponent implements OnInit {
     'X-ATT-DeviceId', 'X-Wap-Profile', 'Proxy-Connection', 'X-UIDH', 'X-Csrf-Token', 'X-Request-ID', 'X-Correlation-ID', 'Save-Data'
   ];
 
+  headerValueOptions: string[] = [
+    'application/atom+xml', 'application/ecmascript', 'application/json', 'application/octet-stream', 'application/ogg',
+    'application/pdf', 'application/postscript', 'application/rdf+xml', 'application/rss+xml', 'application/soap+xml',
+    'application/font-woff', 'application/x-yaml', 'application/xhtml+xml', 'application/xml', 'application/xml-dtd',
+    'application/xop+xml', 'application/zip', 'application/gzip', 'application/graphql', 'application/x-www-form-urlencoded',
+    'image/gif', 'image/jpeg', 'image/pjpeg', 'image/png', 'image/svg+xml', 'image/tiff', 'message/http',
+    'message/imdn+xml', 'message/partial', 'message/rfc822', 'multipart/mixed', 'multipart/alternative',
+    'multipart/related', 'multipart/form-data', 'multipart/signed', 'multipart/encrypted', 'text/cmd',
+    'text/css', 'text/csv', 'text/html', 'text/plain', 'text/vcard', 'text/xml'
+  ];
+
   filterOptionsForMethod: Observable<string[]>;
 
-  filterOptionsForHeaders: string[];
+  filterOptionsForHeaderKey: string[];
+
+  filterOptionsForHeaderValue: string[];
 
   @Input() set serviceContent(content) {
     if (content === undefined) {
@@ -84,9 +97,9 @@ export class ApiDetailsComponent implements OnInit {
     let description = null;
     let url = null;
     let method = null;
-    let sampleRequest = null;
-    let sampleResponse = null;
+    let response = null;
     let body = null;
+    const _headers = new FormArray([]);
 
 
     if (!this.newService) {
@@ -98,11 +111,13 @@ export class ApiDetailsComponent implements OnInit {
       url = this.apiDetails.service.url;
       method = this.apiDetails.service.method;
       body = this.apiDetails.service.body,
-      Object.keys(this.headers).forEach(header => {
-        this.headergroup.addControl(this.headers[header], new FormControl(this.headers[header]));
+      this.apiDetails.service.headers.forEach( header => {
+        _headers.push( new FormGroup({
+          key: new FormControl(header.key),
+          value: new FormControl(header.value)
+        }));
       });
-      sampleRequest = this.apiDetails.service.sampleRequest || null;
-      sampleResponse = this.apiDetails.service.sampleResponse || null;
+      response = this.apiDetails.service.sampleResponse || null;
     } else {
       this.newService = false;
     }
@@ -116,17 +131,17 @@ export class ApiDetailsComponent implements OnInit {
       url: new FormControl(url),
       method: new FormControl(method),
       body: new FormControl(body),
-      headers: this.headergroup,
-      sampleRequest: new FormControl(sampleRequest),
-      sampleResponse: new FormControl(sampleResponse)
+      headers: _headers,
+      response: new FormControl(response)
     });
 
   }
 
   onTest() {
+    this.changeTabOnSend = 1;
     this.apiService.send(this.form.value)
       .subscribe(res => {
-        this.form.controls['sampleResponse'].patchValue(JSON.stringify(res, undefined, 4));
+        this.form.controls['response'].patchValue(JSON.stringify(res, undefined, 4));
       });
   }
 
@@ -134,8 +149,6 @@ export class ApiDetailsComponent implements OnInit {
     console.log(this.form.value);
     this.apiService.save(this.form.value)
       .subscribe(res => {
-        console.log('Got the resoinse frm server');
-        console.log(res);
         this.snackbar.open('Saved.', null, {
           duration: 2000,
           horizontalPosition: 'right'
@@ -147,16 +160,31 @@ export class ApiDetailsComponent implements OnInit {
     this.newheader = true;
   }
 
+  onDeleteHeader(idx) {
+    (<FormArray>this.form.get('headers')).removeAt(idx);
+  }
+
   onAdd(key: HTMLInputElement, value: HTMLInputElement) {
     if (key.value !== '' && value.value !== '') {
       this.headers.push(key.value);
-      this.headergroup.addControl(key.value, new FormControl(value.value));
+      (<FormArray>this.form.get('headers')).push(
+        new FormGroup({
+          key: new FormControl(key.value),
+          value: new FormControl(value.value)
+        })
+      );
+      key.value = '';
+      value.value = '';
       this.newheader = false;
     }
   }
 
   onHeadersKey(event) {
-    this.filterOptionsForHeaders = this.headerOptions.filter(header => header.toLowerCase().includes(event.target.value));
+    this.filterOptionsForHeaderKey = this.headerKeyOptions.filter(key => key.toLowerCase().includes(event.target.value));
+  }
+
+  onHeadersValue(event) {
+    this.filterOptionsForHeaderValue = this.headerValueOptions.filter(val => val.toLowerCase().includes(event.target.value));
   }
 
   filter(val: string): string[] {
@@ -167,7 +195,10 @@ export class ApiDetailsComponent implements OnInit {
     this.apiService.delete(this.apiDetails.id + '_' + this.apiDetails.service.id)
       .subscribe( res => {
         this.delete.emit('');
-        console.log(res);
+        this.snackbar.open('Deleted successfully.', null, {
+          duration: 2000,
+          horizontalPosition: 'right'
+        });
       });
   }
 

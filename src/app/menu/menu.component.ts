@@ -24,7 +24,11 @@ export class MenuComponent {
     this.apiService.menuItems.subscribe(
       (items: any) => this.items = items
     );
-    this.apiService.fetchMenuItems();
+    // this.apiService.fetchServicesList()
+    //  .subscribe( res => {
+        this.apiService.fetchMenuItems();
+        this.apiService.fetchServiceNames();
+    //  });
   }
 
   onExpand(id) {

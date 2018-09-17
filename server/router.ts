@@ -61,21 +61,27 @@ function newService(data) {
 }
 
 function existingService(data) {
-  db.forEach((system: DB, systemindex) => {
-    if (system.id === data.systemId) {
-      const serviceindex = system.services.findIndex(service => service.id === data.serviceId);
-      db[systemindex].id = data.systemId;
-      db[systemindex].name = data.systemName;
-      db[systemindex].services[serviceindex].id = data.serviceId;
-      db[systemindex].services[serviceindex].method = data.method;
-      db[systemindex].services[serviceindex].url = data.url;
-      db[systemindex].services[serviceindex].headers = data.headers;
-      db[systemindex].services[serviceindex].name = data.serviceName;
-      db[systemindex].services[serviceindex].sampleRequest = data.sampleRequest;
-      db[systemindex].services[serviceindex].sampleResponse = data.sampleResponse;
-      db[systemindex].services[serviceindex].description = data.description;
-    }
-  });
+  try {
+    db.forEach((system: DB, systemindex) => {
+      console.log(system);
+      if (system.id.toString() === data.systemId.toString()) {
+        const serviceindex = system.services.findIndex(service => service.id.toString() === data.serviceId.toString());
+        db[systemindex].id = data.systemId;
+        db[systemindex].name = data.systemName;
+        db[systemindex].services[serviceindex].id = data.serviceId;
+        db[systemindex].services[serviceindex].method = data.method;
+        db[systemindex].services[serviceindex].url = data.url;
+        db[systemindex].services[serviceindex].headers = data.headers;
+        db[systemindex].services[serviceindex].name = data.serviceName;
+        db[systemindex].services[serviceindex].sampleRequest = data.sampleRequest;
+        db[systemindex].services[serviceindex].sampleResponse = data.sampleResponse;
+        db[systemindex].services[serviceindex].description = data.description;
+      }
+    });
+  } catch (e) {
+    console.log(e);
+  }
+
 }
 
 function deleteService(req, res) {

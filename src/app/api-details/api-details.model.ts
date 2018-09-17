@@ -8,7 +8,7 @@ export class APIDetails {
 }
 
 export class Headers {
-  constructor( public contentType: string, public dataType: string) {}
+  constructor( public key: string, public value: string) {}
 }
 
 export class Service {
@@ -19,7 +19,7 @@ export class Service {
     public url: string,
     public method: String,
     public body: string,
-    public headers: any,
+    public headers: Headers[],
     public sampleRequest: string,
     public sampleResponse: string
   ) { }

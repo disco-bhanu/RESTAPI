@@ -10,6 +10,8 @@ export class MenuContentComponent implements OnInit {
 
   tabs = [];
 
+  names = [];
+
   selectedTab = 0;
 
   servicemenu;
@@ -19,6 +21,7 @@ export class MenuContentComponent implements OnInit {
   constructor(private apiService: APIService) { }
 
   ngOnInit() {
+    this.apiService.names.subscribe( (res: any) => this.names = res);
     this.apiService.selectedAPIId.subscribe(
       serviceId => {
         if (serviceId === undefined) {
@@ -39,8 +42,11 @@ export class MenuContentComponent implements OnInit {
   }
 
   onClose(idx) {
-    this.delete.emit(this.tabs[idx].id);
     this.tabs.splice(idx, 1);
+  }
+
+  onDelete(idx) {
+    this.delete.emit(this.tabs[idx].id);
   }
 
 }

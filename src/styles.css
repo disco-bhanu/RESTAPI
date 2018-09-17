@@ -22,6 +22,10 @@ button {
   outline: none !important;
 }
 
+.row {
+  margin: 0 !important;
+}
+
 .container-flex {
   display: flex;
   flex-wrap: wrap;
@@ -40,6 +44,12 @@ button {
   margin: 8px;
 }
 
+.mat-stroked-button {
+  position: absolute !important;
+  margin-top: 5px !important;
+  line-height: 38px !important;
+}
+
 .mat-raised-button {
   outline: none !important;
 }
@@ -51,6 +61,10 @@ button {
 
 .mat-form-field {
   font-size: 14px !important;
+}
+
+.mat-tab-label {
+  height: 38px !important;
 }
 
 .mat-card {

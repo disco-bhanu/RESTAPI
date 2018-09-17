@@ -20,11 +20,10 @@ export class APIService {
           'description': 'blah blah blah',
           'url': 'google1.com',
           'method': 'post',
-          'body': 'Testing',
-          'headers': {
-            'contentType': 'json',
-            'dataType': 'json'
-          },
+          'headers': [
+            { 'key': 'contentType', 'value': 'json'},
+            { 'key': 'dataType', 'value': 'json'}
+          ],
           'sampleRequest': '',
           'sampleResponse': ''
         },
@@ -34,11 +33,10 @@ export class APIService {
           'description': 'blah blah blah',
           'url': 'google2.com',
           'method': 'post',
-          'body': 'Testing',
-          'headers': {
-            'contentType': 'json',
-            'dataType': 'json'
-          },
+          'headers': [
+            { 'key': 'contentType', 'value': 'json'},
+            { 'key': 'dataType', 'value': 'json'}
+          ],
           'sampleRequest': '',
           'sampleResponse': ''
         },
@@ -48,11 +46,10 @@ export class APIService {
           'description': 'blah blah blah',
           'url': 'google3.com',
           'method': 'post',
-          'body': 'Testing',
-          'headers': {
-            'contentType': 'json',
-            'dataType': 'json'
-          },
+          'headers': [
+            { 'key': 'contentType', 'value': 'json'},
+            { 'key': 'dataType', 'value': 'json'}
+          ],
           'sampleRequest': '',
           'sampleResponse': ''
         },
@@ -62,11 +59,10 @@ export class APIService {
           'description': 'blah blah blah',
           'url': 'google4.com',
           'method': 'post',
-          'body': 'Testing',
-          'headers': {
-            'contentType': 'json',
-            'dataType': 'json'
-          },
+          'headers': [
+            { 'key': 'contentType', 'value': 'json'},
+            { 'key': 'dataType', 'value': 'json'}
+          ],
           'sampleRequest': '',
           'sampleResponse': ''
         },
@@ -76,11 +72,10 @@ export class APIService {
           'description': 'blah blah blah',
           'method': 'post',
           'url': 'google5.com',
-          'body': 'Testing',
-          'headers': {
-            'contentType': 'json',
-            'dataType': 'json'
-          },
+          'headers': [
+            { 'key': 'contentType', 'value': 'json'},
+            { 'key': 'dataType', 'value': 'json'}
+          ],
           'sampleRequest': '',
           'sampleResponse': ''
         }
@@ -95,11 +90,10 @@ export class APIService {
           'description': 'blah blah blah',
           'url': 'google6.com',
           'method': 'post',
-          'body': 'Testing',
-          'headers': {
-            'contentType': 'json',
-            'dataType': 'json'
-          },
+          'headers': [
+            { 'key': 'contentType', 'value': 'json'},
+            { 'key': 'dataType', 'value': 'json'}
+          ],
           'sampleRequest': '',
           'sampleResponse': ''
         },
@@ -109,11 +103,10 @@ export class APIService {
           'description': 'blah blah blah',
           'url': 'google7.com',
           'method': 'post',
-          'body': 'Testing',
-          'headers': {
-            'contentType': 'json',
-            'dataType': 'json'
-          },
+          'headers': [
+            { 'key': 'contentType', 'value': 'json'},
+            { 'key': 'dataType', 'value': 'json'}
+          ],
           'sampleRequest': '',
           'sampleResponse': ''
         },
@@ -123,11 +116,10 @@ export class APIService {
           'description': 'blah blah blah',
           'url': 'google8.com',
           'method': 'post',
-          'body': 'Testing',
-          'headers': {
-            'contentType': 'json',
-            'dataType': 'json'
-          },
+          'headers': [
+            { 'key': 'contentType', 'value': 'json'},
+            { 'key': 'dataType', 'value': 'json'}
+          ],
           'sampleRequest': '',
           'sampleResponse': ''
         },
@@ -137,11 +129,10 @@ export class APIService {
           'description': 'blah blah blah',
           'url': 'google9.com',
           'method': 'post',
-          'body': 'Testing',
-          'headers': {
-            'contentType': 'json',
-            'dataType': 'json'
-          },
+          'headers': [
+            { 'key': 'contentType', 'value': 'json'},
+            { 'key': 'dataType', 'value': 'json'}
+          ],
           'sampleRequest': 'Test1',
           'sampleResponse': 'Testt1'
         },
@@ -151,11 +142,10 @@ export class APIService {
           'description': 'blah blah blah',
           'url': 'google10.com',
           'method': 'post',
-          'body': '',
-          'headers': {
-            'contentType': 'json',
-            'dataType': 'json'
-          },
+          'headers': [
+            { 'key': 'contentType', 'value': 'json'},
+            { 'key': 'dataType', 'value': 'json'}
+          ],
           'sampleRequest': 'Test2',
           'sampleResponse': 'Testst3'
         }
@@ -167,14 +157,16 @@ export class APIService {
 
   menuItems = new Subject();
 
+  names = new Subject();
+
   constructor(private http: HttpClient) { }
 
   fetchServicesList(): Observable<any> {
     return this.http.get('/server/services')
       .pipe(
-        map( (res) => {
-          // this.APIList = res;
-          return this.APIList.slice();
+        map((res: any) => {
+          this.APIList = res;
+          return true;
         })
       );
   }
@@ -184,7 +176,7 @@ export class APIService {
     this.APIList.slice().forEach((ele, idx) => {
       items.push({ name: ele.name, id: ele.id, expanded: false, services: [] });
       ele.services.forEach(service => {
-        items[idx].services.push({ id: service.id, name: service.name});
+        items[idx].services.push({ id: service.id, name: service.name });
       });
     });
     console.log(items);
@@ -194,15 +186,15 @@ export class APIService {
   fetchMenuItemsBySearch(serviceName) {
     const items = [];
     let serviceList = [];
-    this.APIList.slice().forEach( system => {
+    this.APIList.slice().forEach(system => {
       serviceList = [];
-      system.services.forEach( service => {
+      system.services.forEach(service => {
         if (service.name.toUpperCase().replace(/\s/g, '').includes(serviceName.toUpperCase().replace(/\s/g, ''))) {
-          serviceList.push({ id: service.id, name: service.name});
+          serviceList.push({ id: service.id, name: service.name });
         }
       });
       if (serviceList.length > 0) {
-        items.push({ name: system.name, expanded: true , id: system.id, services: serviceList});
+        items.push({ name: system.name, expanded: true, id: system.id, services: serviceList });
       }
     });
     this.menuItems.next(items);
@@ -210,12 +202,6 @@ export class APIService {
   }
 
   selectAPIByID(id) {
-    const systemId = id.split('_')[0];
-    const serviceId = id.split('_')[1];
-    console.log(systemId + ' ' + serviceId);
-    // console.log(this.APIList);
-    // console.log(this.APIList[systemId].services[serviceId]);
-    // this.selectedAPI.next(this.APIList[systemId].services[serviceId]);
     this.selectedAPIId.next(id);
   }
 
@@ -227,20 +213,27 @@ export class APIService {
     const systemId = id.split('_')[0];
     const serviceId = id.split('_')[1];
     const system: any = this.APIList.filter(sys => sys.id.toString() === systemId.toString()); // [systemId].name;
-    const service: any = system[0].services.filter( srv => srv.id.toString() === serviceId.toString());
+    const service: any = system[0].services.filter(srv => srv.id.toString() === serviceId.toString());
     return system[0].name + ' > ' + service[0].name;
+  }
+
+  fetchServiceNames() {
+    const serviceNames = [];
+    this.APIList.forEach( (sys, idx) => {
+      serviceNames.push({ systemName: sys.name, serviceNames: []});
+      sys.services.forEach( srv => {
+        serviceNames[idx].serviceNames.push(srv.name);
+      });
+    });
+    this.names.next(serviceNames);
   }
 
   fetchById(id) {
     const systemId = id.split('_')[0];
     const serviceId = id.split('_')[1];
     const system: any = this.APIList.filter(sys => sys.id.toString() === systemId.toString());
-    console.log(system);
-    const service: any = system[0].services.filter( srv => srv.id.toString() === serviceId.toString());
-    console.log(service);
-
-    // return service[0];
-    return { name: system[0].name, id: system[0].id, service: service[0]};
+    const service: any = system[0].services.filter(srv => srv.id.toString() === serviceId.toString());
+    return { name: system[0].name, id: system[0].id, service: service[0] };
   }
 
   save(data): Observable<any> {
@@ -255,38 +248,33 @@ export class APIService {
   }
 
   send(formdata): Observable<any> {
-
+    console.log(formdata);
     const headers = new HttpHeaders();
-
-    Object.keys(formdata.headers).forEach( header => {
-      headers.set(header, formdata.headers[header]);
+    formdata.headers.forEach(header => {
+      headers.set(header.key, header.value);
     });
-
-    if (formdata.method === 'get') {
-      console.log('inside get request');
-      return this.http.get(formdata.url, { headers: headers})
+    if (formdata.method === 'GET') {
+      return this.http.get(formdata.url, { headers: headers })
         .pipe(
-          map( (res: Response) => {
+          map((res: Response) => {
             return res;
           }
-        ) );
-    } else if (formdata.method === 'post') {
-      return this.http.post(formdata.url, formdata.body, { headers: headers})
-      .pipe(
-        map( (res: Response) => {
-          return res;
-        }
-      ) );
+          ));
+    } else if (formdata.method === 'POST' || formdata.method === 'PUT') {
+      return this.http.post(formdata.url, formdata.body, { headers: headers })
+        .pipe(
+          map((res: Response) => {
+            return res;
+          }
+          ));
     }
 
   }
 
   delete(id): Observable<any> {
-    console.log('delete...............');
-    console.log(id);
     return this.http.post('/server/delete', { id: id })
       .pipe(
-        map( res => {
+        map(res => {
           return res;
         })
       );

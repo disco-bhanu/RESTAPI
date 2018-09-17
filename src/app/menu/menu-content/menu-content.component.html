@@ -2,7 +2,16 @@
   <mat-card class="pt-1 mt-1">
     <mat-card-content>
       <div *ngIf="tabs.length === 0; else content">
-        <h2 style="display: flex; justify-content: center; margin: 300px">Select a service.</h2>
+        <div style="display: flex; justify-content: center; margin: 10px">
+          <mat-card *ngFor="let sys of names" class="m-2">
+            <mat-card-header>{{sys.systemName}}</mat-card-header>
+            <mat-card-content class="m-2 p-2">
+              <ul *ngFor="let srv of sys.serviceNames">
+                <li>{{srv}}</li>
+              </ul>
+            </mat-card-content>
+          </mat-card>
+        </div>
       </div>
       <ng-template #content>
         <mat-tab-group [color]="'accent'" [backgroundColor]="" [selectedIndex]="selectedTab">
@@ -12,7 +21,7 @@
                 <strong> {{tab.name}} &nbsp;&nbsp;&nbsp;</strong>
                 <mat-icon style="cursor: pointer;" (click)="onClose(i)">close</mat-icon>
               </ng-template>
-              <app-api-details [serviceContent]="tab.id" (delete)="onClose(i)"></app-api-details>
+              <app-api-details [serviceContent]="tab.id" (delete)="onDelete(i)"></app-api-details>
             </mat-tab>
           </div>
         </mat-tab-group>
