@@ -8,7 +8,7 @@
         "name": "Service 1",
         "description": "blah blah blah",
         "url": "google1.com",
-        "method": "post",
+        "method": "POST",
         "headers": [
           { "key": "contentType", "value": "json"},
           { "key": "dataType", "value": "json"}
@@ -21,7 +21,7 @@
         "name": "Service 2",
         "description": "blah blah blah",
         "url": "google2.com",
-        "method": "post",
+        "method": "POST",
         "headers": [
           { "key": "contentType", "value": "json"},
           { "key": "dataType", "value": "json"}
@@ -34,7 +34,7 @@
         "name": "Service 3",
         "description": "blah blah blah",
         "url": "google3.com",
-        "method": "post",
+        "method": "POST",
         "headers": [
           { "key": "contentType", "value": "json"},
           { "key": "dataType", "value": "json"}
@@ -47,7 +47,7 @@
         "name": "Service 4",
         "description": "blah blah blah",
         "url": "google4.com",
-        "method": "post",
+        "method": "POST",
         "headers": [
           { "key": "contentType", "value": "json"},
           { "key": "dataType", "value": "json"}
@@ -59,7 +59,7 @@
         "id": 5,
         "name": "Service 5",
         "description": "blah blah blah",
-        "method": "post",
+        "method": "POST",
         "url": "google5.com",
         "headers": [
           { "key": "contentType", "value": "json"},
@@ -78,7 +78,7 @@
         "name": "Service 6",
         "description": "blah blah blah",
         "url": "google6.com",
-        "method": "post",
+        "method": "POST",
         "headers": [
           { "key": "contentType", "value": "json"},
           { "key": "dataType", "value": "json"}
@@ -91,7 +91,7 @@
         "name": "Service 7",
         "description": "blah blah blah",
         "url": "google7.com",
-        "method": "post",
+        "method": "POST",
         "headers": [
           { "key": "contentType", "value": "json"},
           { "key": "dataType", "value": "json"}
@@ -104,7 +104,7 @@
         "name": "Service 8",
         "description": "blah blah blah",
         "url": "google8.com",
-        "method": "post",
+        "method": "POST",
         "headers": [
           { "key": "contentType", "value": "json"},
           { "key": "dataType", "value": "json"}
@@ -117,7 +117,7 @@
         "name": "Service 9",
         "description": "blah blah blah",
         "url": "google9.com",
-        "method": "post",
+        "method": "POST",
         "headers": [
           { "key": "contentType", "value": "json"},
           { "key": "dataType", "value": "json"}
@@ -130,7 +130,7 @@
         "name": "Service 10",
         "description": "blah blah blah",
         "url": "google10.com",
-        "method": "post",
+        "method": "POST",
         "headers": [
           { "key": "contentType", "value": "json"},
           { "key": "dataType", "value": "json"}

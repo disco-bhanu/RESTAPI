@@ -99,4 +99,6 @@ button {
 
 textarea {
   min-height: 15px !important;
+  line-height: 18px !important;
+  font-size: 12px !important;
 }

@@ -1,0 +1,6 @@
+---
+applications:
+- name: restapi
+  memory: 256M
+  instances: 1
+  buildpack: https://github.com/cloudfoundry/nodejs-buildpack

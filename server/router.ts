@@ -92,23 +92,5 @@ function deleteService(req, res) {
   const serviceindex = db[systemindex].services.findIndex( service => service.id.toString() === serviceId.toString());
   db[systemindex].services.splice(serviceindex, 1);
   fs.writeFileSync('./server/services.json', JSON.stringify(db, undefined, 4));
-  /*db.forEach( (system: DB, systemindex) => {
-    console.log('each system');
-    console.log(system.id);
-    if (system.id === systemId) {
-      console.log('system yes');
-      system.services.forEach( (service, serviceindex) => {
-        if (service.id === serviceId) {
-          console.log('service yes');
-          db[systemindex].services.splice(serviceindex, 1);
-          if (db[systemindex].services.length === 0) {
-            db.splice(systemindex, 1);
-          }
-          console.log(db[systemindex]);
-          fs.writeFileSync('./server/services.json', db);
-        }
-      });
-    }
-  });*/
   res.send(db);
 }

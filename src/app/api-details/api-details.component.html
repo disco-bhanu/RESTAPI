@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="onSave()">
-  <div class="mt-3">
+  <div class="mt-4">
     <mat-form-field class="col-md-2" appearance="outline">
       <mat-label for="method"> Method</mat-label>
       <input matInput type="text" name="method" formControlName="method" [matAutocomplete]="auto">
@@ -18,7 +18,7 @@
   <div class="mt-2" *ngIf="form.get('method').value === 'POST' || form.get('method').value === 'PUT'">
     <mat-form-field class="col-md-12" appearance="outline">
       <mat-label for="body">Body</mat-label>
-      <textarea matInput name="body" rows="6"></textarea>
+      <textarea matInput name="body" rows="6" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"></textarea>
     </mat-form-field>
   </div>
   <div class="col-md-12">
@@ -66,7 +66,7 @@
       <mat-tab label="Response">
         <mat-form-field class="col-md-12 mt-2" appearance="outline">
           <mat-label for="response">Response</mat-label>
-          <textarea matInput name="response" rows="30" style="height: auto" formControlName="response"></textarea>
+          <textarea matInput name="response" rows="15" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" formControlName="response"></textarea>
         </mat-form-field>
       </mat-tab>
     </mat-tab-group>
