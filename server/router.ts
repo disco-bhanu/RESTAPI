@@ -101,11 +101,11 @@ function deleteService(req, res) {
 }
 
 function sendRequest(fdata, res) {
-  const headers = {};
 
-  fdata.headers.forEach( header => {
-    headers[header.key] = header.value;
-  });
+  const headers = fdata.header.reduce( (headersObj, header) => {
+    headersObj[header.key] = header.value;
+    return headersObj;
+  }, {});
 
   const options = {
     method: fdata.method,
@@ -116,11 +116,20 @@ function sendRequest(fdata, res) {
   };
 
   request(options, (err, response, body) => {
-    const resp = {
-      body: JSON.parse(body),
+
+    let _body = '';
+
+    try {
+      _body = JSON.parse(body);
+    } catch (e) {
+      _body = body;
+    }
+
+    res.send({
+      body: _body,
       time: response.elapsedTime,
       statusCode: response.statusCode
-    };
-    res.send(resp);
+    });
+
   });
 }
