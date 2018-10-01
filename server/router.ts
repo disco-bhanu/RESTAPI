@@ -103,13 +103,14 @@ function deleteService(req, res) {
 function sendRequest(fdata, res) {
   const headers = {};
 
-  Object.keys(fdata.headers).forEach(header => {
-    headers[header] = fdata.headers[header];
+  fdata.headers.forEach( header => {
+    headers[header.key] = header.value;
   });
 
   const options = {
     method: fdata.method,
     url: fdata.url,
+    body: fdata.body || null,
     headers: headers,
     time: true
   };
