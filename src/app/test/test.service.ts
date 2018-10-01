@@ -13,7 +13,7 @@ export class TestService {
 
   public send(formdata): Observable<any> {
 
-    const headers = new HttpHeaders();
+/*    const headers = new HttpHeaders();
 
     Object.keys(formdata.headers).forEach( header => {
       headers.set(header, formdata.headers[header]);
@@ -35,7 +35,14 @@ export class TestService {
         }
       ) );
     }
-
+*/
+    return this.http.post('/server/send', formdata)
+      .pipe(
+        map( (res: Response) => {
+          console.log(res);
+          return res;
+        }
+      ));
   }
 
 }

@@ -9,10 +9,7 @@
         "description": "blah blah blah",
         "url": "google1.com",
         "method": "POST",
-        "headers": [
-          { "key": "contentType", "value": "json"},
-          { "key": "dataType", "value": "json"}
-        ],
+        "headers": [],
         "sampleRequest": "",
         "sampleResponse": ""
       },
@@ -22,10 +19,7 @@
         "description": "blah blah blah",
         "url": "google2.com",
         "method": "POST",
-        "headers": [
-          { "key": "contentType", "value": "json"},
-          { "key": "dataType", "value": "json"}
-        ],
+        "headers": [],
         "sampleRequest": "",
         "sampleResponse": ""
       },
@@ -35,10 +29,7 @@
         "description": "blah blah blah",
         "url": "google3.com",
         "method": "POST",
-        "headers": [
-          { "key": "contentType", "value": "json"},
-          { "key": "dataType", "value": "json"}
-        ],
+        "headers": [],
         "sampleRequest": "",
         "sampleResponse": ""
       },
@@ -48,10 +39,7 @@
         "description": "blah blah blah",
         "url": "google4.com",
         "method": "POST",
-        "headers": [
-          { "key": "contentType", "value": "json"},
-          { "key": "dataType", "value": "json"}
-        ],
+        "headers": [],
         "sampleRequest": "",
         "sampleResponse": ""
       },
@@ -61,10 +49,7 @@
         "description": "blah blah blah",
         "method": "POST",
         "url": "google5.com",
-        "headers": [
-          { "key": "contentType", "value": "json"},
-          { "key": "dataType", "value": "json"}
-        ],
+        "headers": [],
         "sampleRequest": "",
         "sampleResponse": ""
       }
@@ -79,10 +64,7 @@
         "description": "blah blah blah",
         "url": "google6.com",
         "method": "POST",
-        "headers": [
-          { "key": "contentType", "value": "json"},
-          { "key": "dataType", "value": "json"}
-        ],
+        "headers": [],
         "sampleRequest": "",
         "sampleResponse": ""
       },
@@ -92,10 +74,7 @@
         "description": "blah blah blah",
         "url": "google7.com",
         "method": "POST",
-        "headers": [
-          { "key": "contentType", "value": "json"},
-          { "key": "dataType", "value": "json"}
-        ],
+        "headers": [],
         "sampleRequest": "",
         "sampleResponse": ""
       },
@@ -105,10 +84,7 @@
         "description": "blah blah blah",
         "url": "google8.com",
         "method": "POST",
-        "headers": [
-          { "key": "contentType", "value": "json"},
-          { "key": "dataType", "value": "json"}
-        ],
+        "headers": [],
         "sampleRequest": "",
         "sampleResponse": ""
       },
@@ -118,10 +94,7 @@
         "description": "blah blah blah",
         "url": "google9.com",
         "method": "POST",
-        "headers": [
-          { "key": "contentType", "value": "json"},
-          { "key": "dataType", "value": "json"}
-        ],
+        "headers": [],
         "sampleRequest": "Test1",
         "sampleResponse": "Testt1"
       },
@@ -131,10 +104,7 @@
         "description": "blah blah blah",
         "url": "google10.com",
         "method": "POST",
-        "headers": [
-          { "key": "contentType", "value": "json"},
-          { "key": "dataType", "value": "json"}
-        ],
+        "headers": [],
         "sampleRequest": "Test2",
         "sampleResponse": "Testst3"
       }

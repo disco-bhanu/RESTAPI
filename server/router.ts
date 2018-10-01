@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import * as request from 'request';
 import * as fs from 'fs';
 import { DB } from './db.model';
 
@@ -16,6 +17,10 @@ router.post('/save', (req, res) => {
 
 router.post('/delete', (req, res) => {
   deleteService(req.body, res);
+});
+
+router.post('/send', (req, res) => {
+  sendRequest(req.body, res);
 });
 
 function save(data, res) {
@@ -93,4 +98,28 @@ function deleteService(req, res) {
   db[systemindex].services.splice(serviceindex, 1);
   fs.writeFileSync('./server/services.json', JSON.stringify(db, undefined, 4));
   res.send(db);
+}
+
+function sendRequest(fdata, res) {
+  const headers = {};
+
+  Object.keys(fdata.headers).forEach(header => {
+    headers[header] = fdata.headers[header];
+  });
+
+  const options = {
+    method: fdata.method,
+    url: fdata.url,
+    headers: headers,
+    time: true
+  };
+
+  request(options, (err, response, body) => {
+    const resp = {
+      body: JSON.parse(body),
+      time: response.elapsedTime,
+      statusCode: response.statusCode
+    };
+    res.send(resp);
+  });
 }

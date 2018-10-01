@@ -107,25 +107,36 @@ export class APIService {
 
   send(formdata): Observable<any> {
     console.log(formdata);
-    const headers = new HttpHeaders();
+  /*  let _headers: HttpHeaders = new HttpHeaders();
     formdata.headers.forEach(header => {
-      headers.set(header.key, header.value);
+      console.log(header);
+      _headers = _headers.append(header.key.toString(), header.value.toString());
     });
+    _headers = _headers.append('Access-Control-Allow-Origin', '*');
+    console.log(_headers.get('Content-Type'));
+    console.log(_headers.get('Access-Control-Allow-Origin'));
     if (formdata.method === 'GET') {
-      return this.http.get(formdata.url, { headers: headers })
+      return this.http.get(formdata.url, { headers: _headers })
         .pipe(
           map((res: Response) => {
             return res;
           }
-          ));
+        ));
     } else if (formdata.method === 'POST' || formdata.method === 'PUT') {
-      return this.http.post(formdata.url, formdata.body, { headers: headers })
+      return this.http.post(formdata.url, formdata.body, { headers: _headers })
         .pipe(
           map((res: Response) => {
             return res;
           }
-          ));
-    }
+        ));
+    } */
+    return this.http.post('/server/send', formdata)
+      .pipe(
+        map( (res: Response) => {
+          console.log(res);
+          return res;
+        })
+      );
 
   }
 

@@ -64,6 +64,10 @@ export class ApiDetailsComponent implements OnInit {
 
   filterOptionsForHeaderValue: string[];
 
+  responseTime: String;
+
+  statusCode: String;
+
   @Input() set serviceContent(content) {
     if (content === undefined) {
       this.newService = true;
@@ -82,6 +86,8 @@ export class ApiDetailsComponent implements OnInit {
   constructor(private apiService: APIService, private snackbar: MatSnackBar) { }
 
   ngOnInit() {
+    this.responseTime = '--';
+    this.statusCode = '--';
     this.filterOptionsForMethod = this.form.controls['method'].valueChanges
       .pipe(
         startWith(''),
@@ -140,9 +146,13 @@ export class ApiDetailsComponent implements OnInit {
   onTest() {
     this.changeTabOnSend = 1;
     this.apiService.send(this.form.value)
-      .subscribe(res => {
-        this.form.controls['response'].patchValue(JSON.stringify(res, undefined, 4));
-      });
+      .subscribe(
+        res => {
+          this.statusCode = res.statusCode;
+          this.responseTime = res.time + 'ms';
+          this.form.controls['response'].patchValue(JSON.stringify(res.body, undefined, 4));
+        },
+        err => this.form.controls['response'].patchValue(JSON.stringify(err, undefined, 4)));
   }
 
   onSave() {
