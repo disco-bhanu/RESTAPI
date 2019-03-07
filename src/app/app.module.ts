@@ -15,8 +15,10 @@ import { MatCardModule,
         MatTabsModule,
         MatGridListModule,
         MatDividerModule,
+        MatTooltipModule,
         MatAutocompleteModule,
-        MatSnackBarModule} from '@angular/material';
+        MatDialogModule,
+        MatSnackBarModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { ApiDetailsComponent } from './api-details/api-details.component';
@@ -27,6 +29,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MenuContentComponent } from './menu/menu-content/menu-content.component';
 import { SearchComponent } from './menu/search/search.component';
 import { TestComponent } from './test/test.component';
+import { HeadersFavComponent } from '../app/api-details/headers-fav/headers-fav.component';
 
 
 @NgModule({
@@ -37,7 +40,8 @@ import { TestComponent } from './test/test.component';
     MenuComponent,
     MenuContentComponent,
     SearchComponent,
-    TestComponent
+    TestComponent,
+    HeadersFavComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'restapi'}),
@@ -58,11 +62,14 @@ import { TestComponent } from './test/test.component';
     MatGridListModule,
     MatAutocompleteModule,
     MatSnackBarModule,
+    MatTooltipModule,
+    MatDialogModule,
     ReactiveFormsModule,
     FormsModule,
     LayoutModule
   ],
   providers: [],
+  entryComponents: [HeadersFavComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

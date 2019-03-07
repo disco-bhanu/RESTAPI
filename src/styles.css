@@ -44,10 +44,15 @@ button {
   margin: 8px;
 }
 
+.material-icons {
+  font-size: 20px !important;
+}
+
 .mat-stroked-button {
   position: absolute !important;
-  margin-top: 5px !important;
-  line-height: 38px !important;
+  margin-top: 3px !important;
+  line-height: 27px !important;
+  font-size: 12px !important;
 }
 
 .mat-raised-button {
@@ -60,7 +65,7 @@ button {
 }
 
 .mat-form-field {
-  font-size: 14px !important;
+  font-size: 10px !important;
 }
 
 .mat-tab-label {
@@ -102,3 +107,74 @@ textarea {
   line-height: 18px !important;
   font-size: 12px !important;
 }
+/*
+.mt-1 {
+  margin-top: .25rem!important;
+}
+
+.mt-2 {
+  margin-top: .5rem!important;
+}
+
+.mt-3 {
+  margin-top: 1rem!important;
+}
+
+.col-md-2 {
+  flex: 0 0 16.666667%;
+  max-width: 16.666667%;
+  width: 100%;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+  position: relative;
+}
+
+.col-md-3 {
+  flex: 0 0 25%;
+  max-width: 25%;
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.col-md-8 {
+  flex: 0 0 66.666667%;
+  max-width: 66.666667%;
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.col-md-12 {
+  flex: 0 0 100%;
+  max-width: 100%;
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.col-md-9 {
+  flex: 0 0 75%;
+  max-width: 75%;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.pt-1 {
+  padding-top: .25rem!important;
+}
+
+.mt-4 {
+  margin-top: 1.5rem!important;
+}
+*/
+
+
+

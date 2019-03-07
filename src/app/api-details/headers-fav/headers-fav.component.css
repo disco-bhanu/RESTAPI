@@ -1,0 +1,6 @@
+.headers-fav {
+  display: flex;
+  box-sizing: border-box;
+  margin: 5px;
+  padding: 5px;
+}

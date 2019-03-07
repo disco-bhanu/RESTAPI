@@ -2,11 +2,13 @@ import { Component, OnInit, Input, Output } from '@angular/core';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
 import { APIService } from '../shared/api.service';
 import { Observable } from 'rxjs';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { APIDetails } from './api-details.model';
 import { map, startWith } from 'rxjs/operators';
 import { EventEmitter } from '@angular/core';
+
+import { HeadersFavComponent } from './headers-fav/headers-fav.component';
 
 @Component({
   selector: 'app-api-details',
@@ -83,7 +85,7 @@ export class ApiDetailsComponent implements OnInit {
 
   @Output() delete = new EventEmitter();
 
-  constructor(private apiService: APIService, private snackbar: MatSnackBar) { }
+  constructor(private apiService: APIService, private snackbar: MatSnackBar, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.responseTime = '--';
@@ -210,6 +212,18 @@ export class ApiDetailsComponent implements OnInit {
           horizontalPosition: 'right'
         });
       });
+  }
+
+  openDialog(): void {
+    const dialogRef = this.dialog.open(HeadersFavComponent, {
+      width: '500px',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog closed');
+      console.log(result);
+    });
   }
 
 }

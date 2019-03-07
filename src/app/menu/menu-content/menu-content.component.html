@@ -1,5 +1,5 @@
 <div class="col-md-12">
-  <mat-card class="pt-1 mt-1">
+  <mat-card class="pt-1 mt-1 sidenav-content">
     <mat-card-content>
       <div *ngIf="tabs.length === 0; else content">
         <div style="display: flex; justify-content: center; margin: 10px">
@@ -18,7 +18,7 @@
           <div *ngFor="let tab of tabs; let i = index">
             <mat-tab>
               <ng-template mat-tab-label>
-                <strong> {{tab.name}} &nbsp;&nbsp;&nbsp;</strong>
+                <small> {{tab.name}} &nbsp;&nbsp;&nbsp;</small>
                 <mat-icon style="cursor: pointer;" (click)="onClose(i)">close</mat-icon>
               </ng-template>
               <app-api-details [serviceContent]="tab.id" (delete)="onDelete(i)"></app-api-details>
