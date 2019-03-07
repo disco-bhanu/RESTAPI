@@ -216,7 +216,7 @@ export class ApiDetailsComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(HeadersFavComponent, {
-      width: '500px',
+      width: '700px',
       data: {}
     });
 

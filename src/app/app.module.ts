@@ -18,7 +18,8 @@ import { MatCardModule,
         MatTooltipModule,
         MatAutocompleteModule,
         MatDialogModule,
-        MatSnackBarModule } from '@angular/material';
+        MatSnackBarModule,
+        MatCheckboxModule} from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { ApiDetailsComponent } from './api-details/api-details.component';
@@ -64,6 +65,7 @@ import { HeadersFavComponent } from '../app/api-details/headers-fav/headers-fav.
     MatSnackBarModule,
     MatTooltipModule,
     MatDialogModule,
+    MatCheckboxModule,
     ReactiveFormsModule,
     FormsModule,
     LayoutModule

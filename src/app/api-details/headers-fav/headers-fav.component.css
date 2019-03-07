@@ -1,6 +1,26 @@
 .headers-fav {
+  box-sizing: border-box;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul li {
   display: flex;
   box-sizing: border-box;
-  margin: 5px;
-  padding: 5px;
+  border: 1px solid #b0b0b0;
+  width: 100%;
+  margin-top: -1px;
+  border-radius: 4px;
+  font-size: larger;
+  padding: 8px;
+}
+
+ul li:hover {
+  background-color: #f6f6f6;
+  border-left: 1px solid steelblue;
+  border-right: 1px solid steelblue;
 }

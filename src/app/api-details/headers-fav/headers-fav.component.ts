@@ -1,9 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
-export interface DialogData {
-  animal: string;
-  name: string;
+export interface HeadersData {
+  key: string;
+  value: string;
 }
 
 @Component({
@@ -14,10 +14,22 @@ export interface DialogData {
 export class HeadersFavComponent {
 
   constructor(public dialogRef: MatDialogRef<HeadersFavComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
+    @Inject(MAT_DIALOG_DATA) public data: HeadersData) { }
+
+  headerList: HeadersData[] = [];
+  header_key: string = null;
+  header_value: string = null;
 
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  onAdd(): void {
+    this.headerList.push({
+      key: this.header_key,
+      value: this.header_value
+    });
+    console.log(this.headerList);
   }
 
 }
