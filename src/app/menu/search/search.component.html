@@ -1,12 +1,19 @@
-<form [formGroup]="form" (ngSubmit)="onSearch()">
   <mat-form-field class="col-md-12" appearance="outline">
     <mat-label for="search"> looking for ?</mat-label>
-    <input matInput type="text" id="search" name="search" formControlName="search" [(ngModel)]="searchString">
-  <!--  <button mat-button *ngIf="searchString" matSuffix mat-icon-button aria-label="Clear" (click)="onClearSearch()">
-      <mat-icon>close</mat-icon>
-    </button> -->
-    <mat-icon matSuffix mat-icon-button aria-label="Clear" style="font-size: 100%; cursor: pointer;" *ngIf="searchString" (click)="onClearSearch()">close</mat-icon>
+    <input
+      matInput
+      type="text"
+      id="search"
+      name="search"
+      [(ngModel)]="searchString"
+      (keyup)="$searchString.next($event.target.value)"
+    >
+    <mat-icon
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      style="font-size: 100%; cursor: pointer;"
+      *ngIf="searchString"
+      (click)="onClearSearch()">close</mat-icon>
   </mat-form-field>
-
-</form>
 <mat-divider></mat-divider>

@@ -18,7 +18,7 @@
           <div *ngFor="let tab of tabs; let i = index">
             <mat-tab>
               <ng-template mat-tab-label>
-                <small> {{tab.name}} &nbsp;&nbsp;&nbsp;</small>
+                {{tab.name}} &nbsp;&nbsp;&nbsp;&nbsp;
                 <mat-icon style="cursor: pointer;" (click)="onClose(i)">close</mat-icon>
               </ng-template>
               <app-api-details [serviceContent]="tab.id" (delete)="onDelete(i)"></app-api-details>

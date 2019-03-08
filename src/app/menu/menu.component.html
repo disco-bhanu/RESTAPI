@@ -1,5 +1,5 @@
 <!-- *ngIf="isHandset$ | async" -->
-<mat-toolbar color="primary" class="mat-elevation-z2" style="display: fixed">
+<!--<mat-toolbar color="primary" class="mat-elevation-z2" style="display: fixed">
   <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" style="outline: none">
     <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
   </button>
@@ -11,11 +11,10 @@
   <mat-menu #menu="matMenu">
     <button mat-menu-item style="outline: 0" (click)="onNewService()">New Service</button>
   </mat-menu>
-</mat-toolbar>
-<mat-sidenav-container class="sidenav-container mt-2">
+</mat-toolbar>-->
+<mat-sidenav-container class="sidenav-container mt-2" [hasBackdrop]="false">
 
-  <mat-sidenav #drawer class="sidenav mat-shadow mt-1" fixedInViewport="false" [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="!(isHandset$ | async)">
+  <mat-sidenav #drawer class="sidenav mat-shadow mt-1" fixedInViewport="false" [mode]="'side'">
     <!-- <mat-toolbar color="warn">RESTAPI</mat-toolbar> -->
 
     <mat-nav-list>

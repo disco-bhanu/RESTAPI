@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { APIService } from '../../shared/api.service';
+import { HeadersList } from './standard-headers';
 
 export interface Header {
   key: string;
@@ -34,6 +35,8 @@ export class HeadersFavComponent {
   header_key: string = null;
   header_value: string = null;
   filtered_headers = [];
+  filterOptionsForHeaderKey: string[];
+  filterOptionsForHeaderValue: string[];
 
   onNoClick(): void {
     this.dialogRef.close();
@@ -56,6 +59,14 @@ export class HeadersFavComponent {
   onSelect(idx): void {
     this.headerList[idx].checked = !this.headerList[idx].checked;
     this.filtered_headers = this.headerList.filter(h => h.checked === true);
+  }
+
+  onHeadersKey(event) {
+    this.filterOptionsForHeaderKey = HeadersList.keys.filter(key => key.toLowerCase().includes(event.target.value));
+  }
+
+  onHeadersValue(event) {
+    this.filterOptionsForHeaderValue = HeadersList.values.filter(val => val.toLowerCase().includes(event.target.value));
   }
 
 }

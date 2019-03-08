@@ -17,6 +17,8 @@ export class APIService {
 
   names = new Subject();
 
+  sideDrawer = new Subject();
+
   favHeaders = [];
 
   constructor(private http: HttpClient) { }
@@ -43,13 +45,14 @@ export class APIService {
     this.menuItems.next(items);
   }
 
-  fetchMenuItemsBySearch(serviceName) {
+  fetchMenuItemsBySearch(keyword) {
     const items = [];
     let serviceList = [];
     this.APIList.slice().forEach(system => {
       serviceList = [];
       system.services.forEach(service => {
-        if (service.name.toUpperCase().replace(/\s/g, '').includes(serviceName.toUpperCase().replace(/\s/g, ''))) {
+        if (service.name.toUpperCase().replace(/\s/g, '').includes(keyword.toUpperCase().replace(/\s/g, '')) ||
+            service.url.toUpperCase().replace(/\s/g, '').includes(keyword.toUpperCase().replace(/\s/g, ''))) {
           serviceList.push({ id: service.id, name: service.name });
         }
       });
@@ -117,6 +120,10 @@ export class APIService {
 
   updateFavHeader(header: {key: string, value: string}) {
     this.favHeaders.push(header);
+  }
+
+  toggleDrawer(flag) {
+    this.sideDrawer.next(flag);
   }
 
   save(data): Observable<any> {

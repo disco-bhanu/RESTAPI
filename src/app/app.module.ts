@@ -31,6 +31,7 @@ import { MenuContentComponent } from './menu/menu-content/menu-content.component
 import { SearchComponent } from './menu/search/search.component';
 import { TestComponent } from './test/test.component';
 import { HeadersFavComponent } from '../app/api-details/headers-fav/headers-fav.component';
+import { ToolbarComponent } from '../app/toolbar/toolbar.component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { HeadersFavComponent } from '../app/api-details/headers-fav/headers-fav.
     MenuContentComponent,
     SearchComponent,
     TestComponent,
-    HeadersFavComponent
+    HeadersFavComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'restapi'}),

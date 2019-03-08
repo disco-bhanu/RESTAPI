@@ -1,8 +1,6 @@
-import { Component } from '@angular/core';
-import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Component, ViewChild } from '@angular/core';
 import { APIService } from '../shared/api.service';
+import { MatDrawer } from '@angular/material';
 
 @Component({
   selector: 'app-menu',
@@ -15,20 +13,16 @@ export class MenuComponent {
 
   selectedService: string;
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches)
-    );
+  @ViewChild('drawer') public drawer: MatDrawer;
 
-  constructor(private breakpointObserver: BreakpointObserver, private apiService: APIService) {
-    this.apiService.menuItems.subscribe(
-      (items: any) => this.items = items
-    );
-     this.apiService.fetchServicesList()
+  constructor(private apiService: APIService) {
+    this.apiService.menuItems.subscribe( (items: any) => this.items = items );
+    this.apiService.fetchServicesList()
       .subscribe( res => {
         this.apiService.fetchMenuItems();
         this.apiService.fetchServiceNames();
       });
+    this.apiService.sideDrawer.subscribe(f => this.drawer.toggle());
   }
 
   onExpand(id) {
