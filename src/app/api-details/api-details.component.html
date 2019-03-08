@@ -23,7 +23,7 @@
   </div>
   <div class="col-md-12">
     <mat-tab-group [selectedIndex]="changeTabOnSend">
-      <mat-tab label="Headers">
+      <mat-tab label="Request Headers">
         <div class="mt-2">
           <div formArrayName="headers">
             <div *ngFor="let header of form.get('headers')['controls']; let i = index" [formGroupName]="i">

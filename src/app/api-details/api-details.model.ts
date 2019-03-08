@@ -2,7 +2,7 @@ export class APIDetails {
 
   constructor(
     public name: string,
-    public id: string,
+    public id: number,
     public service: Service
   ) { }
 }

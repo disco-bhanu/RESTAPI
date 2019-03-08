@@ -29,14 +29,14 @@
     <button mat-stroked-button color="primary" class="col-md-1" (click)="onAdd()" > Add</button>
   </div>
   <div class="col-md-12">
-    <ul *ngIf="headerList.length > 0">
+    <ul *ngIf="this.APIservice.favHeaders.length > 0">
       <li style="background-color: #f6f6f6">
         <span style="width: 20%"> SELECT </span>
         <span style="width: 35%"> KEY </span>
         <span style="width: 65%"> VALUE </span>
       </li>
-      <li *ngFor="let header of headerList">
-        <span style="width: 20%"><mat-checkbox color="primary"></mat-checkbox></span>
+      <li *ngFor="let header of this.APIservice.favHeaders; let i = index">
+        <span style="width: 20%"><mat-checkbox color="primary" (click)="onSelect(i)"></mat-checkbox></span>
         <span style="width: 35%"> {{header.key}} </span>
         <span style="width: 65%"> {{header.value}} </span>
       </li>
@@ -49,6 +49,6 @@
   </div>
 </div>
 <div mat-dialog-actions>
-  <button mat-button>No Thanks</button>
-  <button mat-button cdkFocusInitial>Ok</button>
+  <button mat-button color="warn">Cancel</button>
+  <button mat-button cdkFocusInitial color="primary" [mat-dialog-close]="filtered_headers" (click)="onOk()">Ok</button>
 </div>

@@ -17,6 +17,8 @@ export class APIService {
 
   names = new Subject();
 
+  favHeaders = [];
+
   constructor(private http: HttpClient) { }
 
   fetchServicesList(): Observable<any> {
@@ -92,6 +94,29 @@ export class APIService {
     const system: any = this.APIList.filter(sys => sys.id.toString() === systemId.toString());
     const service: any = system[0].services.filter(srv => srv.id.toString() === serviceId.toString());
     return { name: system[0].name, id: system[0].id, service: service[0] };
+  }
+/*
+  updateHeadersById(id: {sysid: string, srvid: string}, headers: {key: string, value: string}[]) {
+    console.log(this.APIList);
+    const systemId = id.sysid;
+    const serviceId = id.srvid;
+    const servicelist = this.APIList.slice();
+    const sysidx = servicelist.findIndex(sys => sys.id.toString() === systemId.toString());
+    console.log(sysidx);
+    const srvidx = servicelist[sysidx].services.findIndex(srv => srv.id.toString() === serviceId.toString());
+    headers.forEach(h => {
+      servicelist[sysidx].services[srvidx].headers.push({
+        key: h.key,
+        value: h.value
+      });
+    });
+    this.APIList = servicelist;
+    console.log(this.APIList[systemId][serviceId]);
+  }
+*/
+
+  updateFavHeader(header: {key: string, value: string}) {
+    this.favHeaders.push(header);
   }
 
   save(data): Observable<any> {

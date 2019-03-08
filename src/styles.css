@@ -16,6 +16,10 @@ html, body {
   line-height: 16px !important;
 }
 
+button {
+  outline: none !important;
+}
+
 .row {
   margin: 0 !important;
 }

@@ -9,6 +9,7 @@ import { map, startWith } from 'rxjs/operators';
 import { EventEmitter } from '@angular/core';
 
 import { HeadersFavComponent } from './headers-fav/headers-fav.component';
+import { HeadersList } from './headers-fav/standard-headers';
 
 @Component({
   selector: 'app-api-details',
@@ -39,27 +40,6 @@ export class ApiDetailsComponent implements OnInit {
 
   key: HTMLInputElement;
 
-  headerKeyOptions: string[] = [
-    'Accept', 'Accept-Charset', 'Accept-Encoding', 'Accept-Language', 'Accept-Datetime', 'Access-Control-Request-Method',
-    'Access-Control-Request-Headers', 'Authorization', 'Cache-Control', 'Connection', 'Content-Length', 'Content-MD5',
-    'Content-Type', 'Cookie', 'Date', 'Expect', 'Forwarded', 'From', 'Host', 'If-Match', 'If-Modified-Since',
-    'If-None-Match', 'If-Range', 'If-Unmodified-Since', 'Max-Forwards', 'Origin', 'Pragma', 'Proxy-Authorization',
-    'Range', 'Referer', 'TE', 'User-Agent', 'Upgrade', 'Via', 'Warning', 'Upgrade-Insecure-Requests', 'X-Requested-With',
-    'DNT', 'X-Forwarded-For', 'X-Forwarded-Host', 'X-Forwarded-Proto', 'Front-End-Https', 'X-Http-Method-Override',
-    'X-ATT-DeviceId', 'X-Wap-Profile', 'Proxy-Connection', 'X-UIDH', 'X-Csrf-Token', 'X-Request-ID', 'X-Correlation-ID', 'Save-Data'
-  ];
-
-  headerValueOptions: string[] = [
-    'application/atom+xml', 'application/ecmascript', 'application/json', 'application/octet-stream', 'application/ogg',
-    'application/pdf', 'application/postscript', 'application/rdf+xml', 'application/rss+xml', 'application/soap+xml',
-    'application/font-woff', 'application/x-yaml', 'application/xhtml+xml', 'application/xml', 'application/xml-dtd',
-    'application/xop+xml', 'application/zip', 'application/gzip', 'application/graphql', 'application/x-www-form-urlencoded',
-    'image/gif', 'image/jpeg', 'image/pjpeg', 'image/png', 'image/svg+xml', 'image/tiff', 'message/http',
-    'message/imdn+xml', 'message/partial', 'message/rfc822', 'multipart/mixed', 'multipart/alternative',
-    'multipart/related', 'multipart/form-data', 'multipart/signed', 'multipart/encrypted', 'text/cmd',
-    'text/css', 'text/csv', 'text/html', 'text/plain', 'text/vcard', 'text/xml'
-  ];
-
   filterOptionsForMethod: Observable<string[]>;
 
   filterOptionsForHeaderKey: string[];
@@ -80,7 +60,6 @@ export class ApiDetailsComponent implements OnInit {
     }
     this.buildForm();
     this.isSelected = true;
-
   }
 
   @Output() delete = new EventEmitter();
@@ -192,11 +171,11 @@ export class ApiDetailsComponent implements OnInit {
   }
 
   onHeadersKey(event) {
-    this.filterOptionsForHeaderKey = this.headerKeyOptions.filter(key => key.toLowerCase().includes(event.target.value));
+    this.filterOptionsForHeaderKey = HeadersList.keys.filter(key => key.toLowerCase().includes(event.target.value));
   }
 
   onHeadersValue(event) {
-    this.filterOptionsForHeaderValue = this.headerValueOptions.filter(val => val.toLowerCase().includes(event.target.value));
+    this.filterOptionsForHeaderValue = HeadersList.values.filter(val => val.toLowerCase().includes(event.target.value));
   }
 
   filter(val: string): string[] {
@@ -217,12 +196,23 @@ export class ApiDetailsComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(HeadersFavComponent, {
       width: '700px',
-      data: {}
+      data: {
+        sysid: this.apiDetails.id,
+        srvid: this.apiDetails.service.id
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('Dialog closed');
       console.log(result);
+      result.forEach(h => {
+        (<FormArray>this.form.get('headers')).push(
+          new FormGroup({
+            key: new FormControl(h.key),
+            value: new FormControl(h.value)
+          })
+        );
+      });
     });
   }
 
