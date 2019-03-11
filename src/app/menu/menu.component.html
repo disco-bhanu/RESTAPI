@@ -1,27 +1,9 @@
-<!-- *ngIf="isHandset$ | async" -->
-<!--<mat-toolbar color="primary" class="mat-elevation-z2" style="display: fixed">
-  <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()" style="outline: none">
-    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-  </button>
-  <span> REST API </span>
-  <span style="flex: 1 1 auto"></span>
-  <button mat-icon-button [matMenuTriggerFor]="menu" style="outline: 0">
-    <mat-icon>more_vert</mat-icon>
-  </button>
-  <mat-menu #menu="matMenu">
-    <button mat-menu-item style="outline: 0" (click)="onNewService()">New Service</button>
-  </mat-menu>
-</mat-toolbar>-->
-<mat-sidenav-container class="sidenav-container mt-2" [hasBackdrop]="false">
-
-  <mat-sidenav #drawer class="sidenav mat-shadow mt-1" fixedInViewport="false" [mode]="'side'">
-    <!-- <mat-toolbar color="warn">RESTAPI</mat-toolbar> -->
-
+<mat-sidenav-container class="sidenav-container" [hasBackdrop]="false">
+  <mat-sidenav #drawer class="sidenav mat-shadow mt-2" fixedInViewport="false" [mode]="'side'">
     <mat-nav-list>
-      <app-search></app-search>
       <div *ngFor="let item of items; let i = index" class="mt-3">
         <a mat-list-item (click)="onExpand(i)">
-          <strong>{{item.name}}</strong>
+          {{item.name}}
           <span style="flex: 1 1 auto"></span>
           <mat-icon>expand_more</mat-icon>
         </a>
@@ -31,14 +13,9 @@
           </div>
         </div>
       </div>
-
-      <!--  <a class="pl-3" mat-list-item >Link 1 <span style="flex: 1 1 auto"></span><mat-icon>expand_more</mat-icon></a>
-        <a class="pl-3" mat-list-item >Link 1 <span style="flex: 1 1 auto"></span><mat-icon>expand_more</mat-icon></a> -->
-
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
     <app-menu-content (delete)="onDelete($event)"></app-menu-content>
-    <!-- Add Content Here -->
   </mat-sidenav-content>
 </mat-sidenav-container>

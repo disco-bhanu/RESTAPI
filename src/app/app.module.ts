@@ -2,6 +2,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {A11yModule} from '@angular/cdk/a11y';
+import {CdkStepperModule} from '@angular/cdk/stepper';
+import {CdkTableModule} from '@angular/cdk/table';
+import {CdkTreeModule} from '@angular/cdk/tree';
 import { MatCardModule,
         MatFormFieldModule,
         MatInputModule,
@@ -19,7 +23,9 @@ import { MatCardModule,
         MatAutocompleteModule,
         MatDialogModule,
         MatSnackBarModule,
-        MatCheckboxModule} from '@angular/material';
+        MatCheckboxModule,
+        MatTableModule,
+        MatRadioModule} from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { ApiDetailsComponent } from './api-details/api-details.component';
@@ -32,6 +38,7 @@ import { SearchComponent } from './menu/search/search.component';
 import { TestComponent } from './test/test.component';
 import { HeadersFavComponent } from '../app/api-details/headers-fav/headers-fav.component';
 import { ToolbarComponent } from '../app/toolbar/toolbar.component';
+import { ServersListComponent } from '../app/servers-list/servers-list.component';
 
 
 @NgModule({
@@ -44,7 +51,8 @@ import { ToolbarComponent } from '../app/toolbar/toolbar.component';
     SearchComponent,
     TestComponent,
     HeadersFavComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    ServersListComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'restapi'}),
@@ -68,12 +76,18 @@ import { ToolbarComponent } from '../app/toolbar/toolbar.component';
     MatTooltipModule,
     MatDialogModule,
     MatCheckboxModule,
+    MatTableModule,
+    MatRadioModule,
     ReactiveFormsModule,
     FormsModule,
-    LayoutModule
+    LayoutModule,
+    A11yModule,
+    CdkStepperModule,
+    CdkTableModule,
+    CdkTreeModule
   ],
   providers: [],
-  entryComponents: [HeadersFavComponent],
+  entryComponents: [HeadersFavComponent, ServersListComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

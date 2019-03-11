@@ -1,8 +1,8 @@
 <h1 mat-dialog-title>Favourites</h1>
-<hr/>
+<mat-divider></mat-divider>
 <div mat-dialog-content>
   <div class="col-md-12">
-    <mat-form-field class="col-md-3" appearance="outline">
+    <mat-form-field class="header-key" appearance="outline">
       <mat-label for="key"> Key </mat-label>
       <input
         matInput
@@ -18,7 +18,7 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
-    <mat-form-field class="col-md-7" appearance="outline">
+    <mat-form-field class="header-value" appearance="outline">
       <mat-label for="value"> Value </mat-label>
       <input
         matInput
@@ -34,32 +34,60 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
-    <button mat-raised-button color="warn" class="col-md-1" (click)="onAdd()" > Add</button>
+    <mat-form-field class="header-comments" appearance="outline">
+      <mat-label for="value"> Comments </mat-label>
+      <input
+        matInput
+        name="comments"
+        id="comments"
+      [(ngModel)]="header_comments">
+    </mat-form-field>
+    <button mat-raised-button color="primary" class="col-md-1" (click)="onAdd()" > Add</button>
   </div>
-  <div class="col-md-12">
-    <ul *ngIf="this.APIservice.favHeaders.length > 0">
-      <li style="background-color: #f6f6f6">
-        <span style="width: 20%"> SELECT </span>
-        <span style="width: 35%"> KEY </span>
-        <span style="width: 65%"> VALUE </span>
-      </li>
-      <li *ngFor="let header of this.APIservice.favHeaders; let i = index">
-        <span style="width: 20%"><mat-checkbox color="primary" (click)="onSelect(i)"></mat-checkbox></span>
-        <span style="width: 35%"> {{header.key}} </span>
-        <span style="width: 65%"> {{header.value}} </span>
-      </li>
-    </ul>
+  <div class="col-md-12" *ngIf="this.APIservice.favHeaders.length > 0">
+   <table mat-table [dataSource]="headersData" class="mat-elevation-z8" >
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox color="warn" (change)="$event ? masterToggle() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()">
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <mat-checkbox color="warn" (click)="$event.stopPropagation()"
+                      (change)="$event ? selection.toggle(row) : null"
+                      [checked]="selection.isSelected(row)">
+        </mat-checkbox>
+      </td>
+    </ng-container>
+        <ng-container matColumnDef="key">
+          <th mat-header-cell *matHeaderCellDef> Key </th>
+          <td mat-cell *matCellDef="let header"> {{header.key}} </td>
+        </ng-container>
+        <ng-container matColumnDef="value">
+          <th mat-header-cell *matHeaderCellDef> Value </th>
+          <td mat-cell *matCellDef="let header"> {{header.value}} </td>
+        </ng-container>
+        <ng-container matColumnDef="comments">
+            <th mat-header-cell *matHeaderCellDef> Comments </th>
+            <td mat-cell *matCellDef="let header"> {{header.comments}} </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="columns"></tr>
+        <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+    </table>
   </div>
 </div>
-<hr/>
+<mat-divider></mat-divider>
 <div mat-dialog-actions>
   <button
-    mat-button
+    mat-raised-button
     color="warn">Cancel</button>
   <button
-    mat-button
-    cdkFocusInitial
+    mat-raised-button
     color="primary"
     [mat-dialog-close]="filtered_headers"
     (click)="onOk()">Ok</button>
 </div>
+<mat-hint style="margin-top: 20px">
+  <mat-icon>info</mat-icon> Local headers take precedence of golabl headers.
+</mat-hint>

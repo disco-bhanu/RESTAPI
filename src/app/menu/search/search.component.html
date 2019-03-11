@@ -1,4 +1,5 @@
-  <mat-form-field class="col-md-12" appearance="outline">
+<form>
+<mat-form-field class="col-md-12" style="padding: 0 5px">
     <mat-label for="search"> looking for ?</mat-label>
     <input
       matInput
@@ -6,8 +7,16 @@
       id="search"
       name="search"
       [(ngModel)]="searchString"
-      (keyup)="$searchString.next($event.target.value)"
+      [matAutocomplete]="auto"
+      [formControl]="searchCtrl"
     >
+    <mat-autocomplete #auto="matAutocomplete">
+      <mat-option *ngFor="let option of filteredSearch | async"
+        [value]="option.keyword"
+        (click)="onSelect(option.id)">
+        {{option.keyword}}
+      </mat-option>
+    </mat-autocomplete>
     <mat-icon
       matSuffix
       mat-icon-button
@@ -16,4 +25,4 @@
       *ngIf="searchString"
       (click)="onClearSearch()">close</mat-icon>
   </mat-form-field>
-<mat-divider></mat-divider>
+</form>

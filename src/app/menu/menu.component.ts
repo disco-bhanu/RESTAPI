@@ -21,6 +21,7 @@ export class MenuComponent {
       .subscribe( res => {
         this.apiService.fetchMenuItems();
         this.apiService.fetchServiceNames();
+        this.apiService.searchableMenuItems();
       });
     this.apiService.sideDrawer.subscribe(f => this.drawer.toggle());
   }

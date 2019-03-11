@@ -15,9 +15,13 @@ export class APIService {
 
   menuItems = new Subject();
 
+  searchableItems = new Subject();
+
   names = new Subject();
 
   sideDrawer = new Subject();
+
+  overrideHostName = new Subject();
 
   favHeaders = [];
 
@@ -31,6 +35,18 @@ export class APIService {
           return true;
         })
       );
+  }
+
+  searchableMenuItems() {
+    const items = [];
+    this.APIList.slice().forEach((ele, idx) => {
+      items.push({ id: ele.id, name: ele.name, services: [] });
+      ele.services.forEach(service => {
+        items[idx].services.push({ id: service.id, name: service.name, url: service.url });
+      });
+    });
+    console.log(items);
+    this.searchableItems.next(items);
   }
 
   fetchMenuItems() {
@@ -98,28 +114,13 @@ export class APIService {
     const service: any = system[0].services.filter(srv => srv.id.toString() === serviceId.toString());
     return { name: system[0].name, id: system[0].id, service: service[0] };
   }
-/*
-  updateHeadersById(id: {sysid: string, srvid: string}, headers: {key: string, value: string}[]) {
-    console.log(this.APIList);
-    const systemId = id.sysid;
-    const serviceId = id.srvid;
-    const servicelist = this.APIList.slice();
-    const sysidx = servicelist.findIndex(sys => sys.id.toString() === systemId.toString());
-    console.log(sysidx);
-    const srvidx = servicelist[sysidx].services.findIndex(srv => srv.id.toString() === serviceId.toString());
-    headers.forEach(h => {
-      servicelist[sysidx].services[srvidx].headers.push({
-        key: h.key,
-        value: h.value
-      });
-    });
-    this.APIList = servicelist;
-    console.log(this.APIList[systemId][serviceId]);
-  }
-*/
 
-  updateFavHeader(header: {key: string, value: string}) {
+  updateFavHeader(header: {key: string, value: string, comments: string}) {
     this.favHeaders.push(header);
+  }
+
+  overrideHost(check, name) {
+    this.overrideHostName.next({check: check, name: name});
   }
 
   toggleDrawer(flag) {

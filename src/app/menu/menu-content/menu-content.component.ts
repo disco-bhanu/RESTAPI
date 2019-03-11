@@ -9,12 +9,11 @@ import { APIService } from '../../shared/api.service';
 export class MenuContentComponent implements OnInit {
 
   tabs = [];
-
   names = [];
-
   selectedTab = 0;
-
+  activeTabIndex;
   servicemenu;
+  position;
 
   @Output() delete = new EventEmitter();
 
@@ -41,6 +40,9 @@ export class MenuContentComponent implements OnInit {
       });
   }
 
+  onTabIndexChanged(e) {
+    this.activeTabIndex = e;
+  }
   onClose(idx) {
     this.tabs.splice(idx, 1);
   }

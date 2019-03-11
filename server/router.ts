@@ -102,10 +102,14 @@ function deleteService(req, res) {
 
 function sendRequest(fdata, res) {
 
-  const headers = fdata.header.reduce( (headersObj, header) => {
-    headersObj[header.key] = header.value;
-    return headersObj;
-  }, {});
+  let headers = null;
+
+  if (fdata.headers !== undefined || fdata.headers !== null) {
+    headers = fdata.headers.reduce( (headersObj, header) => {
+      headersObj[header.key] = header.value;
+      return headersObj;
+    }, {});
+  }
 
   const options = {
     method: fdata.method,
@@ -126,9 +130,10 @@ function sendRequest(fdata, res) {
     }
 
     res.send({
-      body: _body,
-      time: response.elapsedTime,
-      statusCode: response.statusCode
+      body: _body || null,
+      headers: response.headers || null,
+      time: response.elapsedTime || null,
+      statusCode: response.statusCode || null
     });
 
   });

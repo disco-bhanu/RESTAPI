@@ -2,6 +2,26 @@
   box-sizing: border-box;
 }
 
+.header-key {
+  width: 20%;
+  padding: 0 10px;
+}
+
+.header-value {
+  width: 30%;
+  padding: 0 10px;
+}
+
+.header-comments {
+  width: 40%;
+  padding: 0 10px;
+}
+
+.mat-table {
+  width: 100%;
+  margin: 1% 0;
+}
+
 ul {
   list-style-type: none;
   padding: 0;
@@ -15,12 +35,13 @@ ul li {
   width: 100%;
   margin-top: -1px;
   border-radius: 4px;
-  font-size: larger;
+  font-size: small;
   padding: 8px;
+  box-sizing: border-box;
 }
 
 ul li:hover {
   background-color: #f6f6f6;
-  border-left: 1px solid steelblue;
-  border-right: 1px solid steelblue;
+  border-left: 2px solid steelblue;
+  border-right: 2px solid steelblue;
 }

@@ -10,3 +10,19 @@ mat-toolbar a:hover {
   color: #ffff;
   text-decoration: none;
 }
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+}
+
+li {
+  display: table-cell;
+  padding: 18px 16px;
+}
+
+ul li:hover {
+  border-bottom: 3px solid white;
+}

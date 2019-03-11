@@ -46,9 +46,13 @@ export class ApiDetailsComponent implements OnInit {
 
   filterOptionsForHeaderValue: string[];
 
-  responseTime: String;
+  responseTime: String = '--';
 
-  statusCode: String;
+  statusCode: String = '--';
+
+  activeTabNum;
+
+  tabPosition;
 
   @Input() set serviceContent(content) {
     if (content === undefined) {
@@ -62,18 +66,35 @@ export class ApiDetailsComponent implements OnInit {
     this.isSelected = true;
   }
 
+  @Input() set tabnum(id) {
+    this.activeTabNum = id;
+  }
+
+  @Input() set position(id) {
+    this.tabPosition = id;
+  }
+
   @Output() delete = new EventEmitter();
 
   constructor(private apiService: APIService, private snackbar: MatSnackBar, public dialog: MatDialog) { }
 
   ngOnInit() {
-    this.responseTime = '--';
-    this.statusCode = '--';
     this.filterOptionsForMethod = this.form.controls['method'].valueChanges
       .pipe(
         startWith(''),
         map(value => this.filter(value))
       );
+    this.apiService.overrideHostName.subscribe((d: {check: boolean, name: string}) => {
+      if ((d.check && this.activeTabNum === this.tabPosition) || !d.check || this.activeTabNum === undefined) {
+        const uri: string = this.form.controls['url'].value;
+        const method: string = uri.substring(0, uri.indexOf('://'));
+        const urn: string = uri.substring(uri.indexOf('://') + 3);
+        // const port: number = parseInt(urn.substr(urn.indexOf(':') + 1, 4), 10);
+        const path: string = urn.substring(urn.indexOf('/') + 1);
+        const newURI = method + '://' + d.name + '/' + path;
+        this.form.controls['url'].patchValue(newURI);
+      }
+    });
   }
 
   buildForm() {
@@ -85,9 +106,9 @@ export class ApiDetailsComponent implements OnInit {
     let url = null;
     let method = null;
     let response = null;
+    let responseHeaders = null;
     let body = null;
     const _headers = new FormArray([]);
-
 
     if (!this.newService) {
       systemName = this.apiDetails.name;
@@ -105,6 +126,7 @@ export class ApiDetailsComponent implements OnInit {
         }));
       });
       response = this.apiDetails.service.sampleResponse || null;
+      responseHeaders = null;
     } else {
       this.newService = false;
     }
@@ -119,7 +141,8 @@ export class ApiDetailsComponent implements OnInit {
       method: new FormControl(method),
       body: new FormControl(body),
       headers: _headers,
-      response: new FormControl(response)
+      response: new FormControl(response),
+      responseHeaders: new FormControl(responseHeaders)
     });
 
   }
@@ -132,6 +155,7 @@ export class ApiDetailsComponent implements OnInit {
           this.statusCode = res.statusCode;
           this.responseTime = res.time + 'ms';
           this.form.controls['response'].patchValue(JSON.stringify(res.body, undefined, 4));
+          this.form.controls['responseHeaders'].patchValue(JSON.stringify(res.headers, undefined, 4));
         },
         err => this.form.controls['response'].patchValue(JSON.stringify(err, undefined, 4)));
   }
@@ -195,11 +219,7 @@ export class ApiDetailsComponent implements OnInit {
 
   openDialog(): void {
     const dialogRef = this.dialog.open(HeadersFavComponent, {
-      width: '700px',
-      data: {
-        sysid: this.apiDetails.id,
-        srvid: this.apiDetails.service.id
-      }
+      width: '700px'
     });
 
     dialogRef.afterClosed().subscribe(result => {

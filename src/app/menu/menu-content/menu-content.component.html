@@ -1,5 +1,5 @@
-<div class="col-md-12">
-  <mat-card class="pt-1 mt-1 sidenav-content">
+<div class="col-md-12 mt-2">
+  <mat-card class="sidenav-content">
     <mat-card-content>
       <div *ngIf="tabs.length === 0; else content">
         <div style="display: flex; justify-content: center; margin: 10px">
@@ -14,14 +14,18 @@
         </div>
       </div>
       <ng-template #content>
-        <mat-tab-group [color]="'accent'" [backgroundColor]="" [selectedIndex]="selectedTab">
+        <mat-tab-group
+          [color]="'accent'"
+          [backgroundColor]=""
+          [selectedIndex]="selectedTab"
+          (selectedIndexChange)="onTabIndexChanged($event)">
           <div *ngFor="let tab of tabs; let i = index">
             <mat-tab>
               <ng-template mat-tab-label>
                 {{tab.name}} &nbsp;&nbsp;&nbsp;&nbsp;
                 <mat-icon style="cursor: pointer;" (click)="onClose(i)">close</mat-icon>
               </ng-template>
-              <app-api-details [serviceContent]="tab.id" (delete)="onDelete(i)"></app-api-details>
+              <app-api-details [serviceContent]="tab.id" (delete)="onDelete(i)" [position]="i" [tabnum]="activeTabIndex"></app-api-details>
             </mat-tab>
           </div>
         </mat-tab-group>

@@ -1,13 +1,13 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-
+import { MatDialogRef, MAT_DIALOG_DATA, MatTableDataSource } from '@angular/material';
+import {SelectionModel} from '@angular/cdk/collections';
 import { APIService } from '../../shared/api.service';
 import { HeadersList } from './standard-headers';
 
 export interface Header {
   key: string;
   value: string;
-  checked: boolean;
+  comments: string;
 }
 
 export interface HeadersData {
@@ -20,45 +20,71 @@ export interface HeadersData {
   templateUrl: './headers-fav.component.html',
   styleUrls: ['./headers-fav.component.css']
 })
-export class HeadersFavComponent {
+export class HeadersFavComponent implements OnInit {
 
-  constructor(public dialogRef: MatDialogRef<HeadersFavComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: HeadersData,
-    public APIservice: APIService
-    ) {
-      this.headerList = this.APIservice.favHeaders.map(h => {
-        return {...h, checked: false};
-      });
-    }
+  headersData = new MatTableDataSource<Header>();
 
   headerList: Header[] = [];
   header_key: string = null;
   header_value: string = null;
+  header_comments: string = null;
   filtered_headers = [];
   filterOptionsForHeaderKey: string[];
   filterOptionsForHeaderValue: string[];
+
+  columns: string[] = ['select', 'key', 'value', 'comments'];
+
+  selection = new SelectionModel<Header>(true, []);
+
+  constructor(public dialogRef: MatDialogRef<HeadersFavComponent>, public APIservice: APIService) {}
+
+  ngOnInit() {
+    this.headerList = this.APIservice.favHeaders.map(h => {
+      return {...h, checked: false};
+    });
+
+    this.APIservice.favHeaders.map(h => {
+      this.headersData.data.push({...h, checked: false, comments: null});
+    });
+    this.headersData.data = [...this.headersData.data];
+  }
 
   onNoClick(): void {
     this.dialogRef.close();
   }
 
   onOk(): void {
-    console.log(this.data);
+    this.dialogRef.close();
   }
 
   onAdd(): void {
     this.headerList.push({
       key: this.header_key,
       value: this.header_value,
-      checked: false
+      comments: this.header_comments
     });
-    this.APIservice.updateFavHeader({key: this.header_key, value: this.header_value});
+    this.headersData.data.push({
+      key: this.header_key,
+      value: this.header_value,
+      comments: this.header_comments
+    });
+    this.headersData.data = [...this.headersData.data];
+    this.APIservice.updateFavHeader({key: this.header_key, value: this.header_value, comments: this.header_comments});
     console.log(this.headerList);
+    console.log(this.headersData);
   }
 
-  onSelect(idx): void {
-    this.headerList[idx].checked = !this.headerList[idx].checked;
-    this.filtered_headers = this.headerList.filter(h => h.checked === true);
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.headersData.data.length;
+    return numSelected === numRows;
+  }
+
+  masterToggle() {
+    this.isAllSelected() ?
+        this.selection.clear() :
+        this.headersData.data.forEach(row => this.selection.select(row));
   }
 
   onHeadersKey(event) {

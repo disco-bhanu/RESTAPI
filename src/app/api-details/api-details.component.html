@@ -2,7 +2,12 @@
   <div class="mt-3">
     <mat-form-field class="col-md-1" appearance="outline">
       <mat-label for="method"> Method</mat-label>
-      <input matInput type="text" name="method" formControlName="method" [matAutocomplete]="auto">
+      <input
+        matInput
+        type="text"
+        name="method"
+        formControlName="method"
+        [matAutocomplete]="auto">
       <mat-autocomplete #auto="matAutocomplete">
         <mat-option *ngFor="let option of filterOptionsForMethod | async" [value]="option">
           {{option}}
@@ -11,14 +16,26 @@
     </mat-form-field>
     <mat-form-field class="col-md-10" appearance="outline">
       <mat-label for="url"> URL</mat-label>
-      <input matInput type="text" name="url" formControlName="url">
+      <input
+        matInput
+        type="text"
+        name="url"
+        formControlName="url">
     </mat-form-field>
-    <button mat-raised-button color="warn" type="button" (click)="onTest()">send</button>
+    <button mat-raised-button color="primary" type="button" (click)="onTest()">send</button>
   </div>
   <div *ngIf="form.get('method').value === 'POST' || form.get('method').value === 'PUT'">
     <mat-form-field class="col-md-12" appearance="outline">
       <mat-label for="body">Body</mat-label>
-      <textarea matInput name="body" rows="6" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" formControlName="body"></textarea>
+      <textarea
+        matInput
+        name="body"
+        rows="6"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
+        formControlName="body"></textarea>
     </mat-form-field>
   </div>
   <div class="col-md-12">
@@ -29,7 +46,11 @@
             <div *ngFor="let header of form.get('headers')['controls']; let i = index" [formGroupName]="i">
               <mat-form-field class="col-md-3" appearance="outline">
                 <mat-label for="key"> Key </mat-label>
-                <input matInput type="text" name="key" formControlName="key">
+                <input
+                  matInput
+                  type="text"
+                  name="key"
+                  formControlName="key">
                 <mat-autocomplete #headerskeyauto="matAutocomplete">
                   <mat-option *ngFor="let option of filterOptionsForHeaderKey" [value]="option">
                     {{option}}
@@ -38,7 +59,11 @@
               </mat-form-field>
               <mat-form-field class="col-md-8" appearance="outline">
                 <mat-label for="value"> Value </mat-label>
-                <input matInput type="text" name="value" formControlName="value">
+                <input
+                  matInput
+                  type="text"
+                  name="value"
+                  formControlName="value">
                 <mat-autocomplete #headersvalueauto="matAutocomplete">
                   <mat-option *ngFor="let option of filterOptionsForHeaderValue" [value]="option">
                     {{option}}
@@ -46,13 +71,18 @@
                 </mat-autocomplete>
               </mat-form-field>
               <button mat-icon-button type="button" (click)="onDeleteHeader(i)">
-                  <mat-icon color="warn">remove_circle</mat-icon>
-                </button>
+                <mat-icon color="warn">remove_circle</mat-icon>
+              </button>
             </div>
           </div>
           <mat-form-field class="col-md-3" appearance="outline">
             <mat-label for="key"> Key </mat-label>
-            <input matInput name="key" #headerkey (keyup)="onHeadersKey($event)" [matAutocomplete]="headerskeyauto">
+            <input
+              matInput
+              name="key"
+              #headerkey
+              (keyup)="onHeadersKey($event)"
+              [matAutocomplete]="headerskeyauto">
             <mat-autocomplete #headerskeyauto="matAutocomplete">
               <mat-option *ngFor="let option of filterOptionsForHeaderKey" [value]="option">
                 {{option}}
@@ -61,18 +91,24 @@
           </mat-form-field>
           <mat-form-field class="col-md-8" appearance="outline">
             <mat-label for="value"> Value </mat-label>
-            <input matInput name="value" #headervalue (keyup)="onHeadersValue($event)" [matAutocomplete]="headersvalueauto">
+            <input
+              matInput
+              name="value"
+              #headervalue
+              (keyup)="onHeadersValue($event)"
+              [matAutocomplete]="headersvalueauto">
             <mat-autocomplete #headersvalueauto="matAutocomplete">
               <mat-option *ngFor="let option of filterOptionsForHeaderValue" [value]="option">
                 {{option}}
               </mat-option>
             </mat-autocomplete>
           </mat-form-field>
-          <button mat-icon-button matTooltip="Add Header" type="button" (click)="onAdd(headerkey, headervalue)">
+          <button
+            mat-icon-button
+            matTooltip="Add Header"
+            type="button"
+            (click)="onAdd(headerkey, headervalue)">
             <mat-icon color="primary">add_circle</mat-icon>
-          </button>
-          <button mat-icon-button matTooltip="Favourites" type="button" (click)="openDialog()">
-            <mat-icon color="warn">star</mat-icon>
           </button>
         </div>
       </mat-tab>
@@ -83,16 +119,35 @@
         </div>
         <mat-form-field class="col-md-12 mt-2" appearance="outline">
           <mat-label for="response">Response</mat-label>
-          <textarea matInput name="response" rows="15" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" formControlName="response"></textarea>
+          <textarea
+            matInput
+            name="response"
+            rows="15"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            formControlName="response"></textarea>
+        </mat-form-field>
+      </mat-tab>
+      <mat-tab label="Response Headers">
+        <div class="mt-1 row float-right">
+          <small>Time: {{responseTime}}</small>
+          <small class="ml-2">Status Code: {{statusCode}}</small>
+        </div>
+        <mat-form-field class="col-md-12 mt-2" appearance="outline">
+          <mat-label for="response">Response Headers</mat-label>
+          <textarea
+            matInput
+            name="responseHeaders"
+            rows="15"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            formControlName="responseHeaders"></textarea>
         </mat-form-field>
       </mat-tab>
     </mat-tab-group>
   </div>
-<!--
-  <div class="button-flex">
-    <button mat-raised-button color="accent" type="button" class="mx-2" (click)="onTest()"> Test </button>
-    <button mat-raised-button color="primary"> Save </button>
-    <button mat-raised-button color="warn" type="button" (click)="onDelete()" class="mx-2"> Delete </button>
-  </div>
--->
 </form>

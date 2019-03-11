@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material';
 import { APIService } from '../shared/api.service';
 import { HeadersFavComponent } from '../api-details/headers-fav/headers-fav.component';
 import { APIDetails } from '../api-details/api-details.model';
+import { ServersListComponent } from '../servers-list/servers-list.component';
 
 @Component({
   selector: 'app-toolbar',
@@ -26,19 +27,29 @@ export class ToolbarComponent implements OnInit {
   }
 
   onOpenGlobalHeaderDialog(): void {
-    const dialogRef = this.dialog.open(HeadersFavComponent, {
-      width: '65%',
-      data: { }
+    const headersFavDialogRef = this.dialog.open(HeadersFavComponent, {
+      width: '80%',
+      data: { },
+      position: { left: '17%' }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    headersFavDialogRef.afterClosed().subscribe(result => {
       console.log('Dialog closed');
       console.log(result);
     });
   }
 
   onOpenServerDialog(): void {
+    const serversListDialogRef = this.dialog.open(ServersListComponent, {
+      width: '80%',
+      data: { },
+      position: { left: '17%' }
+    });
 
+    serversListDialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog closed');
+      console.log(result);
+    });
   }
 
 }
