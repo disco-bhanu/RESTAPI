@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { APIService } from '../shared/api.service';
 import { MatDrawer } from '@angular/material';
+import * as fromApp from '../store/app.reducer';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-menu',
@@ -15,7 +17,7 @@ export class MenuComponent {
 
   @ViewChild('drawer') public drawer: MatDrawer;
 
-  constructor(private apiService: APIService) {
+  constructor(private apiService: APIService, public store: Store<{appr: any}>) {
     this.apiService.menuItems.subscribe( (items: any) => this.items = items );
     this.apiService.fetchServicesList()
       .subscribe( res => {
@@ -24,6 +26,12 @@ export class MenuComponent {
         this.apiService.searchableMenuItems();
       });
     this.apiService.sideDrawer.subscribe(f => this.drawer.toggle());
+    this.store.select('appr').subscribe(
+      res => {
+        console.log('From State');
+        console.log(res);
+      }
+    );
   }
 
   onExpand(id) {

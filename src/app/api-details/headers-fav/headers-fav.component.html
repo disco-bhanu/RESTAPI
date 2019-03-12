@@ -81,12 +81,8 @@
 <div mat-dialog-actions>
   <button
     mat-raised-button
-    color="warn">Cancel</button>
-  <button
-    mat-raised-button
-    color="primary"
-    [mat-dialog-close]="filtered_headers"
-    (click)="onOk()">Ok</button>
+    color="warn"
+    (click)="onCancel()">Cancel</button>
 </div>
 <mat-hint style="margin-top: 20px">
   <mat-icon>info</mat-icon> Local headers take precedence of golabl headers.

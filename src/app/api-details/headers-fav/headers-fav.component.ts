@@ -28,7 +28,6 @@ export class HeadersFavComponent implements OnInit {
   header_key: string = null;
   header_value: string = null;
   header_comments: string = null;
-  filtered_headers = [];
   filterOptionsForHeaderKey: string[];
   filterOptionsForHeaderValue: string[];
 
@@ -49,11 +48,7 @@ export class HeadersFavComponent implements OnInit {
     this.headersData.data = [...this.headersData.data];
   }
 
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
-  onOk(): void {
+  onCancel(): void {
     this.dialogRef.close();
   }
 

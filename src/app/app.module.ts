@@ -30,26 +30,24 @@ import { MatCardModule,
 import { AppComponent } from './app.component';
 import { ApiDetailsComponent } from './api-details/api-details.component';
 import { HttpClientModule } from '@angular/common/http';
-import { HighlightDirective } from './highlight.directive';
 import { MenuComponent } from './menu/menu.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MenuContentComponent } from './menu/menu-content/menu-content.component';
 import { SearchComponent } from './menu/search/search.component';
-import { TestComponent } from './test/test.component';
 import { HeadersFavComponent } from '../app/api-details/headers-fav/headers-fav.component';
 import { ToolbarComponent } from '../app/toolbar/toolbar.component';
 import { ServersListComponent } from '../app/servers-list/servers-list.component';
+import { StoreModule } from '@ngrx/store';
+import { appReducer } from './store/app.reducer';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ApiDetailsComponent,
-    HighlightDirective,
     MenuComponent,
     MenuContentComponent,
     SearchComponent,
-    TestComponent,
     HeadersFavComponent,
     ToolbarComponent,
     ServersListComponent
@@ -84,7 +82,8 @@ import { ServersListComponent } from '../app/servers-list/servers-list.component
     A11yModule,
     CdkStepperModule,
     CdkTableModule,
-    CdkTreeModule
+    CdkTreeModule,
+    StoreModule.forRoot({appr: appReducer})
   ],
   providers: [],
   entryComponents: [HeadersFavComponent, ServersListComponent],

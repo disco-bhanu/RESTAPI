@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { Store } from '@ngrx/store';
+import * as fromApp from '../store/app.reducer';
+import * as AppActions from '../store/app.actions';
 
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -25,13 +28,14 @@ export class APIService {
 
   favHeaders = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(public http: HttpClient, public store: Store<{appr: any}>) { }
 
   fetchServicesList(): Observable<any> {
     return this.http.get('/server/services')
       .pipe(
         map((res: any) => {
           this.APIList = res;
+          this.store.dispatch(new AppActions.APIList(res));
           return true;
         })
       );
