@@ -64,7 +64,7 @@ export class APIService {
     console.log(items);
     this.menuItems.next(items);
   }
-
+/*
   fetchMenuItemsBySearch(keyword) {
     const items = [];
     let serviceList = [];
@@ -83,7 +83,7 @@ export class APIService {
     this.menuItems.next(items);
     return items;
   }
-
+*/
   selectAPIByID(id) {
     this.selectedAPIId.next(id);
   }
