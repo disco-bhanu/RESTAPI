@@ -58,6 +58,7 @@ export class ApiDetailsComponent implements OnInit {
     if (content === undefined) {
       this.newService = true;
     } else {
+      console.log(content);
       this.serviceId = content;
       this.apiDetails = this.apiService.fetchById(content);
       this.headers = Object.keys(this.apiDetails.service.headers);

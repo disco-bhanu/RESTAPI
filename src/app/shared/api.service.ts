@@ -28,7 +28,7 @@ export class APIService {
 
   favHeaders = [];
 
-  constructor(public http: HttpClient, public store: Store<{appr: any}>) { }
+  constructor(public http: HttpClient, public store: Store<{appStore: any}>) { }
 
   fetchServicesList(): Observable<any> {
     return this.http.get('/server/services')

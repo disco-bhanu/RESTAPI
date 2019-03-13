@@ -1,4 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Store } from '@ngrx/store';
+
 import { APIService } from '../../shared/api.service';
 
 @Component({
@@ -17,11 +19,11 @@ export class MenuContentComponent implements OnInit {
 
   @Output() delete = new EventEmitter();
 
-  constructor(private apiService: APIService) { }
+  constructor(public apiService: APIService, public store: Store<{appStore: any}>) { }
 
   ngOnInit() {
     this.apiService.names.subscribe( (res: any) => this.names = res);
-    this.apiService.selectedAPIId.subscribe(
+    /*this.apiService.selectedAPIId.subscribe(
       serviceId => {
         if (serviceId === undefined) {
           this.tabs.push({ id: serviceId, name: 'New' });
@@ -37,7 +39,22 @@ export class MenuContentComponent implements OnInit {
             this.selectedTab = tabIdx;
           }
         }
-      });
+      });*/
+
+    this.store.select(state => state.appStore.selectedService).subscribe(
+      selected => {
+        const tabId = selected.sysid + '_' + selected.srvid;
+        const tabIdx = this.tabs.findIndex(tab => tab.id === tabId);
+        if (tabIdx === -1) {
+          this.tabs.push({ id: tabId, name: selected.srvname });
+          this.selectedTab = this.tabs.length;
+          this.selectedTab++;
+        } else {
+          this.selectedTab = tabIdx;
+        }
+        console.log(this.tabs);
+      }
+    );
   }
 
   onTabIndexChanged(e) {

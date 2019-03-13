@@ -83,7 +83,7 @@ import { appReducer } from './store/app.reducer';
     CdkStepperModule,
     CdkTableModule,
     CdkTreeModule,
-    StoreModule.forRoot({appr: appReducer})
+    StoreModule.forRoot({appStore: appReducer})
   ],
   providers: [],
   entryComponents: [HeadersFavComponent, ServersListComponent],

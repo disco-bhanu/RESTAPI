@@ -44,7 +44,7 @@ export class SearchComponent implements OnInit {
   }
 
   onClearSearch() {
-    this.searchString = '';
+    this.searchCtrl.patchValue('');
   }
 
 }

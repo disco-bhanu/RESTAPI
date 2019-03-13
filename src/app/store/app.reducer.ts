@@ -7,11 +7,13 @@ import { HeadersModel } from '../shared/headers.model';
 export interface State {
   services: APIModel[];
   favHeaders: HeadersModel[];
+  selectedService: {};
 }
 
 const initState: State = {
   services: [],
-  favHeaders: []
+  favHeaders: [],
+  selectedService: {}
 };
 
 export function appReducer(
@@ -28,6 +30,11 @@ export function appReducer(
       return {
         ...state,
         favHeaders: [...state.favHeaders, ...action.payload]
+      };
+    case AppActions.SELECTED_SERVICE:
+      return {
+        ...state,
+        selectedService: {...action.payload}
       };
     default:
       return state;
