@@ -40,7 +40,7 @@ export class APIService {
       );
   }
 
-  searchableMenuItems() {
+  /* searchableMenuItems() {
     const items = [];
     this.APIList.slice().forEach((ele, idx) => {
       items.push({ id: ele.id, name: ele.name, services: [] });
@@ -50,9 +50,9 @@ export class APIService {
     });
     console.log(items);
     this.searchableItems.next(items);
-  }
+  }*/
 
-  fetchMenuItems() {
+  /* fetchMenuItems() {
     const items = [];
     this.APIList.slice().forEach((ele, idx) => {
       items.push({ name: ele.name, id: ele.id, expanded: false, services: [] });
@@ -62,7 +62,7 @@ export class APIService {
     });
     console.log(items);
     this.menuItems.next(items);
-  }
+  }*/
 /*
   fetchMenuItemsBySearch(keyword) {
     const items = [];
@@ -138,7 +138,7 @@ export class APIService {
       .pipe(
         map((res: any) => {
           this.APIList = res;
-          this.fetchMenuItems();
+          // this.fetchMenuItems();
           return res;
         })
       );
