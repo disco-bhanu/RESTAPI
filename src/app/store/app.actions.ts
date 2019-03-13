@@ -5,6 +5,7 @@ import { HeadersModel } from '../shared/headers.model';
 export const API_LIST = 'API_LIST';
 export const FAV_HEADERS = 'FAV_HEADERS';
 export const SELECTED_SERVICE = 'SELECTED_SERVICE';
+export const OVERRIDE_HOST = 'OVERRIDE_HOST';
 
 export class APIList implements Action {
   readonly type = API_LIST;
@@ -21,4 +22,9 @@ export class SelectedService implements Action {
   constructor(public payload: any) {}
 }
 
-export type AppActions = APIList | FavHeaders | SelectedService;
+export class OverrideHost implements Action {
+  readonly type = OVERRIDE_HOST;
+  constructor(public payload: any) {}
+}
+
+export type AppActions = APIList | FavHeaders | SelectedService | OverrideHost;

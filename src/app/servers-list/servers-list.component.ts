@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource, MatDialogRef } from '@angular/material';
 import { APIService } from '../shared/api.service';
+import { Store } from '@ngrx/store';
+import * as AppActions from '../store/app.actions';
 
 export interface List {
   name: string;
@@ -22,7 +24,10 @@ export class ServersListComponent implements OnInit {
 
   selectedIndex;
 
-  constructor(public apiService: APIService, public serverListDialogRef: MatDialogRef<ServersListComponent>) { }
+  constructor(public apiService: APIService,
+    public serverListDialogRef: MatDialogRef<ServersListComponent>,
+    public store: Store<{appStore: any}>
+    ) { }
 
   ngOnInit() {
     this.serverslist.data = [...this.list];
@@ -33,12 +38,20 @@ export class ServersListComponent implements OnInit {
   }
 
   toCurrentTab() {
-    this.apiService.overrideHost(true, this.serverslist.data[this.selectedIndex].name);
+    // this.apiService.overrideHost(true, this.serverslist.data[this.selectedIndex].name);
+    this.store.dispatch(new AppActions.OverrideHost({
+      check: true,
+      hostname: this.serverslist.data[this.selectedIndex].name
+    }));
     this.serverListDialogRef.close();
   }
 
   toAllTabs() {
-    this.apiService.overrideHost(false, this.serverslist.data[this.selectedIndex].name);
+    // this.apiService.overrideHost(false, this.serverslist.data[this.selectedIndex].name);
+    this.store.dispatch(new AppActions.OverrideHost({
+      check: false,
+      hostname: this.serverslist.data[this.selectedIndex].name
+    }));
     this.serverListDialogRef.close();
   }
 

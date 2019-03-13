@@ -8,12 +8,14 @@ export interface State {
   services: APIModel[];
   favHeaders: HeadersModel[];
   selectedService: {};
+  overrideHost: {check: boolean, hostname: string};
 }
 
 const initState: State = {
   services: [],
   favHeaders: [],
-  selectedService: {}
+  selectedService: {sysid: 0, srvid: 0},
+  overrideHost: {check: false, hostname: 'initial'}
 };
 
 export function appReducer(
@@ -35,6 +37,11 @@ export function appReducer(
       return {
         ...state,
         selectedService: {...action.payload}
+      };
+    case AppActions.OVERRIDE_HOST:
+      return {
+        ...state,
+        overrideHost: {...action.payload}
       };
     default:
       return state;

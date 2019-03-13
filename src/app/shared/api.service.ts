@@ -35,8 +35,7 @@ export class APIService {
       .pipe(
         map((res: any) => {
           this.APIList = res;
-          this.store.dispatch(new AppActions.APIList(res));
-          return true;
+          return res;
         })
       );
   }
@@ -96,6 +95,9 @@ export class APIService {
     const systemId = id.split('_')[0];
     const serviceId = id.split('_')[1];
     const system: any = this.APIList.filter(sys => sys.id.toString() === systemId.toString()); // [systemId].name;
+    console.log(this.APIList);
+    console.log('system');
+    console.log(system);
     const service: any = system[0].services.filter(srv => srv.id.toString() === serviceId.toString());
     return system[0].name + ' > ' + service[0].name;
   }

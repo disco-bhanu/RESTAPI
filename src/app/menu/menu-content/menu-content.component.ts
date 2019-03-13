@@ -17,19 +17,18 @@ export class MenuContentComponent implements OnInit {
   servicemenu;
   position;
 
-  @Output() delete = new EventEmitter();
-
   constructor(public apiService: APIService, public store: Store<{appStore: any}>) { }
 
   ngOnInit() {
     this.apiService.names.subscribe( (res: any) => this.names = res);
-    /*this.apiService.selectedAPIId.subscribe(
+    /* this.apiService.selectedAPIId.subscribe(
       serviceId => {
         if (serviceId === undefined) {
           this.tabs.push({ id: serviceId, name: 'New' });
           this.selectedTab = this.tabs.length;
           this.selectedTab++;
         } else {
+          console.log(serviceId);
           const tabIdx = this.tabs.findIndex(tab => tab.id === serviceId);
           if (tabIdx === -1) {
             this.tabs.push({ id: serviceId, name: this.apiService.fetchNamesById(serviceId) });
@@ -39,10 +38,13 @@ export class MenuContentComponent implements OnInit {
             this.selectedTab = tabIdx;
           }
         }
-      });*/
+      }); */
 
     this.store.select(state => state.appStore.selectedService).subscribe(
       selected => {
+        if (selected.sysid === 0 && selected.srvid === 0) {
+          console.log('initial');
+        } else {
         const tabId = selected.sysid + '_' + selected.srvid;
         const tabIdx = this.tabs.findIndex(tab => tab.id === tabId);
         if (tabIdx === -1) {
@@ -52,9 +54,11 @@ export class MenuContentComponent implements OnInit {
         } else {
           this.selectedTab = tabIdx;
         }
+      }
         console.log(this.tabs);
       }
     );
+
   }
 
   onTabIndexChanged(e) {
@@ -64,8 +68,5 @@ export class MenuContentComponent implements OnInit {
     this.tabs.splice(idx, 1);
   }
 
-  onDelete(idx) {
-    this.delete.emit(this.tabs[idx].id);
-  }
 
 }

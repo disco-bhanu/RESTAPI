@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, Output } from '@angular/core';
 import { FormGroup, FormControl, FormArray } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { APIService } from '../shared/api.service';
 import { Observable } from 'rxjs';
 import { MatSnackBar, MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 import { APIDetails } from './api-details.model';
 import { map, startWith } from 'rxjs/operators';
-import { EventEmitter } from '@angular/core';
 
 import { HeadersFavComponent } from './headers-fav/headers-fav.component';
 import { HeadersList } from './headers-fav/standard-headers';
@@ -55,7 +55,7 @@ export class ApiDetailsComponent implements OnInit {
   tabPosition;
 
   @Input() set serviceContent(content) {
-    if (content === undefined) {
+    if (content === undefined || content === '0_0') {
       this.newService = true;
     } else {
       console.log(content);
@@ -75,9 +75,11 @@ export class ApiDetailsComponent implements OnInit {
     this.tabPosition = id;
   }
 
-  @Output() delete = new EventEmitter();
 
-  constructor(private apiService: APIService, private snackbar: MatSnackBar, public dialog: MatDialog) { }
+  constructor(private apiService: APIService,
+    private snackbar: MatSnackBar,
+    public dialog: MatDialog,
+    public store: Store<{appStore: any}>) { }
 
   ngOnInit() {
     this.filterOptionsForMethod = this.form.controls['method'].valueChanges
@@ -85,8 +87,8 @@ export class ApiDetailsComponent implements OnInit {
         startWith(''),
         map(value => this.filter(value))
       );
-    this.apiService.overrideHostName.subscribe((d: {check: boolean, name: string}) => {
-      if ((d.check && this.activeTabNum === this.tabPosition) || !d.check || this.activeTabNum === undefined) {
+    /* this.apiService.overrideHostName.subscribe((d: {check: boolean, name: string}) => {
+      if ((d.check && this.activeTabNum === this.tabPosition) || (!d.check && name !== null) || this.activeTabNum === undefined) {
         const uri: string = this.form.controls['url'].value;
         const method: string = uri.substring(0, uri.indexOf('://'));
         const urn: string = uri.substring(uri.indexOf('://') + 3);
@@ -95,7 +97,20 @@ export class ApiDetailsComponent implements OnInit {
         const newURI = method + '://' + d.name + '/' + path;
         this.form.controls['url'].patchValue(newURI);
       }
-    });
+    }); */
+    this.store.select(state => state.appStore.overrideHost).subscribe(
+      (overrideHost: {check: boolean, hostname: string}) => {
+        if ((overrideHost.check && this.activeTabNum === this.tabPosition) ||
+            (!overrideHost.check && overrideHost.hostname !== 'initial')) {
+          const uri: string = this.form.controls['url'].value;
+          const method: string = uri.substring(0, uri.indexOf('://'));
+          const urn: string = uri.substring(uri.indexOf('://') + 3);
+          const path: string = urn.substring(urn.indexOf('/') + 1);
+          const newURI = method + '://' + overrideHost.hostname + '/' + path;
+          this.form.controls['url'].patchValue(newURI);
+        }
+      }
+    );
   }
 
   buildForm() {
@@ -205,17 +220,6 @@ export class ApiDetailsComponent implements OnInit {
 
   filter(val: string): string[] {
     return this.methodOptions.filter(option => option.toLowerCase().includes(val.toLowerCase()));
-  }
-
-  onDelete() {
-    this.apiService.delete(this.apiDetails.id + '_' + this.apiDetails.service.id)
-      .subscribe( res => {
-        this.delete.emit('');
-        this.snackbar.open('Deleted successfully.', null, {
-          duration: 2000,
-          horizontalPosition: 'right'
-        });
-      });
   }
 
   openDialog(): void {
