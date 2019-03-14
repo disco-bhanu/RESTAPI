@@ -42,9 +42,9 @@
         id="comments"
       [(ngModel)]="header_comments">
     </mat-form-field>
-    <button mat-raised-button color="primary" class="col-md-1" (click)="onAdd()" > Add</button>
+    <button mat-raised-button color="primary" class="col-md-1" (click)="onAdd();" > Add</button>
   </div>
-  <div class="col-md-12" *ngIf="this.APIservice.favHeaders.length > 0">
+  <div class="col-md-12" *ngIf="this.headersData.data.length > 0">
    <table mat-table [dataSource]="headersData" class="mat-elevation-z8" >
     <ng-container matColumnDef="select">
       <th mat-header-cell *matHeaderCellDef>

@@ -10,47 +10,47 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-
   items = [];
   apiList = [];
   selectedService: string;
 
   @ViewChild('drawer') public drawer: MatDrawer;
 
-  constructor(private apiService: APIService, public store: Store<{appStore: any}>) {
-    // this.apiService.menuItems.subscribe( (items: any) => {
-    //  this.items = items;
-    // });
-    this.apiService.fetchServicesList()
-      .subscribe( res => {
-        // this.apiService.fetchMenuItems();
-        this.store.dispatch(new AppActions.APIList(res));
-      });
-    // this.apiService.sideDrawer.subscribe(f => this.drawer.toggle());
+  constructor(
+    private apiService: APIService,
+    public store: Store<{ appStore: any }>
+  ) {
+    this.apiService.fetchServicesList().subscribe(res => {
+      this.store.dispatch(new AppActions.APIList(res));
+    });
 
-    this.store.select(state => state.appStore.services ).subscribe(
-      res => {
+    this.store
+      .select(state => state.appStore.services)
+      .subscribe(res => {
         console.log('From State');
         console.log(res);
         this.apiList = res;
         this.fetchMenuItems();
         this.apiService.fetchServiceNames();
-        // this.apiService.searchableMenuItems();
-      }
-    );
+      });
   }
 
   ngOnInit() {
-    this.store.select(state => state.appStore.sideDrawer).subscribe(
-      flag => {
-          this.drawer.toggle();
-      }
-    );
+    this.store
+      .select(state => state.appStore.sideDrawer)
+      .subscribe(flag => {
+        this.drawer.toggle();
+      });
   }
 
   fetchMenuItems() {
     this.apiList.slice().forEach((ele, idx) => {
-      this.items.push({ name: ele.name, id: ele.id, expanded: false, services: [] });
+      this.items.push({
+        name: ele.name,
+        id: ele.id,
+        expanded: false,
+        services: []
+      });
       ele.services.forEach(service => {
         this.items[idx].services.push({ id: service.id, name: service.name });
       });
@@ -63,10 +63,6 @@ export class MenuComponent implements OnInit {
   }
 
   onSelect(sysidx, srvidx) {
-  // this.selectedService = sysidx + '_' + srvidx;
-  // this.apiService.selectAPIByID(this.selectedService);
-  console.log('clicked');
-  console.log(this.items[sysidx].services[srvidx]);
     const selectedService = {
       sysid: this.items[sysidx].id,
       srvid: this.items[sysidx].services[srvidx].id,
@@ -78,7 +74,4 @@ export class MenuComponent implements OnInit {
   onNewService() {
     this.apiService.newService();
   }
-
-
 }
-

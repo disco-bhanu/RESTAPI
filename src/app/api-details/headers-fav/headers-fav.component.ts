@@ -1,19 +1,14 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatTableDataSource } from '@angular/material';
 import { Store } from '@ngrx/store';
-import {SelectionModel} from '@angular/cdk/collections';
-import { APIService } from '../../shared/api.service';
+import { SelectionModel } from '@angular/cdk/collections';
 import { HeadersList } from './standard-headers';
+import * as AppActions from '../../store/app.actions';
 
 export interface Header {
   key: string;
   value: string;
   comments: string;
-}
-
-export interface HeadersData {
-  sysid: string;
-  srvid: string;
 }
 
 @Component({
@@ -23,41 +18,27 @@ export interface HeadersData {
 })
 export class HeadersFavComponent implements OnInit {
 
-  headersData = new MatTableDataSource<Header>();
-
-  headerList: Header[] = [];
   header_key: string = null;
   header_value: string = null;
   header_comments: string = null;
   filterOptionsForHeaderKey: string[];
   filterOptionsForHeaderValue: string[];
-
   columns: string[] = ['select', 'key', 'value', 'comments'];
-
+  headersData = new MatTableDataSource<Header>();
   selection = new SelectionModel<Header>(true, []);
 
-  constructor(public dialogRef: MatDialogRef<HeadersFavComponent>,
-    public APIservice: APIService,
-    public store: Store<{appStore: any}>
-    ) {}
+  constructor(public dialogRef: MatDialogRef<HeadersFavComponent>, public store: Store<{appStore: any}>) {}
 
   ngOnInit() {
-    this.headerList = this.APIservice.favHeaders.map(h => {
-      return {...h, checked: false};
-    });
-
     this.store.select(state => state.appStore.favHeaders).subscribe(
       headers => {
+        this.headersData.data = [];
         headers.map(h => {
-          return {...h, checked: false };
+          this.headersData.data.push(h);
         });
+        this.headersData.data = [...this.headersData.data];
       }
     );
-
-    this.APIservice.favHeaders.map(h => {
-      this.headersData.data.push({...h, checked: false, comments: null});
-    });
-    this.headersData.data = [...this.headersData.data];
   }
 
   onCancel(): void {
@@ -65,22 +46,16 @@ export class HeadersFavComponent implements OnInit {
   }
 
   onAdd(): void {
-    this.headerList.push({
-      key: this.header_key,
-      value: this.header_value,
-      comments: this.header_comments
-    });
     this.headersData.data.push({
       key: this.header_key,
       value: this.header_value,
       comments: this.header_comments
     });
     this.headersData.data = [...this.headersData.data];
-    this.APIservice.updateFavHeader({key: this.header_key, value: this.header_value, comments: this.header_comments});
-    console.log(this.headerList);
-    console.log(this.headersData);
+    this.store.dispatch(new AppActions.FavHeaders([{
+      key: this.header_key, value: this.header_value, comments: this.header_comments
+    }]));
   }
-
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;

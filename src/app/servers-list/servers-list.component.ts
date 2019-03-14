@@ -15,8 +15,12 @@ export interface List {
   styleUrls: ['./servers-list.component.css']
 })
 export class ServersListComponent implements OnInit {
-
-  list = [{name: 'abc', set: false}, {name: 'def', set: false}, {name: 'ghi', set: false}, {name: 'jkl', set: false}];
+  list = [
+    { name: 'abc', set: false },
+    { name: 'def', set: false },
+    { name: 'ghi', set: false },
+    { name: 'jkl', set: false }
+  ];
 
   columns = ['server', 'set'];
 
@@ -24,10 +28,11 @@ export class ServersListComponent implements OnInit {
 
   selectedIndex;
 
-  constructor(public apiService: APIService,
+  constructor(
+    public apiService: APIService,
     public serverListDialogRef: MatDialogRef<ServersListComponent>,
-    public store: Store<{appStore: any}>
-    ) { }
+    public store: Store<{ appStore: any }>
+  ) {}
 
   ngOnInit() {
     this.serverslist.data = [...this.list];
@@ -38,21 +43,22 @@ export class ServersListComponent implements OnInit {
   }
 
   toCurrentTab() {
-    // this.apiService.overrideHost(true, this.serverslist.data[this.selectedIndex].name);
-    this.store.dispatch(new AppActions.OverrideHost({
-      check: true,
-      hostname: this.serverslist.data[this.selectedIndex].name
-    }));
+    this.store.dispatch(
+      new AppActions.OverrideHost({
+        check: true,
+        hostname: this.serverslist.data[this.selectedIndex].name
+      })
+    );
     this.serverListDialogRef.close();
   }
 
   toAllTabs() {
-    // this.apiService.overrideHost(false, this.serverslist.data[this.selectedIndex].name);
-    this.store.dispatch(new AppActions.OverrideHost({
-      check: false,
-      hostname: this.serverslist.data[this.selectedIndex].name
-    }));
+    this.store.dispatch(
+      new AppActions.OverrideHost({
+        check: false,
+        hostname: this.serverslist.data[this.selectedIndex].name
+      })
+    );
     this.serverListDialogRef.close();
   }
-
 }

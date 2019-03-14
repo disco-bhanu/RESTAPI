@@ -9,7 +9,6 @@ import { APIService } from '../../shared/api.service';
   styleUrls: ['./menu-content.component.css']
 })
 export class MenuContentComponent implements OnInit {
-
   tabs = [];
   names = [];
   selectedTab = 0;
@@ -17,48 +16,30 @@ export class MenuContentComponent implements OnInit {
   servicemenu;
   position;
 
-  constructor(public apiService: APIService, public store: Store<{appStore: any}>) { }
+  constructor(
+    public apiService: APIService,
+    public store: Store<{ appStore: any }>
+  ) {}
 
   ngOnInit() {
-    this.apiService.names.subscribe( (res: any) => this.names = res);
-    /* this.apiService.selectedAPIId.subscribe(
-      serviceId => {
-        if (serviceId === undefined) {
-          this.tabs.push({ id: serviceId, name: 'New' });
-          this.selectedTab = this.tabs.length;
-          this.selectedTab++;
+    this.apiService.names.subscribe((res: any) => (this.names = res));
+    this.store
+      .select(state => state.appStore.selectedService)
+      .subscribe(selected => {
+        // Initial state
+        if (selected.sysid === 0 && selected.srvid === 0) {
         } else {
-          console.log(serviceId);
-          const tabIdx = this.tabs.findIndex(tab => tab.id === serviceId);
+          const tabId = selected.sysid + '_' + selected.srvid;
+          const tabIdx = this.tabs.findIndex(tab => tab.id === tabId);
           if (tabIdx === -1) {
-            this.tabs.push({ id: serviceId, name: this.apiService.fetchNamesById(serviceId) });
+            this.tabs.push({ id: tabId, name: selected.srvname });
             this.selectedTab = this.tabs.length;
             this.selectedTab++;
           } else {
             this.selectedTab = tabIdx;
           }
         }
-      }); */
-
-    this.store.select(state => state.appStore.selectedService).subscribe(
-      selected => {
-        // Initial state
-        if (selected.sysid === 0 && selected.srvid === 0) {
-        } else {
-        const tabId = selected.sysid + '_' + selected.srvid;
-        const tabIdx = this.tabs.findIndex(tab => tab.id === tabId);
-        if (tabIdx === -1) {
-          this.tabs.push({ id: tabId, name: selected.srvname });
-          this.selectedTab = this.tabs.length;
-          this.selectedTab++;
-        } else {
-          this.selectedTab = tabIdx;
-        }
-      }
-        console.log(this.tabs);
-      }
-    );
-
+      });
   }
 
   onTabIndexChanged(e) {
@@ -67,6 +48,4 @@ export class MenuContentComponent implements OnInit {
   onClose(idx) {
     this.tabs.splice(idx, 1);
   }
-
-
 }

@@ -1,9 +1,7 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
 
-import { APIService } from '../shared/api.service';
 import { HeadersFavComponent } from '../api-details/headers-fav/headers-fav.component';
-import { APIDetails } from '../api-details/api-details.model';
 import { ServersListComponent } from '../servers-list/servers-list.component';
 import { Store } from '@ngrx/store';
 import * as AppActions from '../store/app.actions';
@@ -13,26 +11,20 @@ import * as AppActions from '../store/app.actions';
   templateUrl: './toolbar.component.html',
   styleUrls: ['./toolbar.component.css']
 })
-export class ToolbarComponent implements OnInit {
-
-  // drawerToggleFlag = true;
-
-  constructor(public APIservice: APIService, public dialog: MatDialog, public store: Store<{appStore: any}>) { }
-
-  ngOnInit() {
-   // this.APIservice.toggleDrawer(this.drawerToggleFlag);
-  }
+export class ToolbarComponent {
+  constructor(
+    public dialog: MatDialog,
+    public store: Store<{ appStore: any }>
+  ) {}
 
   drawerToggle(): void {
-    // this.drawerToggleFlag = !this.drawerToggleFlag;
-    // this.APIservice.toggleDrawer(this.drawerToggleFlag);
     this.store.dispatch(new AppActions.SideDrawer());
   }
 
   onOpenGlobalHeaderDialog(): void {
     const headersFavDialogRef = this.dialog.open(HeadersFavComponent, {
       width: '80%',
-      data: { },
+      data: {},
       position: { left: '17%' }
     });
 
@@ -45,7 +37,7 @@ export class ToolbarComponent implements OnInit {
   onOpenServerDialog(): void {
     const serversListDialogRef = this.dialog.open(ServersListComponent, {
       width: '80%',
-      data: { },
+      data: {},
       position: { left: '17%' }
     });
 
@@ -54,5 +46,4 @@ export class ToolbarComponent implements OnInit {
       console.log(result);
     });
   }
-
 }
