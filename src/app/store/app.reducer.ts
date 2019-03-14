@@ -9,13 +9,15 @@ export interface State {
   favHeaders: HeadersModel[];
   selectedService: {};
   overrideHost: {check: boolean, hostname: string};
+  sideDrawer: boolean;
 }
 
 const initState: State = {
   services: [],
   favHeaders: [],
-  selectedService: {sysid: 0, srvid: 0},
-  overrideHost: {check: false, hostname: 'initial'}
+  selectedService: {sysid: 0, srvid: 0, srvname: null},
+  overrideHost: {check: false, hostname: 'initial'},
+  sideDrawer: true
 };
 
 export function appReducer(
@@ -42,6 +44,11 @@ export function appReducer(
       return {
         ...state,
         overrideHost: {...action.payload}
+      };
+    case AppActions.SIDE_DRAWER:
+      return {
+        ...state,
+        sideDrawer: !state.sideDrawer
       };
     default:
       return state;

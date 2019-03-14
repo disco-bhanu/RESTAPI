@@ -6,6 +6,7 @@ export const API_LIST = 'API_LIST';
 export const FAV_HEADERS = 'FAV_HEADERS';
 export const SELECTED_SERVICE = 'SELECTED_SERVICE';
 export const OVERRIDE_HOST = 'OVERRIDE_HOST';
+export const SIDE_DRAWER = 'SIDE_DRAWER';
 
 export class APIList implements Action {
   readonly type = API_LIST;
@@ -27,4 +28,8 @@ export class OverrideHost implements Action {
   constructor(public payload: any) {}
 }
 
-export type AppActions = APIList | FavHeaders | SelectedService | OverrideHost;
+export class SideDrawer implements Action {
+  readonly type = SIDE_DRAWER;
+}
+
+export type AppActions = APIList | FavHeaders | SelectedService | OverrideHost | SideDrawer;

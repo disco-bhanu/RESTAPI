@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Subject, Observable } from 'rxjs';
-import { map, debounceTime, distinctUntilChanged, startWith } from 'rxjs/operators';
-import { APIService } from '../../shared/api.service';
+import { map, startWith } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as AppActions from '../../store/app.actions';
@@ -21,7 +20,7 @@ export class SearchComponent implements OnInit {
   filteredSearch: Observable<any>;
   apilist = [];
 
-  constructor(private apiService: APIService, public store: Store<{appStore: any}>) {}
+  constructor(public store: Store<{appStore: any}>) {}
 
   ngOnInit() {
     /* this.apiService.searchableItems.subscribe((items: any) => {
@@ -41,7 +40,8 @@ export class SearchComponent implements OnInit {
           sys.services.forEach(srv => {
             this.searchableData.push({
               keyword: sys.name.toLowerCase() + ' | ' + srv.name.toLowerCase() + ' | ' + srv.url.toLowerCase(),
-              id: sys.id + '_' + srv.id
+              id: sys.id + '_' + srv.id,
+              srvname: srv.name
             });
           });
         });
@@ -54,17 +54,16 @@ export class SearchComponent implements OnInit {
       );
   }
 
-  onSelect(e, id) {
-    console.log(e);
+  onSelect(key) {
+    console.log(key);
+    const search: any = this.searchableData.filter((s: any) => s.keyword.includes(key.toLowerCase()))[0];
+    console.log(search.id);
     // this.apiService.selectAPIByID(id);
     this.store.dispatch(new AppActions.SelectedService({
-      sysid: id.split('_')[0],
-      srvid: id.split('_')[1]
+      sysid: search.id.split('_')[0],
+      srvid: search.id.split('_')[1],
+      srvname: search.srvname
     }));
-  }
-
-  selected(e) {
-    console.log(e);
   }
 
   onClearSearch() {

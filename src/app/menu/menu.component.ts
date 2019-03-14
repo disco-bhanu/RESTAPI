@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { APIService } from '../shared/api.service';
 import { MatDrawer } from '@angular/material';
 import * as AppActions from '../store/app.actions';
@@ -9,7 +9,7 @@ import { Store } from '@ngrx/store';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
-export class MenuComponent {
+export class MenuComponent implements OnInit {
 
   items = [];
   apiList = [];
@@ -26,7 +26,8 @@ export class MenuComponent {
         // this.apiService.fetchMenuItems();
         this.store.dispatch(new AppActions.APIList(res));
       });
-    this.apiService.sideDrawer.subscribe(f => this.drawer.toggle());
+    // this.apiService.sideDrawer.subscribe(f => this.drawer.toggle());
+
     this.store.select(state => state.appStore.services ).subscribe(
       res => {
         console.log('From State');
@@ -35,6 +36,14 @@ export class MenuComponent {
         this.fetchMenuItems();
         this.apiService.fetchServiceNames();
         // this.apiService.searchableMenuItems();
+      }
+    );
+  }
+
+  ngOnInit() {
+    this.store.select(state => state.appStore.sideDrawer).subscribe(
+      flag => {
+          this.drawer.toggle();
       }
     );
   }

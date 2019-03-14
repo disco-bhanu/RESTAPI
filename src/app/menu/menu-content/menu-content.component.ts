@@ -42,8 +42,8 @@ export class MenuContentComponent implements OnInit {
 
     this.store.select(state => state.appStore.selectedService).subscribe(
       selected => {
+        // Initial state
         if (selected.sysid === 0 && selected.srvid === 0) {
-          console.log('initial');
         } else {
         const tabId = selected.sysid + '_' + selected.srvid;
         const tabIdx = this.tabs.findIndex(tab => tab.id === tabId);

@@ -9,10 +9,9 @@
       [matAutocomplete]="auto"
       [formControl]="searchCtrl"
     >
-    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event.option)">
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSelect($event.option.value)">
       <mat-option *ngFor="let option of filteredSearch | async"
-        [value]="option.keyword"
-        (click)="onSelect(option.id)">
+        [value]="option.keyword">
         {{option.keyword}}
       </mat-option>
     </mat-autocomplete>

@@ -22,9 +22,9 @@ export class APIService {
 
   names = new Subject();
 
-  sideDrawer = new Subject();
+  // sideDrawer = new Subject();
 
-  overrideHostName = new Subject();
+  // overrideHostName = new Subject();
 
   favHeaders = [];
 
@@ -125,13 +125,13 @@ export class APIService {
     this.favHeaders.push(header);
   }
 
-  overrideHost(check, name) {
+  /* overrideHost(check, name) {
     this.overrideHostName.next({check: check, name: name});
-  }
+  } */
 
-  toggleDrawer(flag) {
+  /* toggleDrawer(flag) {
     this.sideDrawer.next(flag);
-  }
+  }*/
 
   save(data): Observable<any> {
     return this.http.post('/server/save', data)

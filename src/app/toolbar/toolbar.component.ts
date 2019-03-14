@@ -5,6 +5,8 @@ import { APIService } from '../shared/api.service';
 import { HeadersFavComponent } from '../api-details/headers-fav/headers-fav.component';
 import { APIDetails } from '../api-details/api-details.model';
 import { ServersListComponent } from '../servers-list/servers-list.component';
+import { Store } from '@ngrx/store';
+import * as AppActions from '../store/app.actions';
 
 @Component({
   selector: 'app-toolbar',
@@ -13,17 +15,18 @@ import { ServersListComponent } from '../servers-list/servers-list.component';
 })
 export class ToolbarComponent implements OnInit {
 
-  drawerToggleFlag = true;
+  // drawerToggleFlag = true;
 
-  constructor(public APIservice: APIService, public dialog: MatDialog) { }
+  constructor(public APIservice: APIService, public dialog: MatDialog, public store: Store<{appStore: any}>) { }
 
   ngOnInit() {
-    this.APIservice.toggleDrawer(this.drawerToggleFlag);
+   // this.APIservice.toggleDrawer(this.drawerToggleFlag);
   }
 
   drawerToggle(): void {
-    this.drawerToggleFlag = !this.drawerToggleFlag;
-    this.APIservice.toggleDrawer(this.drawerToggleFlag);
+    // this.drawerToggleFlag = !this.drawerToggleFlag;
+    // this.APIservice.toggleDrawer(this.drawerToggleFlag);
+    this.store.dispatch(new AppActions.SideDrawer());
   }
 
   onOpenGlobalHeaderDialog(): void {

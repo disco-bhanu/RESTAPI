@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatTableDataSource } from '@angular/material';
+import { Store } from '@ngrx/store';
 import {SelectionModel} from '@angular/cdk/collections';
 import { APIService } from '../../shared/api.service';
 import { HeadersList } from './standard-headers';
@@ -35,12 +36,23 @@ export class HeadersFavComponent implements OnInit {
 
   selection = new SelectionModel<Header>(true, []);
 
-  constructor(public dialogRef: MatDialogRef<HeadersFavComponent>, public APIservice: APIService) {}
+  constructor(public dialogRef: MatDialogRef<HeadersFavComponent>,
+    public APIservice: APIService,
+    public store: Store<{appStore: any}>
+    ) {}
 
   ngOnInit() {
     this.headerList = this.APIservice.favHeaders.map(h => {
       return {...h, checked: false};
     });
+
+    this.store.select(state => state.appStore.favHeaders).subscribe(
+      headers => {
+        headers.map(h => {
+          return {...h, checked: false };
+        });
+      }
+    );
 
     this.APIservice.favHeaders.map(h => {
       this.headersData.data.push({...h, checked: false, comments: null});
