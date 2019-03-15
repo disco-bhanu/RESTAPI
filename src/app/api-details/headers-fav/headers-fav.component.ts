@@ -39,6 +39,20 @@ export class HeadersFavComponent implements OnInit {
         this.headersData.data = [...this.headersData.data];
       }
     );
+    this.selection.changed.subscribe(
+      change => {
+        console.log(change);
+        console.log(change.source.selected);
+        const selectedFavHeaders = {};
+        change.source.selected.reverse().forEach(ele => {
+          if (selectedFavHeaders[ele.key] !== undefined) {
+            this.selection.deselect(ele);
+          } else {
+            selectedFavHeaders[ele.key] = ele.value;
+          }
+        })
+      }
+    )
   }
 
   onCancel(): void {
@@ -75,6 +89,17 @@ export class HeadersFavComponent implements OnInit {
 
   onHeadersValue(event) {
     this.filterOptionsForHeaderValue = HeadersList.values.filter(val => val.toLowerCase().includes(event.target.value));
+  }
+
+  onSelect(event: Event, idx) {
+    //console.log(event);
+    //event.stopPropagation();
+    // this.selection.isSelected()
+    //console.log(this.selection);
+    // this.selection.select(...this.headersData.data);
+    //console.log(this.selection.selected.length);
+    //console.log(this.selection.selected);
+    //this.selection.deselect(this.headersData.data[idx]);
   }
 
 }
