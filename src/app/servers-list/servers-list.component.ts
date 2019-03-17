@@ -15,12 +15,6 @@ export interface List {
   styleUrls: ['./servers-list.component.css']
 })
 export class ServersListComponent implements OnInit {
-  list = [
-    { name: 'abc', set: false },
-    { name: 'def', set: false },
-    { name: 'ghi', set: false },
-    { name: 'jkl', set: false }
-  ];
 
   columns = ['server', 'set'];
 
@@ -35,7 +29,10 @@ export class ServersListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.serverslist.data = [...this.list];
+    this.apiService.fetServersList().subscribe(
+      list => this.serverslist.data = [...list]
+    );
+    // this.serverslist.data = [...this.list];
   }
 
   onSelect(idx) {

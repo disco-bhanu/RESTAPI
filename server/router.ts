@@ -4,11 +4,16 @@ import * as fs from 'fs';
 import { DB } from './db.model';
 
 import { default as db } from './services.json';
+import { default as serversList } from './serversList.json';
 
 export const router = Router();
 
 router.get('/services', (req, res) => {
   res.json(db);
+});
+
+router.get('/serverslist', (req, res) => {
+  res.send(serversList);
 });
 
 router.post('/save', (req, res) => {

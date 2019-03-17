@@ -40,6 +40,10 @@ export class APIService {
       );
   }
 
+  fetServersList(): Observable<any> {
+    return this.http.get('http://localhost:4000/server/serverslist');
+  }
+
   /* searchableMenuItems() {
     const items = [];
     this.APIList.slice().forEach((ele, idx) => {
