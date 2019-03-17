@@ -10,9 +10,19 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 
 Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+## Compile TS to JS files
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+npm run webpack:server
+
+## Build And Start Server
+
+npm run buildAndServer
+
+# Start Electron
+
+Install Electron globally. npm i -g electron@latest
+
+Start Electron. npm run electron
 
 ## Running unit tests
 
