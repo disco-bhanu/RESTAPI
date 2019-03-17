@@ -12,7 +12,8 @@
     "e2e": "ng e2e",
     "webpack:server": "webpack --config webpack.server.config.js --progress --colors",
     "main-server": "ng run restapi:server",
-    "electron": "ng build --base-href ./ && node ./dist/server.js && electron ."
+    "buildAndServer": "ng build --base-href ./ && node ./dist/server.js",
+    "electron": "electron ."
   },
   "private": true,
   "dependencies": {
