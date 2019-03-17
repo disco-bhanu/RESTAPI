@@ -7,6 +7,7 @@ export const FAV_HEADERS = 'FAV_HEADERS';
 export const SELECTED_SERVICE = 'SELECTED_SERVICE';
 export const OVERRIDE_HOST = 'OVERRIDE_HOST';
 export const SIDE_DRAWER = 'SIDE_DRAWER';
+export const ACTIVE_TAB_INDEX = 'ACTIVE_TAB_INDEX';
 
 export class APIList implements Action {
   readonly type = API_LIST;
@@ -32,4 +33,9 @@ export class SideDrawer implements Action {
   readonly type = SIDE_DRAWER;
 }
 
-export type AppActions = APIList | FavHeaders | SelectedService | OverrideHost | SideDrawer;
+export class ActiveTabIndex implements Action {
+  readonly type = ACTIVE_TAB_INDEX;
+  constructor(public payload: number) {}
+}
+
+export type AppActions = APIList | FavHeaders | SelectedService | OverrideHost | SideDrawer | ActiveTabIndex;

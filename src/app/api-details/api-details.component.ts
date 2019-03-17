@@ -61,17 +61,13 @@ export class ApiDetailsComponent implements OnInit {
     if (content === undefined || content === '0_0') {
       this.newService = true;
     } else {
-      console.log(content);
+      // console.log(content);
       this.serviceId = content;
       this.apiDetails = this.apiService.fetchById(content);
       this.headers = Object.keys(this.apiDetails.service.headers);
     }
     this.buildForm();
     this.isSelected = true;
-  }
-
-  @Input() set tabnum(id) {
-    this.activeTabNum = id;
   }
 
   @Input() set position(id) {
@@ -91,6 +87,10 @@ export class ApiDetailsComponent implements OnInit {
     ].valueChanges.pipe(
       startWith(''),
       map(value => this.filter(value))
+    );
+
+    this.store.select(state => state.appStore.activeTabIndex).subscribe(
+      index => this.activeTabNum = index
     );
 
     this.store
@@ -236,8 +236,6 @@ export class ApiDetailsComponent implements OnInit {
       width: '700px'
     });
     dialogRef.afterClosed().subscribe(result => {
-      console.log('Dialog closed');
-      console.log(result);
       result.forEach(h => {
         (<FormArray>this.form.get('headers')).push(
           new FormGroup({

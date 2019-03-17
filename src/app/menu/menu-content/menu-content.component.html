@@ -15,7 +15,7 @@
       </div>
       <ng-template #content>
         <mat-tab-group
-          [color]="'accent'"
+          [color]="'primary'"
           [backgroundColor]=""
           [selectedIndex]="selectedTab"
           (selectedIndexChange)="onTabIndexChanged($event)">
@@ -25,7 +25,7 @@
                 {{tab.name}} &nbsp;&nbsp;&nbsp;&nbsp;
                 <mat-icon style="cursor: pointer;" (click)="onClose(i)">close</mat-icon>
               </ng-template>
-              <app-api-details [serviceContent]="tab.id" (delete)="onDelete(i)" [position]="i" [tabnum]="activeTabIndex"></app-api-details>
+              <app-api-details [serviceContent]="tab.id" [position]="i"></app-api-details>
             </mat-tab>
           </div>
         </mat-tab-group>

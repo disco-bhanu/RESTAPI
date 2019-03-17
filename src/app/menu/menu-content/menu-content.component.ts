@@ -1,5 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ApplicationInitStatus } from '@angular/core';
 import { Store } from '@ngrx/store';
+import * as AppActions from '../../store/app.actions';
 
 import { APIService } from '../../shared/api.service';
 
@@ -33,8 +34,7 @@ export class MenuContentComponent implements OnInit {
           const tabIdx = this.tabs.findIndex(tab => tab.id === tabId);
           if (tabIdx === -1) {
             this.tabs.push({ id: tabId, name: selected.srvname });
-            this.selectedTab = this.tabs.length;
-            this.selectedTab++;
+            this.selectedTab = this.tabs.length - 1;
           } else {
             this.selectedTab = tabIdx;
           }
@@ -43,7 +43,7 @@ export class MenuContentComponent implements OnInit {
   }
 
   onTabIndexChanged(e) {
-    this.activeTabIndex = e;
+    this.store.dispatch(new AppActions.ActiveTabIndex(e));
   }
   onClose(idx) {
     this.tabs.splice(idx, 1);

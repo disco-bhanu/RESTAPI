@@ -3,12 +3,7 @@ mat-toolbar a {
   font-size: medium;
   cursor: pointer;
   text-decoration: none;
-  padding: 0 20px;
-}
-
-mat-toolbar a:hover {
-  color: #ffff;
-  text-decoration: none;
+  padding: 24px 24px;
 }
 
 ul {
@@ -20,9 +15,8 @@ ul {
 
 li {
   display: table-cell;
-  padding: 18px 16px;
 }
 
-ul li:hover {
-  border-bottom: 3px solid white;
+nav ul li a:hover {
+  border-bottom: 2px solid white;
 }

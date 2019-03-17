@@ -31,7 +31,7 @@ export class APIService {
   constructor(public http: HttpClient, public store: Store<{appStore: any}>) { }
 
   fetchServicesList(): Observable<any> {
-    return this.http.get('/server/services')
+    return this.http.get('http://localhost:4000/server/services')
       .pipe(
         map((res: any) => {
           this.APIList = res;
@@ -169,7 +169,7 @@ export class APIService {
           }
         ));
     } */
-    return this.http.post('/server/send', formdata)
+    return this.http.post('http://localhost:4000/server/send', formdata)
       .pipe(
         map( (res: Response) => {
           console.log(res);

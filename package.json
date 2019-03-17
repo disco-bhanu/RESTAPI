@@ -2,6 +2,7 @@
   "name": "restapi",
   "version": "0.0.0",
   "license": "MIT",
+  "main": "main.js",
   "scripts": {
     "ng": "ng",
     "start": "node dist/server",
@@ -10,7 +11,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "webpack:server": "webpack --config webpack.server.config.js --progress --colors",
-    "main-server": "ng run restapi:server"
+    "main-server": "ng run restapi:server",
+    "electron": "ng build --base-href ./ && node ./dist/server.js && electron ."
   },
   "private": true,
   "dependencies": {
@@ -50,6 +52,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~10.9.4",
     "codelyzer": "^4.4.4",
+    "electron": "^4.1.0",
     "jasmine-core": "~3.2.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~3.0.0",
