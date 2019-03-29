@@ -22,7 +22,18 @@
         name="url"
         formControlName="url">
     </mat-form-field>
-    <button mat-raised-button color="primary" type="button" (click)="onTest()">send</button>
+    <mat-icon
+      mat-raised-button
+      color="primary"
+      (click)="onTest()"
+      matTooltip="Send"
+    >send</mat-icon>
+    <mat-icon
+      mat-raised-button
+      color="primary"
+      (click)="onTest()"
+      matTooltip="Save"
+    >save</mat-icon>
   </div>
   <div *ngIf="form.get('method').value === 'POST' || form.get('method').value === 'PUT'">
     <mat-form-field class="col-md-12" appearance="outline">

@@ -52,7 +52,7 @@ export class MenuContentComponent implements OnInit {
 
   onNewRequest() {
     console.log('add');
-    this.tabs.push({ is: '0_0', name: 'New'});
-    this.selectedTab++;
+    this.tabs.push({ id: '0_0', name: 'New'});
+    this.selectedTab = this.tabs.length - 1;
   }
 }
