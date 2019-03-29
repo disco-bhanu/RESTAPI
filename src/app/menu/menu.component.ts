@@ -13,6 +13,7 @@ export class MenuComponent implements OnInit {
   items = [];
   apiList = [];
   selectedService: string;
+  selectedServiceIDs: string;
 
   @ViewChild('drawer') public drawer: MatDrawer;
 
@@ -63,6 +64,7 @@ export class MenuComponent implements OnInit {
   }
 
   onSelect(sysidx, srvidx) {
+    this.selectedServiceIDs = sysidx + '_' + srvidx;
     const selectedService = {
       sysid: this.items[sysidx].id,
       srvid: this.items[sysidx].services[srvidx].id,

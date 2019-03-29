@@ -1,1 +1,13 @@
 
+.new-row button{
+  margin-right: 25px;
+}
+
+.new-tab {
+  position: absolute;
+  top: auto;
+  right: 0vh;
+  float: right;
+  cursor: pointer;
+  z-index: 10;
+}

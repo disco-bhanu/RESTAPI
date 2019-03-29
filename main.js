@@ -1,20 +1,24 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
 const url = require("url");
-
+const app1 = require('./dist/server');
 let win;
 
 function createWindow() {
-  win = new BrowserWindow({ width: 800, height: 600 });
+
+  console.log(app1);
+  win = new BrowserWindow({ width: 800, height: 600, webPreferences: {webSecurity: false} });
 
   // load the dist folder from Angular
-  win.loadURL(
+  /*win.loadURL(
     url.format({
       pathname: path.join(__dirname, `/dist/browser/index.html`),
       protocol: "file:",
       slashes: true
     })
-  );
+  );*/
+
+  win.loadURL(`file://${__dirname}/dist/browser/index.html`)
 
   win.webContents.openDevTools()
 

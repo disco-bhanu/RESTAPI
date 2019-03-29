@@ -1,8 +1,20 @@
 {
   "name": "restapi",
+  "description": "rest client application.",
   "version": "0.0.0",
   "license": "MIT",
   "main": "main.js",
+  "build": {
+    "appId": "com.electron.restapi",
+    "mac": {
+      "category": "public.app-category.developer-tools"
+    }
+  },
+  "files": [
+    "*.js",
+    "dist/*",
+    "node_modules"
+  ],
   "scripts": {
     "ng": "ng",
     "start": "node dist/server",
@@ -13,7 +25,10 @@
     "webpack:server": "webpack --config webpack.server.config.js --progress --colors",
     "main-server": "ng run restapi:server",
     "buildAndServer": "ng build --base-href ./ && node ./dist/server.js",
-    "electron": "electron ."
+    "electron": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "package": "electron-packager . --platform=darwin"
   },
   "private": true,
   "dependencies": {
@@ -54,6 +69,8 @@
     "@types/node": "~10.9.4",
     "codelyzer": "^4.4.4",
     "electron": "^4.1.0",
+    "electron-builder": "^20.39.0",
+    "electron-packager": "^13.1.1",
     "jasmine-core": "~3.2.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~3.0.0",

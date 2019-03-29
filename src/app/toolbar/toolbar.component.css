@@ -3,20 +3,18 @@ mat-toolbar a {
   font-size: medium;
   cursor: pointer;
   text-decoration: none;
-  padding: 24px 24px;
+  padding: 5px 12px;
 }
 
-ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  display: inline-block;
-}
-
-li {
-  display: table-cell;
-}
-
-nav ul li a:hover {
+mat-toolbar a:hover {
   border-bottom: 2px solid white;
+}
+
+.mat-toolbar-row, .mat-toolbar-single-row {
+  height: 50px !important;
+}
+
+mat-icon {
+  vertical-align: text-bottom;
+  width: 30px;
 }

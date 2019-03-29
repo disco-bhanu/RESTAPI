@@ -45,7 +45,14 @@ export class MenuContentComponent implements OnInit {
   onTabIndexChanged(e) {
     this.store.dispatch(new AppActions.ActiveTabIndex(e));
   }
+
   onClose(idx) {
     this.tabs.splice(idx, 1);
+  }
+
+  onNewRequest() {
+    console.log('add');
+    this.tabs.push({ is: '0_0', name: 'New'});
+    this.selectedTab++;
   }
 }

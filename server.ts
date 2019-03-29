@@ -22,10 +22,14 @@ const { AppServerModuleNgFactory, LAZY_MODULE_MAP } = require('./dist/server/mai
 enableProdMode();
 
 // Express server
-const app = express();
+export const app = express();
 
 const PORT = process.env.PORT || 4000;
+
+
 const DIST_FOLDER = join(process.cwd(), 'dist');
+
+// Uncomment below lines when running outside of Electron
 
 // Our index.html we'll use as our template
 const template = readFileSync(join(DIST_FOLDER, 'browser', 'index.html')).toString();
@@ -52,7 +56,7 @@ app.get('*.*', express.static(join(DIST_FOLDER, 'browser')));
 
 // All regular routes use the Universal engine
 app.get('/', (req, res) => {
-  res.render(join(DIST_FOLDER, 'browser', 'index.html'), { req });
+res.render(join(DIST_FOLDER, 'browser', 'index.html'), { req });
 });
 
 app.use(cors());
@@ -71,3 +75,4 @@ app.use('/server', router);
 app.listen(PORT, () => {
   console.log(`Node server listening on http://localhost:${PORT}`);
 });
+

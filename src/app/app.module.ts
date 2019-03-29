@@ -25,6 +25,7 @@ import { MatCardModule,
         MatSnackBarModule,
         MatCheckboxModule,
         MatTableModule,
+        MatRippleModule,
         MatRadioModule} from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -76,6 +77,7 @@ import { appReducer } from './store/app.reducer';
     MatCheckboxModule,
     MatTableModule,
     MatRadioModule,
+    MatRippleModule,
     ReactiveFormsModule,
     FormsModule,
     LayoutModule,

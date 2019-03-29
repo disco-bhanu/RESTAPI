@@ -1,5 +1,5 @@
 .sidenav-container {
-  height: 90%;
+  height: 94vh;
 }
 
 .sidenav {
@@ -7,19 +7,23 @@
   height: 95%;
 }
 
-/*
-.mat-toolbar.mat-primary {
-  position: sticky;
-  top: 0;
+.mat-icon {
+  width: 30px;
 }
 
-.hidden {
-  display: none;
+a.active {
+  color: #ff0018;
 }
 
-.mat-elevation-z2 {
-  position: relative;
-  z-index: 2;
-}*/
+#sub-menu a:hover {
+  color: #ff0018;
+}
 
+.mat-drawer {
+  background-color: #303030;
+}
+
+.mat-drawer-container {
+  background-color: #424242;
+}
 
