@@ -1,0 +1,172 @@
+<form [formGroup]="form">
+  <div class="mt-3">
+    <mat-form-field class="col-md-1" appearance="outline">
+      <mat-label for="method"> Method</mat-label>
+      <input
+        matInput
+        type="text"
+        name="method"
+        formControlName="method"
+        [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filterOptionsForMethod | async" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-hint *ngIf="!form.get('method').valid && form.get('method').touched">*Required</mat-hint>
+    </mat-form-field>
+    <mat-form-field class="col-md-10" appearance="outline">
+      <mat-label for="url"> URL</mat-label>
+      <input
+        matInput
+        type="text"
+        name="url"
+        formControlName="url">
+      <mat-hint *ngIf="!form.get('url').valid && form.get('url').touched">*Required</mat-hint>
+    </mat-form-field>
+    <button
+      mat-icon-button
+      type="button"
+      style="margin: 0 5px; cursor: pointer; vertical-align: super;"
+      color="accent"
+      (click)="onSend()"
+      matTooltip="Send">
+      <mat-icon>send</mat-icon>
+    </button>
+      <button
+        mat-icon-button
+        type="button"
+        style="margin: 0 10px; cursor: pointer; vertical-align: super;"
+        color="accent"
+        (click)="onSave()"
+        matTooltip="Save">
+        <mat-icon>save</mat-icon>
+      </button>
+  </div>
+  <div *ngIf="form.get('method').value === 'POST' || form.get('method').value === 'PUT'">
+    <mat-form-field class="col-md-12" appearance="outline">
+      <mat-label for="body">Body</mat-label>
+      <textarea
+        matInput
+        name="body"
+        rows="6"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
+        formControlName="body"></textarea>
+    </mat-form-field>
+  </div>
+  <div class="col-md-12">
+    <mat-tab-group [selectedIndex]="changeTabOnSend" [color]="'primary'">
+      <mat-tab label="Request Headers">
+        <div class="mt-2">
+          <div formArrayName="headers">
+            <div *ngFor="let header of form.get('headers')['controls']; let i = index" [formGroupName]="i">
+              <mat-form-field class="col-md-3" appearance="outline">
+                <mat-label for="key"> Key </mat-label>
+                <input
+                  matInput
+                  type="text"
+                  name="key"
+                  formControlName="key">
+                <mat-autocomplete #headerskeyauto="matAutocomplete">
+                  <mat-option *ngFor="let option of filterOptionsForHeaderKey" [value]="option">
+                    {{option}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+              <mat-form-field class="col-md-8" appearance="outline">
+                <mat-label for="value"> Value </mat-label>
+                <input
+                  matInput
+                  type="text"
+                  name="value"
+                  formControlName="value">
+                <mat-autocomplete #headersvalueauto="matAutocomplete">
+                  <mat-option *ngFor="let option of filterOptionsForHeaderValue" [value]="option">
+                    {{option}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+              <button mat-icon-button type="button" (click)="onDeleteHeader(i)">
+                <mat-icon color="warn">remove_circle</mat-icon>
+              </button>
+            </div>
+          </div>
+          <mat-form-field class="col-md-3" appearance="outline">
+            <mat-label for="key"> Key </mat-label>
+            <input
+              matInput
+              name="key"
+              #headerkey
+              (keyup)="onHeadersKey($event)"
+              [matAutocomplete]="headerskeyauto">
+            <mat-autocomplete #headerskeyauto="matAutocomplete">
+              <mat-option *ngFor="let option of filterOptionsForHeaderKey" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <mat-form-field class="col-md-8" appearance="outline">
+            <mat-label for="value"> Value </mat-label>
+            <input
+              matInput
+              name="value"
+              #headervalue
+              (keyup)="onHeadersValue($event)"
+              [matAutocomplete]="headersvalueauto">
+            <mat-autocomplete #headersvalueauto="matAutocomplete">
+              <mat-option *ngFor="let option of filterOptionsForHeaderValue" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+          <button
+            mat-icon-button
+            matTooltip="Add Header"
+            type="button"
+            (click)="onAdd(headerkey, headervalue)">
+            <mat-icon color="accent">add_circle</mat-icon>
+          </button>
+        </div>
+      </mat-tab>
+      <mat-tab label="Response">
+        <div class="mt-1 row float-right">
+          <small>Time: {{responseTime}}</small>
+          <small class="ml-2">Status Code: {{statusCode}}</small>
+        </div>
+        <mat-form-field class="col-md-12 mt-2" appearance="outline">
+          <mat-label for="response">Response</mat-label>
+          <textarea
+            matInput
+            name="response"
+            rows="20"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            formControlName="response"></textarea>
+        </mat-form-field>
+      </mat-tab>
+      <mat-tab label="Response Headers">
+        <div class="mt-1 row float-right">
+          <small>Time: {{responseTime}}</small>
+          <small class="ml-2">Status Code: {{statusCode}}</small>
+        </div>
+        <mat-form-field class="col-md-12 mt-2" appearance="outline">
+          <mat-label for="response">Response Headers</mat-label>
+          <textarea
+            matInput
+            name="responseHeaders"
+            rows="20"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            formControlName="responseHeaders"></textarea>
+        </mat-form-field>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</form>

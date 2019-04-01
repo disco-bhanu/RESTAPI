@@ -1,0 +1,28 @@
+<mat-sidenav-container class="sidenav-container" [hasBackdrop]="false">
+  <mat-sidenav #drawer class="sidenav mat-elevation-z4 mt-2" fixedInViewport="false" [mode]="'side'">
+    <mat-nav-list>
+      <div *ngFor="let system of items; let i = index" class="mt-3">
+        <a mat-list-item (click)="onExpand(i)">
+          <mat-icon>computer</mat-icon>{{system.name}}
+          <span style="flex: 1 1 auto"></span>
+          <div *ngIf="system.expanded; else less">
+            <mat-icon>expand_less</mat-icon>
+          </div>
+          <ng-template #less>
+            <mat-icon>expand_more</mat-icon>
+          </ng-template>
+        </a>
+        <div *ngIf="system.expanded" id="sub-menu">
+          <div *ngFor="let service of system.services; let j = index">
+            <a class="pl-3" mat-list-item (click)="onSelect(i,j)">
+              <mat-icon>device_hub</mat-icon>{{service.name}}
+            </a>
+          </div>
+        </div>
+      </div>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <app-menu-content></app-menu-content>
+  </mat-sidenav-content>
+</mat-sidenav-container>

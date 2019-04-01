@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>Servers List</h1>
+<mat-divider></mat-divider>
+<div mat-dialog-content>
+  <div class="col-md-12">
+   <table mat-table [dataSource]="serverslist" class="mat-elevation-z8" >
+        <ng-container matColumnDef="server">
+          <th mat-header-cell *matHeaderCellDef style="margin-left: 1%"> Server Name </th>
+          <td mat-cell style="margin-left: 1%" *matCellDef="let server"> {{server.name}} </td>
+        </ng-container>
+        <ng-container matColumnDef="set">
+          <th mat-header-cell *matHeaderCellDef style="width: 15%"> Set </th>
+          <td mat-cell style="width: 15%" *matCellDef="let server; let idx = index">
+          <!--  <mat-checkbox color="primary" [(ngModel)]="server.set" (change)="onSelect($event, idx)"></mat-checkbox>-->
+            <mat-radio-button color="primary" name="idx" [value]="server.set" (change)="onSelect(idx)"></mat-radio-button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="columns"></tr>
+        <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+    </table>
+  </div>
+</div>
+<mat-divider></mat-divider>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="toCurrentTab()"> Set To Current Tab </button>
+  <button mat-raised-button color="warn" (click)="toAllTabs()"> Set To All Open Tabs </button>
+</div>

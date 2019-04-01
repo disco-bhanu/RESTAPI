@@ -1,0 +1,42 @@
+<div class="col-md-12 mt-2">
+  <mat-card class="sidenav-content mat-elevation-z4">
+    <mat-card-content>
+      <div *ngIf="tabs.length === 0; else content">
+        <div style="display: flex; justify-content: center; align-items: center; height: 42vh">
+          <!-- <mat-card *ngFor="let sys of names" class="m-2">
+            <mat-card-header>{{sys.systemName}}</mat-card-header>
+            <mat-card-content class="m-2 p-2">
+              <ul *ngFor="let srv of sys.serviceNames">
+                <li>{{srv}}</li>
+              </ul>
+            </mat-card-content>
+          </mat-card>-->
+          <div class="new-row">
+            <button mat-stroked-button color="accent" (click)="onNewRequest()">New Request</button>
+            <button mat-stroked-button color="accent">Add Service</button>
+          </div>
+        </div>
+      </div>
+      <ng-template #content>
+          <button mat-icon-button matTooltip="New Tab" type="button" class="new-tab" (click)="onNewRequest()">
+              <mat-icon color="accent">add_box</mat-icon>
+            </button>
+        <mat-tab-group
+          [color]="'primary'"
+          [backgroundColor]=""
+          [selectedIndex]="selectedTab"
+          (selectedIndexChange)="onTabIndexChanged($event)">
+          <div *ngFor="let tab of tabs; let i = index">
+            <mat-tab>
+              <ng-template mat-tab-label style="border-right: 2px solid black">
+                {{tab.name}} &nbsp;&nbsp;&nbsp;&nbsp;
+                <div style="cursor: pointer; font-size: 16px" (click)="onClose(i)">&times;</div>
+              </ng-template>
+              <app-api-details [serviceContent]="tab.id" [position]="i"></app-api-details>
+            </mat-tab>
+          </div>
+        </mat-tab-group>
+      </ng-template>
+    </mat-card-content>
+  </mat-card>
+</div>

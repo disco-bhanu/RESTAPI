@@ -1,1 +1,209 @@
 /* You can add global styles to this file, and also import other style files */
+/*@import "~@angular/material/prebuilt-themes/indigo-pink.css";*/
+@import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
+
+@import "bootstrap/dist/css/bootstrap.min.css";
+
+/*.mat-shadow {
+  box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12) !important;
+}*/
+
+html, body {
+  margin: 0 auto;
+  padding: 0;
+  height: 100%;
+  font-family: 'Roboto',sans-serif !important;
+  /*font-size: 12px !important;
+  font-weight: 500 !important;
+  line-height: 16px !important;*/
+}
+
+
+
+button {
+  outline: none !important;
+}
+
+.row {
+  margin: 0 !important;
+}
+
+.container-flex {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.card-flex {
+  flex: auto;
+  width: 540px;
+  margin: 8px;
+}
+
+.button-flex {
+  display: flex;
+  justify-content: end;
+  margin: 8px;
+}
+
+.mat-tab-label.mat-tab-label-active {
+  background-color: rgba(0,0,0,0.2);
+  font-size: small;
+}
+
+.mat-raised-button {
+  outline: none !important;
+  padding: 0;
+}
+
+.mat-list-item {
+  font-size: 14px !important;
+  height: 35px !important;
+}
+
+.mat-form-field {
+  font-size: 12px !important;
+}
+
+.mat-tab-label {
+  height: 38px !important;
+}
+
+.mat-tab-label:after {
+  content : "";
+  position: absolute;
+  right    : 0;
+  z-index: 10;
+  top  : 0;
+  width  : 2px;
+  margin-top: 10px;
+  height   : 50%;  /* or 100px */
+  background: black;
+}
+
+.mat-card {
+  padding: 0px !important;
+  background-color: #303030;
+}
+
+.mat-card-title {
+/*  margin: 0 !important; */
+  font-size: 16px !important;
+}
+
+.mat-dialog-title {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.mat-dialog-content {
+  margin: 10px 0 !important;
+}
+
+.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+  /* color: rgba(255,255,255,.3) !important;*/
+  color: #fff !important;
+}
+
+.mat-form-field.mat-focused .mat-form-field-label {
+  /* color: rgba(255,255,255,.7) !important;*/
+  color: #fff !important;
+}
+/*
+.mat-form-field-appearance-legacy .mat-form-field-underline {
+  height:0px !important;
+}
+
+.mat-form-field-underline {
+  background-color: white !important;
+}
+/*
+.mat-form-field-label-wrapper {
+  top: 0.25em !important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  top: 1.5em !important;
+}
+ */
+
+.mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 0.7em 0 0.7em 0 !important;
+}
+
+textarea {
+  min-height: 15px !important;
+  line-height: 18px !important;
+  font-size: 12px !important;
+}
+/*
+.mt-1 {
+  margin-top: .25rem!important;
+}
+
+.mt-2 {
+  margin-top: .5rem!important;
+}
+
+.mt-3 {
+  margin-top: 1rem!important;
+}
+
+.col-md-2 {
+  flex: 0 0 16.666667%;
+  max-width: 16.666667%;
+  width: 100%;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+  position: relative;
+}
+
+.col-md-3 {
+  flex: 0 0 25%;
+  max-width: 25%;
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.col-md-8 {
+  flex: 0 0 66.666667%;
+  max-width: 66.666667%;
+  position: relative;
+  width: 100%;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.col-md-12 {
+  flex: 0 0 100%;
+  max-width: 100%;
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.col-md-9 {
+  flex: 0 0 75%;
+  max-width: 75%;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+.pt-1 {
+  padding-top: .25rem!important;
+}
+
+.mt-4 {
+  margin-top: 1.5rem!important;
+}
+*/
+
+
+

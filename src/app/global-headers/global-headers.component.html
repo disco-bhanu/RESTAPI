@@ -1,0 +1,81 @@
+<h1 mat-dialog-title>Favourites</h1>
+<small style="color: gray">&nbsp;&nbsp;&nbsp;Local headers take precedence of global headers.</small>
+<mat-divider></mat-divider>
+<div mat-dialog-content>
+  <div class="col-md-12">
+    <mat-form-field class="header-key" appearance="outline">
+      <mat-label for="key"> Key </mat-label>
+      <input
+        matInput
+        name="key"
+        id="key"
+        [(ngModel)]="header_key"
+        #headerkey
+        (keyup)="onHeadersKey($event)"
+        [matAutocomplete]="headerskeyauto">
+      <mat-autocomplete #headerskeyauto="matAutocomplete">
+        <mat-option *ngFor="let option of filterOptionsForHeaderKey" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field class="header-value" appearance="outline">
+      <mat-label for="value"> Value </mat-label>
+      <input
+        matInput
+        name="value"
+        id="value"
+        [(ngModel)]="header_value"
+        #headervalue
+        (keyup)="onHeadersValue($event)"
+        [matAutocomplete]="headersvalueauto">
+      <mat-autocomplete #headersvalueauto="matAutocomplete">
+        <mat-option *ngFor="let option of filterOptionsForHeaderValue" [value]="option">
+          {{option}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field class="header-comments" appearance="outline">
+      <mat-label for="value"> Comments </mat-label>
+      <input
+        matInput
+        name="comments"
+        id="comments"
+      [(ngModel)]="header_comments">
+    </mat-form-field>
+    <button mat-raised-button color="primary" class="col-md-1" (click)="onAdd();" > Add</button>
+  </div>
+  <div class="col-md-12" *ngIf="this.headersData.data.length > 0">
+   <table mat-table [dataSource]="headersData" class="mat-elevation-z8" >
+    <ng-container matColumnDef="select">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-checkbox color="warn" (change)="$event ? masterToggle() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()">
+        </mat-checkbox>
+      </th>
+      <td mat-cell *matCellDef="let row; let idx = index">
+        <mat-checkbox color="warn" (click)="$event.stopPropagation();"
+                      (change)="$event ? selection.toggle(row) : null"
+                      [checked]="selection.isSelected(row)">
+        </mat-checkbox>
+      </td>
+    </ng-container>
+        <ng-container matColumnDef="key">
+          <th mat-header-cell *matHeaderCellDef> Key </th>
+          <td mat-cell *matCellDef="let header"> {{header.key}} </td>
+        </ng-container>
+        <ng-container matColumnDef="value">
+          <th mat-header-cell *matHeaderCellDef> Value </th>
+          <td mat-cell *matCellDef="let header"> {{header.value}} </td>
+        </ng-container>
+        <ng-container matColumnDef="comments">
+            <th mat-header-cell *matHeaderCellDef> Comments </th>
+            <td mat-cell *matCellDef="let header"> {{header.comments}} </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="columns"></tr>
+        <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+    </table>
+  </div>
+</div>
+

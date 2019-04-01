@@ -1,0 +1,32 @@
+.sidenav-container {
+  height: 94%;
+}
+
+.sidenav {
+  width: 250px;
+  height: 90vh;
+}
+
+.mat-icon {
+  width: 30px;
+}
+
+a.active {
+  color: #ff0018;
+}
+
+#sub-menu a:hover {
+  color: #ff0018;
+}
+
+.mat-drawer {
+  background-color: #303030;
+}
+
+.mat-drawer-container {
+  background-color: #424242;
+}
+
+* {
+  text-shadow: 2px 2px 4px #000000;
+}
