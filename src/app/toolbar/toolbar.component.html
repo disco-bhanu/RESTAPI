@@ -4,19 +4,26 @@
     aria-label="Toggle sidenav"
     mat-icon-button
     (click)="drawerToggle()"
-    style="outline: none">
+    style="outline: none"
+  >
     <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
   </button>
   <span> REST API </span>
   <app-search style="margin-left: 20%;" class="col-md-5"></app-search>
   <span style="flex: 1 1 auto"></span>
-  <a (click)="onOpenGlobalHeaderDialog()">
-    <mat-icon>public</mat-icon> Global Headers
-  </a>
-  <a matRipple (click)="onOpenServerDialog()">
-    <mat-icon>storage</mat-icon> Servers
-  </a>
-  <a (click)="onOpenImportExportDialog()">
-    <mat-icon>import_export</mat-icon> Import/Export
-  </a>
+  <button mat-button>
+    <a (click)="onOpenGlobalHeaderDialog()">
+      <mat-icon>public</mat-icon> Global Headers
+    </a>
+  </button>
+  <button mat-button>
+    <a matRipple (click)="onOpenServerDialog()">
+      <mat-icon>storage</mat-icon> Servers
+    </a>
+  </button>
+  <button mat-button>
+    <a (click)="onOpenServerDialog()">
+      <mat-icon>import_export</mat-icon> Import/Export
+    </a>
+  </button>
 </mat-toolbar>

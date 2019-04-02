@@ -3,7 +3,7 @@ mat-toolbar a {
   font-size: medium;
   cursor: pointer;
   text-decoration: none;
-  padding: 8px 12px;
+  padding: 12px;
 }
 
 mat-toolbar a:hover {

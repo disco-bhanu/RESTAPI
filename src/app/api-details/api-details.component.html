@@ -1,47 +1,48 @@
-<form [formGroup]="form">
-  <div class="mt-3">
-    <mat-form-field class="col-md-1" appearance="outline">
-      <mat-label for="method"> Method</mat-label>
-      <input
-        matInput
-        type="text"
-        name="method"
-        formControlName="method"
-        [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let option of filterOptionsForMethod | async" [value]="option">
-          {{option}}
-        </mat-option>
-      </mat-autocomplete>
-      <mat-hint *ngIf="!form.get('method').valid && form.get('method').touched">*Required</mat-hint>
-    </mat-form-field>
-    <mat-form-field class="col-md-10" appearance="outline">
-      <mat-label for="url"> URL</mat-label>
-      <input
-        matInput
-        type="text"
-        name="url"
-        formControlName="url">
-      <mat-hint *ngIf="!form.get('url').valid && form.get('url').touched">*Required</mat-hint>
-    </mat-form-field>
-    <button
-      mat-icon-button
-      type="button"
-      style="margin: 0 5px; cursor: pointer; vertical-align: super;"
-      color="accent"
-      (click)="onSend()"
-      matTooltip="Send">
-      <mat-icon>send</mat-icon>
-    </button>
-      <button
-        mat-icon-button
-        type="button"
-        style="margin: 0 10px; cursor: pointer; vertical-align: super;"
-        color="accent"
-        (click)="onSave()"
-        matTooltip="Save">
-        <mat-icon>save</mat-icon>
-      </button>
+<form [formGroup]="form" class="mt-3">
+  <div class="row" style="justify-content: space-evenly">
+        <mat-form-field class="col-md-1" appearance="outline">
+            <mat-label for="method"> Method</mat-label>
+            <input
+              matInput
+              type="text"
+              name="method"
+              formControlName="method"
+              [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let option of filterOptionsForMethod | async" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-hint *ngIf="!form.get('method').valid && form.get('method').touched">*Required</mat-hint>
+          </mat-form-field>
+          <mat-form-field class="col-md-10" appearance="outline">
+              <mat-label for="url"> URL</mat-label>
+              <input
+                matInput
+                type="text"
+                name="url"
+                formControlName="url">
+              <mat-hint *ngIf="!form.get('url').valid && form.get('url').touched">*Required</mat-hint>
+            </mat-form-field>
+            <button
+              mat-icon-button
+              type="button"
+              style="cursor: pointer; vertical-align: super;"
+              color="accent"
+              (click)="onSend()"
+              matTooltip="Send">
+              <mat-icon>send</mat-icon>
+            </button>
+              <button
+                mat-icon-button
+                type="button"
+                style=" cursor: pointer; vertical-align: super;"
+                color="accent"
+                (click)="onSave()"
+                matTooltip="Save">
+                <mat-icon>save</mat-icon>
+              </button>
+
   </div>
   <div *ngIf="form.get('method').value === 'POST' || form.get('method').value === 'PUT'">
     <mat-form-field class="col-md-12" appearance="outline">

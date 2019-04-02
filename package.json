@@ -1,6 +1,18 @@
 {
   "name": "restapi",
   "version": "0.0.0",
+  "main": "main.js",
+  "build": {
+    "appId": "com.electron.restapi",
+    "mac": {
+      "category": "public.app-category.developer-tools"
+    }
+  },
+  "files": [
+    "*.js",
+    "dist/*",
+    "node_modules"
+  ],
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

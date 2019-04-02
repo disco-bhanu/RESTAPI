@@ -12,7 +12,6 @@ app.set('views', path.join(DIST_FOLDER, 'RESTAPI'));
 app.engine('html', require('ejs').renderFile)
 app.set('view engine', 'html');
 
-
 app.use(cors());
 app.use(function (req, res, next) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -25,6 +24,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/server', router);
 
+// Comment app.get methods to access outside of electron
 app.get('*.*', express.static(path.join(DIST_FOLDER, 'RESTAPI')));
 app.get('/', (req, res) => {
   res.render(path.join(DIST_FOLDER, 'RESTAPI', 'index.html'))
@@ -33,3 +33,5 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
   console.log(`listning on port : ${PORT}`);
 })
+
+module.exports = app;
