@@ -1,6 +1,4 @@
 .mat-table {
-  margin: auto;
   width: 60%;
-  margin-top: 1%;
-  margin-bottom: 1%;
+  margin: 1% auto;
 }

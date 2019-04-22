@@ -1,5 +1,3 @@
-import { Action } from '@ngrx/store';
-
 import * as AppActions from './app.actions';
 import { APIModel } from '../shared/services.model';
 import { HeadersModel } from '../shared/headers.model';
@@ -16,7 +14,7 @@ export interface State {
 const initState: State = {
   services: [],
   favHeaders: [],
-  selectedService: {sysid: 0, srvid: 0, srvname: null},
+  selectedService: {sysId: null, srvId: null, srvName: null},
   overrideHost: {check: false, hostname: 'initial'},
   sideDrawer: true,
   activeTabIndex: 0

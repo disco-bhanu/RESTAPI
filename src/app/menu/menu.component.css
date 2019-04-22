@@ -3,20 +3,25 @@
 }
 
 .sidenav {
-  width: 250px;
+  width: 15rem;
   height: 90vh;
-}
-
-.mat-icon {
-  width: 30px;
-}
-
-a.active {
-  color: #ff0018;
+  margin-left: 0.5rem;
 }
 
 #sub-menu a:hover {
   color: #ff0018;
+}
+
+#sub-menu a.active {
+  color: #ff0018;
+}
+
+mat-icon {
+  font-size: 1rem;
+}
+
+.mat-list-icon {
+  font-size: 1rem !important;
 }
 
 .mat-drawer {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatTableDataSource } from '@angular/material';
+import { MatDialogRef, MatTableDataSource } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { SelectionModel } from '@angular/cdk/collections';
 import { HeadersList } from '../shared/standard-headers';
@@ -50,9 +50,9 @@ export class GlobalHeadersComponent implements OnInit {
           } else {
             selectedFavHeaders[ele.key] = ele.value;
           }
-        })
+        });
       }
-    )
+    );
   }
 
   onAdd(): void {
@@ -85,17 +85,6 @@ export class GlobalHeadersComponent implements OnInit {
 
   onHeadersValue(event) {
     this.filterOptionsForHeaderValue = HeadersList.values.filter(val => val.toLowerCase().includes(event.target.value));
-  }
-
-  onSelect(event: Event, idx) {
-    //console.log(event);
-    //event.stopPropagation();
-    // this.selection.isSelected()
-    //console.log(this.selection);
-    // this.selection.select(...this.headersData.data);
-    //console.log(this.selection.selected.length);
-    //console.log(this.selection.selected);
-    //this.selection.deselect(this.headersData.data[idx]);
   }
 
 }

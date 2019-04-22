@@ -3,14 +3,6 @@
     <mat-card-content>
       <div *ngIf="tabs.length === 0; else content">
         <div style="display: flex; justify-content: center; align-items: center; height: 42vh">
-          <!-- <mat-card *ngFor="let sys of names" class="m-2">
-            <mat-card-header>{{sys.systemName}}</mat-card-header>
-            <mat-card-content class="m-2 p-2">
-              <ul *ngFor="let srv of sys.serviceNames">
-                <li>{{srv}}</li>
-              </ul>
-            </mat-card-content>
-          </mat-card>-->
           <div class="new-row">
             <button mat-stroked-button color="accent" (click)="onNewRequest()">New Request</button>
             <button mat-stroked-button color="accent">Add Service</button>

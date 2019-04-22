@@ -18,6 +18,11 @@ html, body {
   line-height: 16px !important;*/
 }
 
+.mat-dialog-container {
+  padding-top: 0.5rem !important;
+  padding-left: 0.5rem !important;
+  padding-right: 0.5rem !important;
+}
 
 
 button {

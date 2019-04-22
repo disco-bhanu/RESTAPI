@@ -18,7 +18,7 @@ export class ServersListComponent implements OnInit {
 
   columns = ['server', 'set'];
 
-  serverslist = new MatTableDataSource<List>();
+  serversList = new MatTableDataSource<List>();
 
   selectedIndex;
 
@@ -29,10 +29,9 @@ export class ServersListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.apiService.fetServersList().subscribe(
-      list => this.serverslist.data = [...list]
+    this.apiService.fetchServersList().subscribe(
+      list => this.serversList.data = [...list]
     );
-    // this.serverslist.data = [...this.list];
   }
 
   onSelect(idx) {
@@ -43,7 +42,7 @@ export class ServersListComponent implements OnInit {
     this.store.dispatch(
       new AppActions.OverrideHost({
         check: true,
-        hostname: this.serverslist.data[this.selectedIndex].name
+        hostname: this.serversList.data[this.selectedIndex].name
       })
     );
     this.serverListDialogRef.close();
@@ -53,7 +52,7 @@ export class ServersListComponent implements OnInit {
     this.store.dispatch(
       new AppActions.OverrideHost({
         check: false,
-        hostname: this.serverslist.data[this.selectedIndex].name
+        hostname: this.serversList.data[this.selectedIndex].name
       })
     );
     this.serverListDialogRef.close();

@@ -4,16 +4,10 @@ import { Store } from '@ngrx/store';
 import * as AppActions from '../store/app.actions';
 import { APIService } from '../shared/api.service';
 import { Observable } from 'rxjs';
-import {
-  MatSnackBar,
-  MatDialog,
-  MatDialogRef,
-  MAT_DIALOG_DATA
-} from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
 import { APIDetails } from './api-details.model';
 import { map, startWith } from 'rxjs/operators';
 
-import { GlobalHeadersComponent } from '../global-headers/global-headers.component';
 import { NotifierComponent } from '../notifier/notifier.component';
 import { SaveServiceComponent } from '../save-service/save-service.component';
 import { HeadersList } from '../shared/standard-headers';
@@ -25,48 +19,29 @@ import { HeadersList } from '../shared/standard-headers';
 })
 export class ApiDetailsComponent implements OnInit {
   form: FormGroup;
-
   apiDetails: APIDetails;
-
   isSelected = false;
-
   newService = false;
-
   changeTabOnSend = 0;
-
-  headermenu;
-
   serviceId;
-
   headers = [];
-
-  newheader = false;
-
+  newHeader = false;
   methodOptions: string[] = ['GET', 'POST', 'PUT', 'DELETE', 'HEAD'];
-
   key: HTMLInputElement;
-
   filterOptionsForMethod: Observable<string[]>;
-
   filterOptionsForHeaderKey: string[];
-
   filterOptionsForHeaderValue: string[];
-
   responseTime: String = '--';
-
   statusCode: String = '--';
-
   activeTabNum;
-
   tabPosition;
 
-  @Input() set serviceContent(content) {
-    if (content === undefined || content === '0_0') {
+  @Input() set serviceContent(id) {
+    if (id === null) {
       this.newService = true;
     } else {
-      // console.log(content);
-      this.serviceId = content;
-      this.apiDetails = this.apiService.fetchById(content);
+      this.serviceId = id;
+      this.apiDetails = this.apiService.fetchById(id);
       this.headers = Object.keys(this.apiDetails.service.headers);
     }
     this.buildForm();
@@ -85,9 +60,7 @@ export class ApiDetailsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.filterOptionsForMethod = this.form.controls[
-      'method'
-    ].valueChanges.pipe(
+    this.filterOptionsForMethod = this.form.controls['method'].valueChanges.pipe(
       startWith(''),
       map(value => this.filter(value))
     );
@@ -104,11 +77,13 @@ export class ApiDetailsComponent implements OnInit {
           (!overrideHost.check && overrideHost.hostname !== 'initial')
         ) {
           const uri: string = this.form.controls['url'].value;
-          const method: string = uri.substring(0, uri.indexOf('://'));
-          const urn: string = uri.substring(uri.indexOf('://') + 3);
-          const path: string = urn.substring(urn.indexOf('/') + 1);
-          const newURI = method + '://' + overrideHost.hostname + '/' + path;
-          this.form.controls['url'].patchValue(newURI);
+          if (uri !== undefined) {
+            const method: string = uri.substring(0, uri.indexOf('://'));
+            const urn: string = uri.substring(uri.indexOf('://') + 3);
+            const path: string = urn.substring(urn.indexOf('/') + 1);
+            const newURI = method + '://' + overrideHost.hostname + '/' + path;
+            this.form.controls['url'].patchValue(newURI);
+          }
         }
       });
   }
@@ -127,10 +102,11 @@ export class ApiDetailsComponent implements OnInit {
     const _headers = new FormArray([]);
 
     if (!this.newService) {
+      console.log(this.apiDetails);
       systemName = this.apiDetails.name;
-      systemId = this.apiDetails.id;
+      systemId = this.serviceId.split('_')[0];
       serviceName = this.apiDetails.service.name;
-      serviceId = this.apiDetails.service.id;
+      serviceId = this.serviceId.split('_')[1];
       description = this.apiDetails.service.description;
       url = this.apiDetails.service.url;
       method = this.apiDetails.service.method;
@@ -189,12 +165,6 @@ export class ApiDetailsComponent implements OnInit {
   onSave() {
     if (this.onValidate()) {
       this.onOpenSaveDialog();
-      /*this.apiService.save(this.form.value).subscribe(res => {
-        this.snackbar.open('Saved.', null, {
-          duration: 20000,
-          horizontalPosition: 'right'
-        });
-      });*/
     }
   }
 
@@ -216,10 +186,6 @@ export class ApiDetailsComponent implements OnInit {
     return true;
   }
 
-  onNewHeader() {
-    this.newheader = true;
-  }
-
   onDeleteHeader(idx) {
     (<FormArray>this.form.get('headers')).removeAt(idx);
   }
@@ -235,7 +201,7 @@ export class ApiDetailsComponent implements OnInit {
       );
       key.value = '';
       value.value = '';
-      this.newheader = false;
+      this.newHeader = false;
     }
   }
 
@@ -255,22 +221,6 @@ export class ApiDetailsComponent implements OnInit {
     return this.methodOptions.filter(option =>
       option.toLowerCase().includes(val.toLowerCase())
     );
-  }
-
-  openDialog(): void {
-    const dialogRef = this.dialog.open(GlobalHeadersComponent, {
-      width: '700px'
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      result.forEach(h => {
-        (<FormArray>this.form.get('headers')).push(
-          new FormGroup({
-            key: new FormControl(h.key),
-            value: new FormControl(h.value)
-          })
-        );
-      });
-    });
   }
 
   onOpenSaveDialog() {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Subject, Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, startWith, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as AppActions from '../store/app.actions';
@@ -12,12 +12,9 @@ import * as AppActions from '../store/app.actions';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-  $searchString = new Subject();
-  searchString;
   searchableData: object[] = [];
   searchCtrl = new FormControl();
   filteredSearch: Observable<any>;
-  apilist = [];
 
   constructor(public store: Store<{ appStore: any }>) {}
 
@@ -30,13 +27,15 @@ export class SearchComponent implements OnInit {
             this.searchableData.push({
               keyword: sys.name.toLowerCase() + ' | ' + srv.name.toLowerCase() + ' | ' + srv.url.toLowerCase(),
               id: sys.id + '_' + srv.id,
-              srvname: srv.name
+              srvName: srv.name
             });
           });
         });
       });
     this.filteredSearch = this.searchCtrl.valueChanges.pipe(
       startWith(''),
+      debounceTime(200),
+      distinctUntilChanged(),
       map(keyword =>
         this.searchableData.filter((s: any) =>
           s.keyword.includes(keyword.toLowerCase())
@@ -51,9 +50,9 @@ export class SearchComponent implements OnInit {
     )[0];
     this.store.dispatch(
       new AppActions.SelectedService({
-        sysid: search.id.split('_')[0],
-        srvid: search.id.split('_')[1],
-        srvname: search.srvname
+        sysId: search.id.split('_')[0],
+        srvId: search.id.split('_')[1],
+        srvName: search.srvName
       })
     );
   }

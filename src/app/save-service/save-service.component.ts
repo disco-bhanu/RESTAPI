@@ -7,7 +7,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
   templateUrl: './save-service.component.html',
   styleUrls: ['./save-service.component.css']
 })
-export class SaveServiceComponent implements OnInit{
+export class SaveServiceComponent implements OnInit {
 
   form = new FormGroup({
     systemName: new FormControl('', Validators.required),
@@ -26,7 +26,6 @@ export class SaveServiceComponent implements OnInit{
   }
 
   onSave() {
-    const savedForm = {...this.data};
     this.dialogRef.close({
       ...this.data,
       systemName: this.form.get('systemName').value,

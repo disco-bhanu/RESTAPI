@@ -11,7 +11,6 @@ import { Store } from '@ngrx/store';
 })
 export class MenuComponent implements OnInit {
   items = [];
-  apiList = [];
   selectedService: string;
   selectedServiceIDs: string;
 
@@ -21,60 +20,36 @@ export class MenuComponent implements OnInit {
     private apiService: APIService,
     public store: Store<{ appStore: any }>
   ) {
-    this.apiService.fetchServicesList().subscribe(res => {
-      this.store.dispatch(new AppActions.APIList(res));
+    this.apiService.fetchServicesList().subscribe(() => {
+      this.items = this.apiService.fetchMenuItems();
     });
 
     this.store
       .select(state => state.appStore.services)
       .subscribe(res => {
-        console.log('From State');
-        console.log(res);
-        this.apiList = res;
-        this.fetchMenuItems();
-        this.apiService.fetchServiceNames();
+        this.items = this.apiService.fetchMenuItems();
       });
   }
 
   ngOnInit() {
     this.store
       .select(state => state.appStore.sideDrawer)
-      .subscribe(flag => {
-        this.drawer.toggle();
+      .subscribe(() => {
+        this.drawer.toggle().then();
       });
-  }
-
-  fetchMenuItems() {
-    this.items = [];
-    this.apiList.slice().forEach((ele, idx) => {
-      this.items.push({
-        name: ele.name,
-        id: ele.id,
-        expanded: true,
-        services: []
-      });
-      ele.services.forEach(service => {
-        this.items[idx].services.push({ id: service.id, name: service.name });
-      });
-    });
-    this.items = [...this.items];
   }
 
   onExpand(id) {
     this.items[id].expanded = !this.items[id].expanded;
   }
 
-  onSelect(sysidx, srvidx) {
-    this.selectedServiceIDs = sysidx + '_' + srvidx;
+  onSelect(sysIdx, srvIdx) {
+    this.selectedServiceIDs = sysIdx + '_' + srvIdx;
     const selectedService = {
-      sysid: this.items[sysidx].id,
-      srvid: this.items[sysidx].services[srvidx].id,
-      srvname: this.items[sysidx].services[srvidx].name
+      sysId: sysIdx,
+      srvId: srvIdx,
+      srvName: this.items[sysIdx].services[srvIdx].name
     };
     this.store.dispatch(new AppActions.SelectedService(selectedService));
-  }
-
-  onNewService() {
-    this.apiService.newService();
   }
 }

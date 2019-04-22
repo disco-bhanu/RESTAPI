@@ -1,10 +1,8 @@
 [
     {
         "name": "System 1",
-        "id": 1,
         "services": [
             {
-                "id": 1,
                 "name": "Service 1",
                 "description": "blah blah blah",
                 "url": "google1.com",
@@ -14,15 +12,13 @@
                 "sampleResponse": "asjkdsakjdasjkd"
             },
             {
-                "id": 2,
-                "name": "Service 2",
+                "name": "Service 22",
                 "description": "blah blah blah",
-                "url": "google2.com",
+                "url": "google21.com",
                 "method": "POST",
                 "headers": []
             },
             {
-                "id": 3,
                 "name": "Service 3",
                 "description": "blah blah blah",
                 "url": "google3.com",
@@ -32,7 +28,6 @@
                 "sampleResponse": ""
             },
             {
-                "id": 4,
                 "name": "Service 4",
                 "description": "blah blah blah",
                 "url": "google4.com",
@@ -42,7 +37,6 @@
                 "sampleResponse": ""
             },
             {
-                "id": 5,
                 "name": "Service 5",
                 "description": "blah blah blah",
                 "method": "POST",
@@ -55,20 +49,15 @@
     },
     {
         "name": "System 2",
-        "id": 2,
         "services": [
             {
-                "id": 6,
                 "name": "Service 6",
                 "description": "blah blah blah",
-                "url": "google6.com",
+                "url": "google16.com",
                 "method": "POST",
-                "headers": [],
-                "sampleRequest": "",
-                "sampleResponse": ""
+                "headers": []
             },
             {
-                "id": 7,
                 "name": "Service 7",
                 "description": "blah blah blah",
                 "url": "google7.com",
@@ -78,7 +67,6 @@
                 "sampleResponse": ""
             },
             {
-                "id": 8,
                 "name": "Service 8",
                 "description": "blah blah blah",
                 "url": "google8.com",
@@ -88,7 +76,6 @@
                 "sampleResponse": ""
             },
             {
-                "id": 9,
                 "name": "Service 9",
                 "description": "blah blah blah",
                 "url": "google9.com",
@@ -98,7 +85,6 @@
                 "sampleResponse": "Testt1"
             },
             {
-                "id": 10,
                 "name": "Service 10",
                 "description": "blah blah blah",
                 "url": "google10.com",

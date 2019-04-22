@@ -10,10 +10,9 @@
         name="key"
         id="key"
         [(ngModel)]="header_key"
-        #headerkey
         (keyup)="onHeadersKey($event)"
-        [matAutocomplete]="headerskeyauto">
-      <mat-autocomplete #headerskeyauto="matAutocomplete">
+        [matAutocomplete]="headersKeyAuto">
+      <mat-autocomplete #headersKeyAuto="matAutocomplete">
         <mat-option *ngFor="let option of filterOptionsForHeaderKey" [value]="option">
           {{option}}
         </mat-option>
@@ -26,10 +25,9 @@
         name="value"
         id="value"
         [(ngModel)]="header_value"
-        #headervalue
         (keyup)="onHeadersValue($event)"
-        [matAutocomplete]="headersvalueauto">
-      <mat-autocomplete #headersvalueauto="matAutocomplete">
+        [matAutocomplete]="headersValueAuto">
+      <mat-autocomplete #headersValueAuto="matAutocomplete">
         <mat-option *ngFor="let option of filterOptionsForHeaderValue" [value]="option">
           {{option}}
         </mat-option>

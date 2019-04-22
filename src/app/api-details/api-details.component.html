@@ -100,10 +100,10 @@
             <input
               matInput
               name="key"
-              #headerkey
+              #headerKey
               (keyup)="onHeadersKey($event)"
-              [matAutocomplete]="headerskeyauto">
-            <mat-autocomplete #headerskeyauto="matAutocomplete">
+              [matAutocomplete]="headersKeyAuto">
+            <mat-autocomplete #headersKeyAuto="matAutocomplete">
               <mat-option *ngFor="let option of filterOptionsForHeaderKey" [value]="option">
                 {{option}}
               </mat-option>
@@ -114,10 +114,10 @@
             <input
               matInput
               name="value"
-              #headervalue
+              #headerValue
               (keyup)="onHeadersValue($event)"
-              [matAutocomplete]="headersvalueauto">
-            <mat-autocomplete #headersvalueauto="matAutocomplete">
+              [matAutocomplete]="headersValueAuto">
+            <mat-autocomplete #headersValueAuto="matAutocomplete">
               <mat-option *ngFor="let option of filterOptionsForHeaderValue" [value]="option">
                 {{option}}
               </mat-option>
@@ -127,7 +127,7 @@
             mat-icon-button
             matTooltip="Add Header"
             type="button"
-            (click)="onAdd(headerkey, headervalue)">
+            (click)="onAdd(headerKey, headerValue)">
             <mat-icon color="accent">add_circle</mat-icon>
           </button>
         </div>

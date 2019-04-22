@@ -3,8 +3,9 @@
 const express = require('express');
 const request = require('request');
 const fs = require('fs');
-const db = require('./services.json');
+let db = require('./services.json');
 const serversList = require('./serversList.json');
+const path = require('path');
 
 const router = express.Router();
 
@@ -12,7 +13,7 @@ router.get('/services', (req, res) => {
   res.json(db);
 });
 
-router.get('/serverslist', (req, res) => {
+router.get('/servers', (req, res) => {
   res.send(serversList);
 });
 
@@ -24,18 +25,30 @@ router.post('/save', (req, res) => {
   save(req.body, res);
 });
 
-function sendRequest(fdata, res) {
+router.get('/export', (req, res) => {
+  res.sendFile(path.join(__dirname, 'services.json'))
+});
+
+router.post('/import', (req, res) => {
+  importRequest(req.body, res);
+});
+
+router.post('/delete', (req, res) => {
+  deleteRequest(req.body, res);
+});
+
+function sendRequest(form, res) {
   let headers = null;
-  if (fdata.headers !== undefined || fdata.headers !== null) {
-    headers = fdata.headers.reduce( (headersObj, header) => {
+  if (form.headers !== undefined || form.headers !== null) {
+    headers = form.headers.reduce( (headersObj, header) => {
       headersObj[header.key] = header.value;
       return headersObj;
     }, {});
   }
   const options = {
-    method: fdata.method,
-    url: fdata.url,
-    body: fdata.body || null,
+    method: form.method,
+    url: form.url,
+    body: form.body || null,
     headers: headers,
     time: true
   };
@@ -58,36 +71,71 @@ function sendRequest(fdata, res) {
 function save(data, res) {
   if (data.systemId === null && data.serviceId === null) {
     console.log('New service request');
-    // db.findIndex( (system: DB) => system.name.includes(data.name)) > -1 ? newService(data) : newSystem(data);
   } else {
     existingService(data);
   }
-  fs.writeFileSync('./server/services.json', JSON.stringify(db, undefined, 4));
+  console.log(db[0]);
+  fs.writeFileSync(path.join(__dirname, 'services.json'), JSON.stringify(db, undefined, 4));
   res.send(db);
 }
 
 function existingService(data) {
+  console.log(data);
   try {
-    db.forEach((system, systemindex) => {
-      console.log(system);
-      if (system.id.toString() === data.systemId.toString()) {
-        const serviceindex = system.services.findIndex(service => service.id.toString() === data.serviceId.toString());
-        db[systemindex].id = data.systemId;
-        db[systemindex].name = data.systemName;
-        db[systemindex].services[serviceindex].id = data.serviceId;
-        db[systemindex].services[serviceindex].method = data.method;
-        db[systemindex].services[serviceindex].url = data.url;
-        db[systemindex].services[serviceindex].headers = data.headers;
-        db[systemindex].services[serviceindex].name = data.serviceName;
-        db[systemindex].services[serviceindex].sampleRequest = data.sampleRequest;
-        db[systemindex].services[serviceindex].sampleResponse = data.sampleResponse;
-        db[systemindex].services[serviceindex].description = data.description;
-      }
-    });
+    db[data.systemId].name = data.systemName;
+    db[data.systemId].services[data.serviceId].name = data.serviceName;
+    db[data.systemId].services[data.serviceId].description = data.description;
+    db[data.systemId].services[data.serviceId].method = data.method;
+    db[data.systemId].services[data.serviceId].url = data.url;
+    db[data.systemId].services[data.serviceId].headers = data.headers;
+    db[data.systemId].services[data.serviceId].sampleRequest = data.sampleRequest;
+    db[data.systemId].services[data.serviceId].sampleResponse = data.sampleResponse;
   } catch (e) {
     console.log(e);
   }
 
+}
+
+function deleteRequest(ids, res) {
+  let tempDB = db.slice();
+  ids.reverse().forEach( id => {
+    let systemIdx = id.split('_')[0];
+    let serviceIdx = id.split('_')[1];
+    tempDB[systemIdx].services.splice(serviceIdx, 1);
+  });
+  tempDB = tempDB.filter(item => item.services.length > 0);
+  fs.writeFileSync(path.join(__dirname, 'services.json'), JSON.stringify(tempDB, undefined, 4));
+  res.json(tempDB);
+}
+
+function importRequest(file, res) {
+  let isGood = true;
+  if(Array.isArray(file)) {
+    file.forEach(sys => {
+      if(sys.hasOwnProperty('name') && sys.hasOwnProperty('services')) {
+        if(Array.isArray(sys.services)) {
+          sys.services.forEach( srv => {
+            if(!srv.hasOwnProperty('name') && !srv.hasOwnProperty('url') && !srv.hasOwnProperty('method')) {
+              isGood = false;
+            }
+          })
+        } else {
+          isGood = false;
+        }
+      } else {
+        isGood = false;
+      }
+    })
+  } else {
+    isGood = false;
+  }
+  if(isGood === false) {
+    res.status('422').send();
+  } else {
+    db = [...db, ...file];
+    fs.writeFileSync(path.join(__dirname, 'services.json'), JSON.stringify(db, undefined, 4));
+    res.json(db);
+  }
 }
 
 module.exports = router;

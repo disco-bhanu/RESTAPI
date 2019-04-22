@@ -1,24 +1,41 @@
-mat-toolbar a {
+mat-toolbar #nav-items a {
   color: #ffff;
   font-size: medium;
   cursor: pointer;
   text-decoration: none;
-  padding: 12px;
 }
 
-mat-toolbar a:hover {
-  border-bottom: 2px solid white;
+mat-toolbar #nav-items button:hover {
+  border-bottom: 0.02rem solid white;
+}
+
+mat-toolbar #nav-items button {
+  padding: 0.25rem 1rem;
+  border-radius: 0;
+}
+
+mat-toolbar #nav {
+  display: flex;
+  align-items: center;
+  align-content: space-between;
+  justify-content: space-between;
 }
 
 .mat-toolbar-row, .mat-toolbar-single-row {
-  height: 50px !important;
+  height: 3rem !important;
 }
 
 mat-icon {
   vertical-align: text-bottom;
-  width: 30px;
+  font-size: 1.2rem;
 }
 
 * {
   text-shadow: 2px 2px 4px #000000;
+}
+
+@media(max-width: 1300px) {
+  mat-toolbar #nav-items span {
+    display: none
+  }
 }

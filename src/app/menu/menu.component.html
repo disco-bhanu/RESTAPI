@@ -14,9 +14,9 @@
         </a>
         <div *ngIf="system.expanded" id="sub-menu">
           <div *ngFor="let service of system.services; let j = index">
-            <a class="pl-3" mat-list-item (click)="onSelect(i,j)">
-              <mat-icon>device_hub</mat-icon>{{service.name}}
-            </a>
+                <a class="pl-3" mat-list-item (click)="onSelect(i,j)">
+                    <mat-icon>device_hub</mat-icon>{{service.name}}
+                  </a>
           </div>
         </div>
       </div>

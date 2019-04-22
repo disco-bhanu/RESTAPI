@@ -16,10 +16,11 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build --base-href ./",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "package": "electron-packager ."
   },
   "private": true,
   "dependencies": {
@@ -41,6 +42,7 @@
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "jquery": "^3.3.1",
+    "multer": "^1.4.1",
     "popper": "^1.0.1",
     "request": "^2.88.0",
     "rxjs": "~6.3.3",
@@ -56,6 +58,8 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",
     "codelyzer": "~4.5.0",
+    "electron": "^4.1.4",
+    "electron-packager": "^13.1.1",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~3.1.1",

@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, ApplicationInitStatus } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as AppActions from '../../store/app.actions';
 
@@ -10,11 +10,10 @@ import { APIService } from '../../shared/api.service';
   styleUrls: ['./menu-content.component.css']
 })
 export class MenuContentComponent implements OnInit {
-  tabs = [{id: '0_0', name: 'New'}];
+  tabs = [{id: null, name: 'New'}];
   names = [];
   selectedTab = 0;
   activeTabIndex;
-  servicemenu;
   position;
 
   constructor(
@@ -29,13 +28,13 @@ export class MenuContentComponent implements OnInit {
       .subscribe(selected => {
         console.log(selected);
         // Initial state
-        if (selected.sysid === 0 && selected.srvid === 0) {
+        if (selected.sysId === null && selected.srvId === null) {
         } else {
-          const tabId = selected.sysid + '_' + selected.srvid;
+          const tabId = selected.sysId + '_' + selected.srvId;
           const tabIdx = this.tabs.findIndex(tab => tab.id === tabId);
           if (tabIdx === -1) {
-            console.log('not found')
-            this.tabs.push({ id: tabId, name: selected.srvname });
+            console.log('not found');
+            this.tabs.push({ id: tabId, name: selected.srvName });
             this.selectedTab = this.tabs.length - 1;
           } else {
             this.selectedTab = tabIdx;
@@ -54,7 +53,7 @@ export class MenuContentComponent implements OnInit {
 
   onNewRequest() {
     console.log('add');
-    this.tabs.push({ id: '0_0', name: 'New'});
+    this.tabs.push({ id: null, name: 'New'});
     this.selectedTab = this.tabs.length - 1;
   }
 }

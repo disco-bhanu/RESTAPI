@@ -39,6 +39,7 @@ import { SaveServiceComponent } from './save-service/save-service.component';
 
 import { StoreModule } from '@ngrx/store';
 import { appReducer } from './store/app.reducer';
+import { EditServicesComponent } from './edit-services/edit-services.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { appReducer } from './store/app.reducer';
     MenuContentComponent,
     GlobalHeadersComponent,
     ApiDetailsComponent,
-    SaveServiceComponent
+    SaveServiceComponent,
+    EditServicesComponent
   ],
   imports: [
     BrowserModule,
@@ -80,6 +82,7 @@ import { appReducer } from './store/app.reducer';
     MatTableModule,
     MatRadioModule,
     MatRippleModule,
+    MatMenuModule,
     StoreModule.forRoot({appStore: appReducer})
   ],
   providers: [],
@@ -88,7 +91,8 @@ import { appReducer } from './store/app.reducer';
     GlobalHeadersComponent,
     ServersListComponent,
     NotifierComponent,
-    SaveServiceComponent
+    SaveServiceComponent,
+    EditServicesComponent
   ]
 })
 export class AppModule { }

@@ -2,7 +2,7 @@
 <mat-divider></mat-divider>
 <div mat-dialog-content>
   <div class="col-md-12">
-   <table mat-table [dataSource]="serverslist" class="mat-elevation-z8" >
+   <table mat-table [dataSource]="serversList" class="mat-elevation-z8" >
         <ng-container matColumnDef="server">
           <th mat-header-cell *matHeaderCellDef style="margin-left: 1%"> Server Name </th>
           <td mat-cell style="margin-left: 1%" *matCellDef="let server"> {{server.name}} </td>

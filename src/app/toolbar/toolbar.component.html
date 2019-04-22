@@ -1,29 +1,48 @@
-<mat-toolbar color="primary" style="display: fixed" class="mat-elevation-z24">
-  <button
-    type="button"
-    aria-label="Toggle sidenav"
-    mat-icon-button
-    (click)="drawerToggle()"
-    style="outline: none"
-  >
-    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-  </button>
-  <span> REST API </span>
-  <app-search style="margin-left: 20%;" class="col-md-5"></app-search>
-  <span style="flex: 1 1 auto"></span>
-  <button mat-button>
-    <a (click)="onOpenGlobalHeaderDialog()">
-      <mat-icon>public</mat-icon> Global Headers
-    </a>
-  </button>
-  <button mat-button>
-    <a matRipple (click)="onOpenServerDialog()">
-      <mat-icon>storage</mat-icon> Servers
-    </a>
-  </button>
-  <button mat-button>
-    <a (click)="onOpenServerDialog()">
-      <mat-icon>import_export</mat-icon> Import/Export
-    </a>
-  </button>
+<mat-toolbar color="primary" class="mat-elevation-z24">
+  <span id="nav" class="col-md-12">
+    <span id="app-title">
+      <button
+      aria-label="Toggle sidenav"
+      mat-icon-button
+      (click)="drawerToggle()"
+      style="outline: none; cursor: pointer;">
+      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button>
+    <span> REST API </span>
+  </span>
+    <span id="app-search" class="col-md-6">
+      <app-search></app-search>
+    </span>
+      <!--span style="flex: 1 1 auto"></span>-->
+    <span id="nav-items">
+      <button mat-button (click)="onOpenGlobalHeaderDialog()">
+          <mat-icon>public</mat-icon>
+          <span>Global Headers</span>
+      </button>
+      <button mat-button (click)="onOpenServerDialog()">
+          <mat-icon>storage</mat-icon>
+          <span>Servers</span>
+      </button>
+      <button mat-button [matMenuTriggerFor]="menu">
+        <mat-icon>settings</mat-icon>
+        <span>Settings</span>
+        <mat-icon>arrow_drop_down</mat-icon>
+      </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="onEditServices()">
+            <mat-icon>edit</mat-icon>
+            Edit Services
+          </button>
+          <span mat-menu-item>
+            <label for="upload" style="cursor: pointer"><mat-icon>vertical_align_bottom</mat-icon>Import Services</label>
+            <input type="file" name="upload" id="upload" hidden (change)="onUpload($event)">
+          </span>
+          <button mat-menu-item (click)="onExportServices()">
+            <mat-icon>vertical_align_top</mat-icon>
+            Export Services
+          </button>
+        </mat-menu>
+    </span>
+  </span>
+
 </mat-toolbar>
