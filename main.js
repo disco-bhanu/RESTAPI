@@ -1,7 +1,7 @@
 const { app, BrowserWindow, Menu, ipcMain } = require("electron");
 const path = require("path");
 const url = require("url");
-const server = require('../server');
+const server = require('./server');
 let win;
 
 function createWindow() {
