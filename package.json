@@ -1,7 +1,7 @@
 {
   "name": "restapi",
   "version": "0.0.0",
-  "main": "main.js",
+  "main": "./electron/main.js",
   "build": {
     "appId": "com.electron.restapi",
     "mac": {
@@ -54,6 +54,7 @@
     "@angular/cli": "~7.1.4",
     "@angular/compiler-cli": "^7.2.11",
     "@angular/language-service": "~7.1.0",
+    "@types/electron": "^1.6.10",
     "@types/jasmine": "~2.8.8",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~8.9.4",

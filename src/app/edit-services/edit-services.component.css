@@ -1,0 +1,30 @@
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul li {
+  display: flex;
+  padding: 0.3rem 1.5rem;
+  background-color: #363636;
+  border-radius: 2px;
+  box-sizing: border-box;
+  margin-top: 3px;
+}
+
+ul li:hover {
+  background-color: #303030;
+}
+
+button {
+  line-height: 25px;
+}
+
+mat-card {
+  background-color: #404040;
+}
+
+mat-dialog-container {
+  padding-top: 10px !important;
+}

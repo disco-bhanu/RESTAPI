@@ -6,6 +6,8 @@ import * as AppActions from '../store/app.actions';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { ipcRenderer, IpcRenderer } from 'electron';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,12 +21,27 @@ export class APIService {
 
   favHeaders = [];
 
-  constructor(public http: HttpClient, public store: Store<{appStore: any}>) { }
+  private ipc: IpcRenderer;
+
+
+  constructor(public http: HttpClient, public store: Store<{appStore: any}>) {
+    if ((<any>window).require) {
+      try {
+        this.ipc = (<any>window).require('electron').ipcRenderer;
+      } catch (error) {
+        throw error;
+      }
+    } else {
+      console.warn('Could not load electron ipc')
+    }
+   }
 
   fetchServicesList(): Observable<any> {
     return this.http.get('http://localhost:4000/server/services')
       .pipe(
         map((res: any) => {
+          this.ipc.on('tested', (e) => console.log(e));
+          this.ipc.send('test');
           this.APIList = res;
           this.store.dispatch(new AppActions.APIList(res));
           return true;

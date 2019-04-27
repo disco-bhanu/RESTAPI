@@ -1,0 +1,37 @@
+
+<h1 mat-dialog-title>Edit Services</h1>
+<mat-divider></mat-divider>
+<div mat-dialog-content>
+  <div class="col-md-12">
+    <div class="row">
+      <mat-card class="col-md-5 m-2" *ngFor="let system of items; let i = index">
+        <mat-card-title style="padding: 0.1rem">
+          <h6 mat-card-header-text>{{system.sysName}}</h6>
+          <mat-divider></mat-divider>
+        </mat-card-title>
+        <mat-card-content>
+          <ul *ngFor="let service of system.services; let j = index" >
+            <li>{{service.name}}
+              <span style="flex: 1 1 auto"></span>
+              <button
+
+                [ngClass]="{'mat-basic': !service.marked, 'mat-primary': service.marked, 'mat-stroked-button': true}"
+                color="primary"
+                style="line-height: 25px"
+                (click)="onDelete(i, j)">
+                <span *ngIf="!service.marked">Delete</span>
+                <span *ngIf="service.marked">Marked</span>
+              </button>
+              <!-- [ngClass]="{'mat-flat-button': service.marked, 'mat-stroked-button': !service.marked, 'mat-primary': true}"
+-->
+            </li>
+          </ul>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="onSave()">Delete</button>
+  <button mat-raised-button color="warn">Cancel</button>
+</div>

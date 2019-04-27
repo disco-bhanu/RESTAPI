@@ -1,7 +1,7 @@
-const { app, BrowserWindow, Menu } = require("electron");
+const { app, BrowserWindow, Menu, ipcMain } = require("electron");
 const path = require("path");
 const url = require("url");
-const server = require('./server');
+const server = require('../server');
 let win;
 
 function createWindow() {
@@ -17,7 +17,7 @@ function createWindow() {
 
   win.loadURL(`file://${__dirname}/dist/RESTAPI/index.html`)
 
-  //win.webContents.openDevTools()
+  win.webContents.openDevTools()
 
   win.on("closed", () => {
     win = null;
@@ -47,6 +47,10 @@ function createWindow() {
   ];
 
   Menu.setApplicationMenu(Menu.buildFromTemplate(template));
+
+  ipcMain.on('test', (e) => {
+    win.webContents.send('tested', 'hello')
+  });
 }
 
 app.on("ready", createWindow);
