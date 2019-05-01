@@ -43,8 +43,8 @@
     </mat-form-field>
     <button mat-raised-button color="primary" class="col-md-1" (click)="onAdd();" > Add</button>
   </div>
-  <div class="col-md-12" *ngIf="this.headersData.data.length > 0">
-   <table mat-table [dataSource]="headersData" class="mat-elevation-z8" >
+  <div class="col-md-12" *ngIf="this.headers.data.length > 0">
+   <table mat-table [dataSource]="headers" class="mat-elevation-z8" >
     <ng-container matColumnDef="select">
       <th mat-header-cell *matHeaderCellDef>
         <mat-checkbox color="warn" (change)="$event ? masterToggle() : null"
@@ -53,9 +53,10 @@
         </mat-checkbox>
       </th>
       <td mat-cell *matCellDef="let row; let idx = index">
+        <!-- (change)="$event ? selection.toggle(row) : null" -->
         <mat-checkbox color="warn" (click)="$event.stopPropagation();"
-                      (change)="$event ? selection.toggle(row) : null"
-                      [checked]="selection.isSelected(row)">
+                      (change)="onSelect($event, idx)"
+                      [checked]="row.selected">
         </mat-checkbox>
       </td>
     </ng-container>

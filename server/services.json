@@ -5,27 +5,29 @@
             {
                 "name": "Service 1",
                 "description": "blah blah blah",
-                "url": "google1.com",
+                "url": "google11.com",
                 "method": "POST",
                 "headers": [],
-                "sampleRequest": "kashdkajshdkasjd",
+                "sampleRequest": null,
                 "sampleResponse": "asjkdsakjdasjkd"
             },
             {
-                "name": "Service 22",
+                "name": "Service 2",
                 "description": "blah blah blah",
                 "url": "google21.com",
                 "method": "POST",
-                "headers": []
+                "headers": [],
+                "sampleRequest": null,
+                "sampleResponse": null
             },
             {
-                "name": "Service 3",
+                "name": "Service 33",
                 "description": "blah blah blah",
                 "url": "google3.com",
                 "method": "POST",
                 "headers": [],
-                "sampleRequest": "",
-                "sampleResponse": ""
+                "sampleRequest": null,
+                "sampleResponse": null
             },
             {
                 "name": "Service 4",
@@ -44,6 +46,15 @@
                 "headers": [],
                 "sampleRequest": "",
                 "sampleResponse": ""
+            },
+            {
+                "name": "Service 6",
+                "description": null,
+                "method": "GET",
+                "url": "google.com",
+                "headers": [],
+                "sampleRequest": null,
+                "sampleResponse": null
             }
         ]
     },
@@ -92,6 +103,34 @@
                 "headers": [],
                 "sampleRequest": "Test2",
                 "sampleResponse": "Testst3"
+            }
+        ]
+    },
+    {
+        "name": "System 3",
+        "services": [
+            {
+                "name": "Service 1",
+                "description": "",
+                "method": "GET",
+                "url": "google.com",
+                "headers": [],
+                "sampleRequest": null,
+                "sampleResponse": null
+            }
+        ]
+    },
+    {
+        "name": "System 4",
+        "services": [
+            {
+                "name": "Service 1",
+                "description": "",
+                "method": "GET",
+                "url": "google.com",
+                "headers": [],
+                "sampleRequest": null,
+                "sampleResponse": null
             }
         ]
     }

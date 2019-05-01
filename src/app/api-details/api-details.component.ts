@@ -77,7 +77,7 @@ export class ApiDetailsComponent implements OnInit {
           (!overrideHost.check && overrideHost.hostname !== 'initial')
         ) {
           const uri: string = this.form.controls['url'].value;
-          if (uri !== undefined) {
+          if (uri !== undefined && uri !== null) {
             const method: string = uri.substring(0, uri.indexOf('://'));
             const urn: string = uri.substring(uri.indexOf('://') + 3);
             const path: string = urn.substring(urn.indexOf('/') + 1);
@@ -131,7 +131,7 @@ export class ApiDetailsComponent implements OnInit {
       serviceName: new FormControl(serviceName),
       serviceId: new FormControl(serviceId),
       description: new FormControl(description),
-      url: new FormControl(url, Validators.required),
+      url: new FormControl(url, [Validators.required, Validators.pattern(/^(http|https|HTTP|HTTPS):\/\//)]),
       method: new FormControl(method, Validators.required),
       body: new FormControl(body),
       headers: _headers,
@@ -169,17 +169,17 @@ export class ApiDetailsComponent implements OnInit {
   }
 
   onValidate() {
-    if (this.form.get('url').value === null) {
+    if (!this.form.get('url').valid) {
       this.snackbar.openFromComponent(NotifierComponent, {
         horizontalPosition: 'right',
-        data: { message: 'URL is required.'}
+        data: { message: 'URL is invalid.'}
       });
       return false;
     }
-    if (this.form.get('method').value === null) {
+    if (!this.form.get('method').valid) {
       this.snackbar.openFromComponent(NotifierComponent, {
         horizontalPosition: 'right',
-        data: { message: 'Method is required.'}
+        data: { message: 'Method is invalid.'}
       });
       return false;
     }
@@ -232,9 +232,11 @@ export class ApiDetailsComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(data => {
       console.log(data);
-      this.apiService.save(data).subscribe(res => {
-        this.store.dispatch(new AppActions.APIList(res));
-      });
+      if (data !== undefined) {
+        this.apiService.save(data).subscribe(res => {
+          this.store.dispatch(new AppActions.APIList(res));
+        });
+      }
     });
   }
 }

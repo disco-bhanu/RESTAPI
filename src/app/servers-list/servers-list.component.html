@@ -1,23 +1,47 @@
 <h1 mat-dialog-title>Servers List</h1>
 <mat-divider></mat-divider>
 <div mat-dialog-content>
+<!--
+  <div id="add">
+    <div class="row">
+      <div class="col-md-10">
+        <mat-form-field class="col-md-12" appearance="outline">
+          <mat-label for="addInput"> Add Server </mat-label>
+          <input matInput name="addInput" id="addInput" #input>
+          <mat-hint *ngIf="validate">Please enter server name here.</mat-hint>
+        </mat-form-field>
+      </div>
+      <div >
+        <button mat-raised-button class="mt-2" [color]="'accent'" (click)="onAdd(input)">Add</button>
+      </div>
+    </div>
+  </div>
+
   <div class="col-md-12">
    <table mat-table [dataSource]="serversList" class="mat-elevation-z8" >
         <ng-container matColumnDef="server">
           <th mat-header-cell *matHeaderCellDef style="margin-left: 1%"> Server Name </th>
-          <td mat-cell style="margin-left: 1%" *matCellDef="let server"> {{server.name}} </td>
+          <td mat-cell style="margin-left: 1%" (click)="onCheck(i)" *matCellDef="let server; let i=index"> {{server.name}} </td>
         </ng-container>
         <ng-container matColumnDef="set">
           <th mat-header-cell *matHeaderCellDef style="width: 15%"> Set </th>
           <td mat-cell style="width: 15%" *matCellDef="let server; let idx = index">
-          <!--  <mat-checkbox color="primary" [(ngModel)]="server.set" (change)="onSelect($event, idx)"></mat-checkbox>-->
-            <mat-radio-button color="primary" name="idx" [value]="server.set" (change)="onSelect(idx)"></mat-radio-button>
+            <mat-radio-button
+              color="primary"
+              name="idx"
+              [value]="server.set"
+              [checked]="server.set"
+              (change)="onSelect(idx)"></mat-radio-button>
           </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="columns"></tr>
         <tr mat-row *matRowDef="let row; columns: columns;"></tr>
     </table>
-  </div>
+  </div> -->
+  <mat-form-field class="col-md-12" appearance="outline">
+    <mat-label for="addInput">Add Server</mat-label>
+    <input matInput name="addInput" id="addInput" type="text">
+  </mat-form-field>
 </div>
 <mat-divider></mat-divider>
 <div mat-dialog-actions>

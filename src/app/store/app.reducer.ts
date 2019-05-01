@@ -9,6 +9,7 @@ export interface State {
   overrideHost: {check: boolean, hostname: string};
   sideDrawer: boolean;
   activeTabIndex: number;
+  servers: object[];
 }
 
 const initState: State = {
@@ -17,7 +18,8 @@ const initState: State = {
   selectedService: {sysId: null, srvId: null, srvName: null},
   overrideHost: {check: false, hostname: 'initial'},
   sideDrawer: true,
-  activeTabIndex: 0
+  activeTabIndex: 0,
+  servers: []
 };
 
 export function appReducer(
@@ -33,12 +35,12 @@ export function appReducer(
     case AppActions.FAV_HEADERS:
       return {
         ...state,
-        favHeaders: [...state.favHeaders, ...action.payload]
+        favHeaders: [...action.payload]
       };
     case AppActions.SELECTED_SERVICE:
       return {
         ...state,
-        selectedService: {...action.payload}
+        selectedService: {...state.selectedService, ...action.payload}
       };
     case AppActions.OVERRIDE_HOST:
       return {
@@ -54,6 +56,11 @@ export function appReducer(
       return {
         ...state,
         activeTabIndex: action.payload
+      };
+    case AppActions.SERVERS_LIST:
+      return {
+        ...state,
+        servers: [...state.servers, { name: action.payload, set: false}]
       };
     default:
       return state;

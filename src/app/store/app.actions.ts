@@ -8,6 +8,7 @@ export const SELECTED_SERVICE = 'SELECTED_SERVICE';
 export const OVERRIDE_HOST = 'OVERRIDE_HOST';
 export const SIDE_DRAWER = 'SIDE_DRAWER';
 export const ACTIVE_TAB_INDEX = 'ACTIVE_TAB_INDEX';
+export const SERVERS_LIST = 'SERVERS_LIST';
 
 export class APIList implements Action {
   readonly type = API_LIST;
@@ -38,4 +39,9 @@ export class ActiveTabIndex implements Action {
   constructor(public payload: number) {}
 }
 
-export type AppActions = APIList | FavHeaders | SelectedService | OverrideHost | SideDrawer | ActiveTabIndex;
+export class AddServer implements Action {
+  readonly type = 'SERVERS_LIST';
+  constructor(public payload: string) {}
+}
+
+export type AppActions = APIList | FavHeaders | SelectedService | OverrideHost | SideDrawer | ActiveTabIndex | AddServer;

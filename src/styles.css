@@ -141,6 +141,14 @@ textarea {
   line-height: 18px !important;
   font-size: 12px !important;
 }
+
+tr.mat-row {
+  height: 2.5rem !important;
+}
+
+tr.mat-header-row {
+  height: 2.5rem !important;
+}
 /*
 .mt-1 {
   margin-top: .25rem!important;

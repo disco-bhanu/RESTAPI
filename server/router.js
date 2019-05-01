@@ -25,6 +25,10 @@ router.post('/save', (req, res) => {
   save(req.body, res);
 });
 
+router.post('/add-server', (req, res) => {
+  addServer(req.body, res);
+})
+
 router.get('/export', (req, res) => {
   res.sendFile(path.join(__dirname, 'services.json'))
 });
@@ -69,31 +73,54 @@ function sendRequest(form, res) {
 }
 
 function save(data, res) {
-  if (data.systemId === null && data.serviceId === null) {
+  if(db.some(s => s.name === data.systemName) && data.systemId === null) {
+    let systemIdx = db.findIndex( s => s.name === data.systemName);
+    db[systemIdx].services.push({
+      name: data.serviceName,
+      description: data.description || null,
+      method: data.method,
+      url: data.url,
+      headers: data.headers,
+      sampleRequest: data.body,
+      sampleResponse: data.response
+    });
+  } else if (data.systemId === null) {
+    let newSystem = { name: '', services: []};
+    newSystem.name = data.systemName;
+    newSystem.services.push({
+      name: data.serviceName,
+      description: data.description,
+      method: data.method,
+      url: data.url,
+      headers: data.headers,
+      sampleRequest: data.body,
+      sampleResponse: data.response
+    });
+    db.push(newSystem);
     console.log('New service request');
+  } else if(data.serviceId === null) {
+    db[data.systemId].services.push({
+      name: data.serviceName,
+      description: data.description || null,
+      method: data.method,
+      url: data.url,
+      headers: data.headers,
+      sampleRequest: data.body,
+      sampleResponse: data.response
+    });
   } else {
-    existingService(data);
-  }
-  console.log(db[0]);
-  fs.writeFileSync(path.join(__dirname, 'services.json'), JSON.stringify(db, undefined, 4));
-  res.send(db);
-}
-
-function existingService(data) {
-  console.log(data);
-  try {
+    console.log(data);
     db[data.systemId].name = data.systemName;
     db[data.systemId].services[data.serviceId].name = data.serviceName;
     db[data.systemId].services[data.serviceId].description = data.description;
     db[data.systemId].services[data.serviceId].method = data.method;
     db[data.systemId].services[data.serviceId].url = data.url;
     db[data.systemId].services[data.serviceId].headers = data.headers;
-    db[data.systemId].services[data.serviceId].sampleRequest = data.sampleRequest;
-    db[data.systemId].services[data.serviceId].sampleResponse = data.sampleResponse;
-  } catch (e) {
-    console.log(e);
+    db[data.systemId].services[data.serviceId].sampleRequest = data.body;
+    db[data.systemId].services[data.serviceId].sampleResponse = data.response;
   }
-
+  fs.writeFileSync(path.join(__dirname, 'services.json'), JSON.stringify(db, undefined, 4));
+  res.send(db);
 }
 
 function deleteRequest(ids, res) {
@@ -136,6 +163,11 @@ function importRequest(file, res) {
     fs.writeFileSync(path.join(__dirname, 'services.json'), JSON.stringify(db, undefined, 4));
     res.json(db);
   }
+}
+
+function addServer(fdata, res) {
+  serversList.push({ name: fdata.server, set: false });
+  res.json(serversList);
 }
 
 module.exports = router;

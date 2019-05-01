@@ -3,6 +3,7 @@ import { MatTableDataSource, MatDialogRef } from '@angular/material';
 import { APIService } from '../shared/api.service';
 import { Store } from '@ngrx/store';
 import * as AppActions from '../store/app.actions';
+import {FormControl} from '@angular/forms';
 
 export interface List {
   name: string;
@@ -22,6 +23,8 @@ export class ServersListComponent implements OnInit {
 
   selectedIndex;
 
+  validate = false;
+
   constructor(
     public apiService: APIService,
     public serverListDialogRef: MatDialogRef<ServersListComponent>,
@@ -30,12 +33,25 @@ export class ServersListComponent implements OnInit {
 
   ngOnInit() {
     this.apiService.fetchServersList().subscribe(
-      list => this.serversList.data = [...list]
+      list => {
+        this.serversList.data = list.reduce( (a, c) => [...a, {name: c, set: false}], []);
+      }
+      // this.serversList.data = [...list]
     );
   }
 
   onSelect(idx) {
     this.selectedIndex = idx;
+  }
+
+  onCheck(idx) {
+    this.onSelect(idx);
+    const temp = [...this.serversList.data];
+    this.serversList.data = [];
+    temp.forEach((d, i) => {
+      i === idx ? temp[i].set = true : temp[i].set = false;
+    });
+    this.serversList.data = [...temp];
   }
 
   toCurrentTab() {
@@ -56,5 +72,18 @@ export class ServersListComponent implements OnInit {
       })
     );
     this.serverListDialogRef.close();
+  }
+
+  onAdd(e) {
+    console.log(e.value);
+    if (e.value === null || e.value.trim().length === 0) {
+      this.validate = true;
+    } else {
+      this.validate = false;
+      const addServer = [...this.serversList.data, {name: e.value, set: false}];
+      this.apiService.addServer(e.value);
+      this.serversList.data = [];
+      this.serversList.data = addServer;
+    }
   }
 }

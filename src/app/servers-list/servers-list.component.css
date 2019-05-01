@@ -1,4 +1,14 @@
 .mat-table {
   width: 60%;
   margin: 1% auto;
+  background-color: #303030;
+}
+
+#add {
+  width: 60%;
+  margin: 1% auto;
+}
+
+button {
+  line-height: 25px;
 }

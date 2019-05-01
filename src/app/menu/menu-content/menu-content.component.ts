@@ -38,6 +38,7 @@ export class MenuContentComponent implements OnInit {
             this.selectedTab = this.tabs.length - 1;
           } else {
             this.selectedTab = tabIdx;
+            this.tabs[tabIdx].name = selected.srvName;
           }
         }
       });

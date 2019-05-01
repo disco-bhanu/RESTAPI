@@ -6,8 +6,6 @@ import * as AppActions from '../store/app.actions';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { ipcRenderer, IpcRenderer } from 'electron';
-
 @Injectable({
   providedIn: 'root'
 })
@@ -19,29 +17,25 @@ export class APIService {
 
   names = new Subject();
 
-  favHeaders = [];
-
-  private ipc: IpcRenderer;
-
+  favSelectedHeaders = [];
 
   constructor(public http: HttpClient, public store: Store<{appStore: any}>) {
-    if ((<any>window).require) {
-      try {
-        this.ipc = (<any>window).require('electron').ipcRenderer;
-      } catch (error) {
-        throw error;
-      }
-    } else {
-      console.warn('Could not load electron ipc')
-    }
-   }
+    this.store.select(state => state.appStore.favHeaders)
+      .subscribe(headers => {
+        console.log(headers);
+        this.favSelectedHeaders = [];
+        headers.forEach(h => {
+          if (h.selected) {
+            this.favSelectedHeaders.push({key: h.key, value: h.value});
+          }
+        });
+      });
+  }
 
   fetchServicesList(): Observable<any> {
     return this.http.get('http://localhost:4000/server/services')
       .pipe(
         map((res: any) => {
-          this.ipc.on('tested', (e) => console.log(e));
-          this.ipc.send('test');
           this.APIList = res;
           this.store.dispatch(new AppActions.APIList(res));
           return true;
@@ -50,7 +44,11 @@ export class APIService {
   }
 
   fetchServersList(): Observable<any> {
-    return this.http.get('http://localhost:4000/server/servers');
+    return this.http.get('http://localhost:4000/server/servers').pipe(
+      map((res: any) => {
+        this.store.dispatch(new AppActions.AddServer(res));
+      })
+    )
   }
 
   fetchMenuItems(): object[] {
@@ -68,10 +66,6 @@ export class APIService {
       });
     });
     return items;
-  }
-
-  newService() {
-    this.selectedAPIId.next();
   }
 
   fetchById(id) {
@@ -97,6 +91,12 @@ export class APIService {
   }
 
   send(formData): Observable<any> {
+    console.log(formData);
+    this.favSelectedHeaders.forEach(h => {
+      if (!formData.headers.some(header => header.key === h.key)) {
+        formData.headers.push(h);
+      }
+    });
     console.log(formData);
     return this.http.post('http://localhost:4000/server/send', formData);
   }
@@ -125,5 +125,9 @@ export class APIService {
 
   exportService() {
     return this.http.get('http://localhost:4000/server/export');
+  }
+
+  addServer(server) {
+    return this.http.post('http://localhost:4000/server/add-server', server);
   }
 }
