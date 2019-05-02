@@ -12,3 +12,7 @@
 button {
   line-height: 25px;
 }
+
+.mat-dialog-content {
+  overflow: unset !important;
+}

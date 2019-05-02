@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource, MatDialogRef } from '@angular/material';
+import { MatTableDataSource, MatDialogRef, MatChipInputEvent } from '@angular/material';
+import { ENTER, COMMA } from '@angular/cdk/keycodes';
+
 import { APIService } from '../shared/api.service';
 import { Store } from '@ngrx/store';
 import * as AppActions from '../store/app.actions';
-import {FormControl} from '@angular/forms';
 
 export interface List {
   name: string;
@@ -25,6 +26,8 @@ export class ServersListComponent implements OnInit {
 
   validate = false;
 
+  separatorKeysCodes = [ENTER, COMMA];
+
   constructor(
     public apiService: APIService,
     public serverListDialogRef: MatDialogRef<ServersListComponent>,
@@ -40,12 +43,8 @@ export class ServersListComponent implements OnInit {
     );
   }
 
-  onSelect(idx) {
+  onSet(idx) {
     this.selectedIndex = idx;
-  }
-
-  onCheck(idx) {
-    this.onSelect(idx);
     const temp = [...this.serversList.data];
     this.serversList.data = [];
     temp.forEach((d, i) => {
@@ -74,16 +73,23 @@ export class ServersListComponent implements OnInit {
     this.serverListDialogRef.close();
   }
 
-  onAdd(e) {
-    console.log(e.value);
-    if (e.value === null || e.value.trim().length === 0) {
+  onAdd(event: MatChipInputEvent): void {
+    if (event.value === null || event.value.trim().length === 0) {
       this.validate = true;
     } else {
       this.validate = false;
-      const addServer = [...this.serversList.data, {name: e.value, set: false}];
-      this.apiService.addServer(e.value);
-      this.serversList.data = [];
-      this.serversList.data = addServer;
+      this.serversList.data.push({name: event.value, set: false});
+      this.apiService.addServer(event.value)
+        .subscribe(res => console.log(res));
     }
+    if (event.input) {
+      event.input.value = '';
+    }
+  }
+
+  onRemove(idx) {
+    // this.serversList.data.splice(idx, 1);
+    this.apiService.deleteServer(idx)
+      .subscribe(res => this.serversList.data = res);
   }
 }

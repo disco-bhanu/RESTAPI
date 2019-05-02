@@ -60,7 +60,7 @@ export function appReducer(
     case AppActions.SERVERS_LIST:
       return {
         ...state,
-        servers: [...state.servers, { name: action.payload, set: false}]
+        servers: [...state.servers, ...action.payload]
       };
     default:
       return state;

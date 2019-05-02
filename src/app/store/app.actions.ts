@@ -41,7 +41,7 @@ export class ActiveTabIndex implements Action {
 
 export class AddServer implements Action {
   readonly type = 'SERVERS_LIST';
-  constructor(public payload: string) {}
+  constructor(public payload: any[]) {}
 }
 
 export type AppActions = APIList | FavHeaders | SelectedService | OverrideHost | SideDrawer | ActiveTabIndex | AddServer;

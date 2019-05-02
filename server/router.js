@@ -27,7 +27,11 @@ router.post('/save', (req, res) => {
 
 router.post('/add-server', (req, res) => {
   addServer(req.body, res);
-})
+});
+
+router.post('/delete-server', (req, res) => {
+  deleteServer(req.body, res);
+});
 
 router.get('/export', (req, res) => {
   res.sendFile(path.join(__dirname, 'services.json'))
@@ -165,8 +169,15 @@ function importRequest(file, res) {
   }
 }
 
-function addServer(fdata, res) {
-  serversList.push({ name: fdata.server, set: false });
+function addServer(server, res) {
+  serversList.push(server.name);
+  fs.writeFileSync(path.join(__dirname, 'serversList.json'), JSON.stringify(serversList, undefined, 4));
+  res.json(serversList);
+}
+
+function deleteServer(index, res) {
+  serversList.splice(index, 1);
+  fs.writeFileSync(path.join(__dirname, 'serversList.json'), JSON.stringify(serversList, undefined, 4));
   res.json(serversList);
 }
 

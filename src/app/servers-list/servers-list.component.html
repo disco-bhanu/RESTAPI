@@ -37,11 +37,39 @@
         <tr mat-header-row *matHeaderRowDef="columns"></tr>
         <tr mat-row *matRowDef="let row; columns: columns;"></tr>
     </table>
-  </div> -->
+  </div>
   <mat-form-field class="col-md-12" appearance="outline">
     <mat-label for="addInput">Add Server</mat-label>
     <input matInput name="addInput" id="addInput" type="text">
+  </mat-form-field> -->
+
+  <mat-form-field class="col-md-12" appearance="outline">
+    <mat-label for="addInput">Add Server</mat-label>
+    <input matInput
+            name="addInput" id="addInput" type="text"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="true"
+            (matChipInputTokenEnd)="onAdd($event)" />
   </mat-form-field>
+  <div class="col-md-12 pb-2">
+  <mat-chip-list #chipList [selectable]="true" [multiple]="true">
+    <div *ngFor="let server of serversList.data; let i = index">
+      <div matTooltip="{{server.name}}">
+        <mat-chip class="mr-2 mt-3 mat-elevation-z4"
+                  color="primary"
+                  [selectable]="true"
+                  [removable]="true"
+                  selected="{{server.set}}"
+                  (click)="onSet(i)"
+                  >
+          <strong>{{server.name}}</strong>
+          <mat-icon matChipRemove (click)="onRemove(i)">cancel</mat-icon>
+        </mat-chip>
+      </div>
+    </div>
+  </mat-chip-list>
+  </div>
 </div>
 <mat-divider></mat-divider>
 <div mat-dialog-actions>

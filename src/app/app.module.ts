@@ -23,7 +23,8 @@ import { MatCardModule,
   MatCheckboxModule,
   MatTableModule,
   MatRippleModule,
-  MatRadioModule} from '@angular/material';
+  MatRadioModule,
+  MatChipsModule} from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
@@ -83,6 +84,7 @@ import { EditServicesComponent } from './edit-services/edit-services.component';
     MatRadioModule,
     MatRippleModule,
     MatMenuModule,
+    MatChipsModule,
     StoreModule.forRoot({appStore: appReducer})
   ],
   providers: [],

@@ -13,8 +13,6 @@ export class APIService {
 
   APIList = [];
 
-  selectedAPIId = new Subject();
-
   names = new Subject();
 
   favSelectedHeaders = [];
@@ -47,8 +45,9 @@ export class APIService {
     return this.http.get('http://localhost:4000/server/servers').pipe(
       map((res: any) => {
         this.store.dispatch(new AppActions.AddServer(res));
+        return res;
       })
-    )
+    );
   }
 
   fetchMenuItems(): object[] {
@@ -127,7 +126,20 @@ export class APIService {
     return this.http.get('http://localhost:4000/server/export');
   }
 
-  addServer(server) {
-    return this.http.post('http://localhost:4000/server/add-server', server);
+  addServer(server): Observable<any> {
+    return this.http.post('http://localhost:4000/server/add-server', {name : server}).pipe(
+      map((res: any) => {
+        this.store.dispatch(new AppActions.AddServer(Array.of(res)));
+    })
+    );
+  }
+
+  deleteServer(idx): Observable<any> {
+    return this.http.post('http://localhost:4000/server/delete-server', {index: idx}).pipe(
+      map((res: any) => {
+        this.store.dispatch(new AppActions.AddServer(Array.of(res)));
+        return res;
+      })
+    );
   }
 }
