@@ -54,16 +54,16 @@
   </mat-form-field>
   <div class="col-md-12 pb-2">
   <mat-chip-list #chipList [selectable]="true" [multiple]="true">
-    <div *ngFor="let server of serversList.data; let i = index">
+    <div *ngFor="let server of serversList; let i = index">
       <div matTooltip="{{server.name}}">
         <mat-chip class="mr-2 mt-3 mat-elevation-z4"
-                  color="primary"
+                  color="{{server.set ? 'primary' : 'accent'}}"
                   [selectable]="true"
                   [removable]="true"
-                  selected="{{server.set}}"
+                  selected="true"
                   (click)="onSet(i)"
                   >
-          <strong>{{server.name}}</strong>
+          <span>{{server.name}}</span>
           <mat-icon matChipRemove (click)="onRemove(i)">cancel</mat-icon>
         </mat-chip>
       </div>

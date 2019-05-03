@@ -12,11 +12,16 @@
                 "sampleResponse": "asjkdsakjdasjkd"
             },
             {
-                "name": "Service 2",
+                "name": "Service 222",
                 "description": "blah blah blah",
-                "url": "google21.com",
+                "url": "http://oogle21.com",
                 "method": "POST",
-                "headers": [],
+                "headers": [
+                    {
+                        "key": null,
+                        "value": null
+                    }
+                ],
                 "sampleRequest": null,
                 "sampleResponse": null
             },
@@ -115,6 +120,28 @@
                 "method": "GET",
                 "url": "google.com",
                 "headers": [],
+                "sampleRequest": null,
+                "sampleResponse": null
+            },
+            {
+                "name": "test1",
+                "description": null,
+                "method": "GET",
+                "url": "http://google.com",
+                "headers": [
+                    {
+                        "key": "Accept",
+                        "value": "application/atom+xml"
+                    },
+                    {
+                        "key": "Accept-Charset",
+                        "value": "application/ecmascript"
+                    },
+                    {
+                        "key": null,
+                        "value": null
+                    }
+                ],
                 "sampleRequest": null,
                 "sampleResponse": null
             }

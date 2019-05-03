@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, FormControl, FormArray, Validators } from '@angular/forms';
+import {FormGroup, FormControl, FormArray, Validators, AbstractControl} from '@angular/forms';
 import { Store } from '@ngrx/store';
 import * as AppActions from '../store/app.actions';
 import { APIService } from '../shared/api.service';
@@ -86,6 +86,7 @@ export class ApiDetailsComponent implements OnInit {
           }
         }
       });
+
   }
 
   buildForm() {
@@ -125,6 +126,12 @@ export class ApiDetailsComponent implements OnInit {
       this.newService = false;
     }
 
+    _headers.push(
+      new FormGroup({
+        key: new FormControl(),
+        value: new FormControl()
+      }));
+
     this.form = new FormGroup({
       systemName: new FormControl(systemName),
       systemId: new FormControl(systemId),
@@ -154,12 +161,15 @@ export class ApiDetailsComponent implements OnInit {
             JSON.stringify(res.headers, undefined, 4)
           );
         },
-        err =>
-          this.form.controls['response'].patchValue(
-            JSON.stringify(err, undefined, 4)
-          )
+        err => {
+          this.form.controls['response'].patchValue(JSON.stringify(err, undefined, 4));
+        }
       );
     }
+  }
+
+  onResponseTabIndexChanged(e) {
+    this.changeTabOnSend = e;
   }
 
   onSave() {
@@ -190,28 +200,25 @@ export class ApiDetailsComponent implements OnInit {
     (<FormArray>this.form.get('headers')).removeAt(idx);
   }
 
-  onAdd(key: HTMLInputElement, value: HTMLInputElement) {
-    if (key.value !== '' && value.value !== '') {
-      this.headers.push(key.value);
-      (<FormArray>this.form.get('headers')).push(
-        new FormGroup({
-          key: new FormControl(key.value),
-          value: new FormControl(value.value)
-        })
-      );
-      key.value = '';
-      value.value = '';
-      this.newHeader = false;
+  onHeadersKey(event, idx) {
+    if ((<FormArray>this.form.get('headers')).length - 1 === idx) {
+      (<FormArray>this.form.get('headers')).push(new FormGroup({
+        key: new FormControl(null),
+        value: new FormControl(null)
+      }));
     }
-  }
-
-  onHeadersKey(event) {
     this.filterOptionsForHeaderKey = HeadersList.keys.filter(key =>
       key.toLowerCase().includes(event.target.value)
     );
   }
 
-  onHeadersValue(event) {
+  onHeadersValue(event, idx) {
+    if ((<FormArray>this.form.get('headers')).length - 1 === idx) {
+      (<FormArray>this.form.get('headers')).push(new FormGroup({
+        key: new FormControl(null),
+        value: new FormControl(null)
+      }));
+    }
     this.filterOptionsForHeaderValue = HeadersList.values.filter(val =>
       val.toLowerCase().includes(event.target.value)
     );

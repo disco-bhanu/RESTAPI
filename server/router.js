@@ -67,12 +67,17 @@ function sendRequest(form, res) {
     } catch (e) {
       _body = body;
     }
-    res.send({
-      body: _body || null,
-      headers: response.headers || null,
-      time: response.elapsedTime || null,
-      statusCode: response.statusCode || null
-    });
+    if(!err) {
+      res.send({
+        body: _body || null,
+        headers: response.headers || null,
+        time: response.elapsedTime || null,
+        statusCode: response.statusCode || null
+      });
+    } else {
+      console.log(err);
+      res.json({ error: err});
+    }
   });
 }
 

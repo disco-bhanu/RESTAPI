@@ -18,9 +18,7 @@ export interface List {
 })
 export class ServersListComponent implements OnInit {
 
-  columns = ['server', 'set'];
-
-  serversList = new MatTableDataSource<List>();
+  serversList: List[] = [];
 
   selectedIndex;
 
@@ -37,27 +35,26 @@ export class ServersListComponent implements OnInit {
   ngOnInit() {
     this.apiService.fetchServersList().subscribe(
       list => {
-        this.serversList.data = list.reduce( (a, c) => [...a, {name: c, set: false}], []);
+        this.serversList = list.reduce( (a, c) => [...a, {name: c, set: false}], []);
       }
-      // this.serversList.data = [...list]
     );
   }
 
   onSet(idx) {
     this.selectedIndex = idx;
-    const temp = [...this.serversList.data];
-    this.serversList.data = [];
+    const temp = [...this.serversList];
+    this.serversList = [];
     temp.forEach((d, i) => {
       i === idx ? temp[i].set = true : temp[i].set = false;
     });
-    this.serversList.data = [...temp];
+    this.serversList = [...temp];
   }
 
   toCurrentTab() {
     this.store.dispatch(
       new AppActions.OverrideHost({
         check: true,
-        hostname: this.serversList.data[this.selectedIndex].name
+        hostname: this.serversList[this.selectedIndex].name
       })
     );
     this.serverListDialogRef.close();
@@ -67,29 +64,34 @@ export class ServersListComponent implements OnInit {
     this.store.dispatch(
       new AppActions.OverrideHost({
         check: false,
-        hostname: this.serversList.data[this.selectedIndex].name
+        hostname: this.serversList[this.selectedIndex].name
       })
     );
     this.serverListDialogRef.close();
   }
 
   onAdd(event: MatChipInputEvent): void {
+    // remove focus from selected chip
+    event.input.focus({ preventScroll: false});
+
     if (event.value === null || event.value.trim().length === 0) {
       this.validate = true;
     } else {
       this.validate = false;
-      this.serversList.data.push({name: event.value, set: false});
+      this.serversList.push({name: event.value, set: false});
       this.apiService.addServer(event.value)
         .subscribe(res => console.log(res));
     }
+
+    // empty the input text
     if (event.input) {
       event.input.value = '';
     }
   }
 
   onRemove(idx) {
-    // this.serversList.data.splice(idx, 1);
+    this.serversList.splice(idx, 1);
     this.apiService.deleteServer(idx)
-      .subscribe(res => this.serversList.data = res);
+      .subscribe(res => console.log(res));
   }
 }
