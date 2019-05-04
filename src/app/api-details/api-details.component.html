@@ -31,9 +31,10 @@
   <div class="col-md-12">
     <mat-tab-group [selectedIndex]="changeTabOnSend" [color]="'primary'" (selectedIndexChange)="onResponseTabIndexChanged($event)">
       <mat-tab label="Request Headers">
-        <div class="mt-2">
+        <div class="mt-2 ml-3">
           <div formArrayName="headers">
             <div *ngFor="let header of form.get('headers')['controls']; let i = index" [formGroupName]="i">
+              <mat-checkbox [checked]="header.enable" id="{{i}}" formControlName="enable" name="{{i}}"></mat-checkbox>
               <mat-form-field class="col-md-3" appearance="outline">
                 <mat-label for="key"> Key </mat-label>
                 <input matInput type="text" name="key" formControlName="key" (keyup)="onHeadersKey($event, i)" [matAutocomplete]="headersKeyAuto">
@@ -45,7 +46,7 @@
               </mat-form-field>
               <mat-form-field class="col-md-8" appearance="outline">
                 <mat-label for="value"> Value </mat-label>
-                <input matInput type="text" name="value" formControlName="value" (keyup)="onHeadersValue($event, i)" [matAutocomplete]="headersValueAuto" >
+                <input matInput class="prettyprint" type="text" name="value" formControlName="value" (keyup)="onHeadersValue($event, i)" [matAutocomplete]="headersValueAuto" >
                 <mat-autocomplete #headersValueAuto>
                   <mat-option *ngFor="let option of filterOptionsForHeaderValue" [value]="option">
                     {{option}}
@@ -85,24 +86,32 @@
         </div>
       </mat-tab>
       <mat-tab label="Response">
-        <div class="mt-1 row float-right">
+        <div class="mt-2 row float-right">
           <small>Time: {{responseTime}}</small>
           <small class="ml-2">Status Code: {{statusCode}}</small>
         </div>
-        <mat-form-field class="col-md-12 mt-2" appearance="outline">
-          <mat-label for="response">Response</mat-label>
-          <textarea matInput name="response" rows="20" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" formControlName="response"></textarea>
-        </mat-form-field>
+        <!--<mat-form-field class="col-md-12 mt-2" appearance="outline">
+           <mat-label for="response">Response</mat-label>
+          <textarea matInput  name="response" rows="20" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" formControlName="response">
+            <prettyjson [obj]="form.get('response').value"></prettyjson>
+          </textarea>
+        </mat-form-field> -->
+        <div class="mt-3" >
+        <prettyjson [obj]="form.get('response').value"></prettyjson>
+        </div>
       </mat-tab>
       <mat-tab label="Response Headers">
         <div class="mt-1 row float-right">
           <small>Time: {{responseTime}}</small>
           <small class="ml-2">Status Code: {{statusCode}}</small>
         </div>
-        <mat-form-field class="col-md-12 mt-2" appearance="outline">
+        <!--<mat-form-field class="col-md-12 mt-2" appearance="outline">
           <mat-label for="response">Response Headers</mat-label>
           <textarea matInput name="responseHeaders" rows="20" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" formControlName="responseHeaders"></textarea>
-        </mat-form-field>
+        </mat-form-field>-->
+        <div class="mt-3" data-simplebar>
+          <prettyjson [obj]="form.get('responseHeaders').value"></prettyjson>
+        </div>
       </mat-tab>
     </mat-tab-group>
   </div>

@@ -35,13 +35,18 @@
                 "sampleResponse": null
             },
             {
-                "name": "Service 4",
+                "name": "Service 44",
                 "description": "blah blah blah",
-                "url": "google4.com",
+                "url": "http://google4.com",
                 "method": "POST",
-                "headers": [],
-                "sampleRequest": "",
-                "sampleResponse": ""
+                "headers": [
+                    {
+                        "key": null,
+                        "value": null
+                    }
+                ],
+                "sampleRequest": null,
+                "sampleResponse": null
             },
             {
                 "name": "Service 5",
@@ -142,20 +147,6 @@
                         "value": null
                     }
                 ],
-                "sampleRequest": null,
-                "sampleResponse": null
-            }
-        ]
-    },
-    {
-        "name": "System 4",
-        "services": [
-            {
-                "name": "Service 1",
-                "description": "",
-                "method": "GET",
-                "url": "google.com",
-                "headers": [],
                 "sampleRequest": null,
                 "sampleResponse": null
             }

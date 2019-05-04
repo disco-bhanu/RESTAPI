@@ -57,7 +57,7 @@ export class ToolbarComponent {
       .subscribe((res: any) => {
         console.log(res);
         const a = document.createElement('a');
-        a.href = URL.createObjectURL(new Blob(res, {type: 'application/text'}));
+        a.href = URL.createObjectURL(new Blob([JSON.stringify(res, null, 2)], {type: 'application/json'}));
         a.download = 'services.json';
         // start download
         a.click();

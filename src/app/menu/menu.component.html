@@ -1,6 +1,6 @@
 <mat-sidenav-container class="sidenav-container" [hasBackdrop]="false">
   <mat-sidenav #drawer class="sidenav mat-elevation-z4 mt-2" fixedInViewport="false" [mode]="'side'">
-    <mat-nav-list>
+    <!--<mat-nav-list>
       <div *ngFor="let system of items; let i = index" class="mt-3">
         <a mat-list-item (click)="onExpand(i)">
           <mat-icon>computer</mat-icon>{{system.name}}
@@ -20,7 +20,19 @@
           </div>
         </div>
       </div>
-    </mat-nav-list>
+    </mat-nav-list>-->
+    <div *ngFor="let system of items; let i = index">
+    <nav>
+      <button (click)="onExpand(i)"><mat-icon>computer</mat-icon>{{system.name}}
+        <mat-icon class="mat-icon material-icons mat-icon-no-color" role="img" aria-hidden="true" id="arrow">{{system.expanded ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}}</mat-icon>
+      </button>
+      <ul *ngIf="system.expanded">
+        <li *ngFor="let service of system.services; let j = index" (click)="onSelect(i,j)">
+          <mat-icon>device_hub</mat-icon>{{service.name}}
+        </li>
+      </ul>
+    </nav>
+    </div>
   </mat-sidenav>
   <mat-sidenav-content>
     <app-menu-content></app-menu-content>

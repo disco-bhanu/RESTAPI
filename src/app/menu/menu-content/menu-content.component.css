@@ -14,7 +14,3 @@ mat-card {
   cursor: pointer;
   z-index: 10;
 }
-
-* {
-  text-shadow: 2px 2px 4px #000000;
-}

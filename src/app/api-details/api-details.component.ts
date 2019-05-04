@@ -15,7 +15,8 @@ import { HeadersList } from '../shared/standard-headers';
 @Component({
   selector: 'app-api-details',
   templateUrl: './api-details.component.html',
-  styleUrls: ['./api-details.component.css']
+  styleUrls: ['./api-details.component.css'],
+  entryComponents: []
 })
 export class ApiDetailsComponent implements OnInit {
   form: FormGroup;
@@ -115,6 +116,7 @@ export class ApiDetailsComponent implements OnInit {
       this.apiDetails.service.headers.forEach(header => {
         _headers.push(
           new FormGroup({
+            enable: new FormControl(true),
             key: new FormControl(header.key),
             value: new FormControl(header.value)
           })
@@ -128,6 +130,7 @@ export class ApiDetailsComponent implements OnInit {
 
     _headers.push(
       new FormGroup({
+        enable: new FormControl(true),
         key: new FormControl(),
         value: new FormControl()
       }));
@@ -149,17 +152,20 @@ export class ApiDetailsComponent implements OnInit {
 
   onSend() {
     if (this.onValidate()) {
+      this.form.controls['response'].patchValue('');
+      this.form.controls['responseHeaders'].patchValue('');
       this.changeTabOnSend = 1;
       this.apiService.send(this.form.value).subscribe(
         res => {
-          this.statusCode = res.statusCode;
-          this.responseTime = res.time + 'ms';
-          this.form.controls['response'].patchValue(
-            JSON.stringify(res.body, undefined, 4)
-          );
-          this.form.controls['responseHeaders'].patchValue(
-            JSON.stringify(res.headers, undefined, 4)
-          );
+          console.log(res);
+          if (res.hasOwnProperty('error')) {
+            this.form.controls['response'].patchValue(JSON.stringify(res, undefined, 4));
+          } else {
+            this.statusCode = res.statusCode;
+            this.responseTime = res.time + 'ms';
+            this.form.controls['response'].patchValue(JSON.stringify(res.body, undefined, 4));
+            this.form.controls['responseHeaders'].patchValue(JSON.stringify(res.headers, undefined, 4));
+          }
         },
         err => {
           this.form.controls['response'].patchValue(JSON.stringify(err, undefined, 4));
@@ -203,6 +209,7 @@ export class ApiDetailsComponent implements OnInit {
   onHeadersKey(event, idx) {
     if ((<FormArray>this.form.get('headers')).length - 1 === idx) {
       (<FormArray>this.form.get('headers')).push(new FormGroup({
+        enable: new FormControl(true),
         key: new FormControl(null),
         value: new FormControl(null)
       }));
@@ -215,6 +222,7 @@ export class ApiDetailsComponent implements OnInit {
   onHeadersValue(event, idx) {
     if ((<FormArray>this.form.get('headers')).length - 1 === idx) {
       (<FormArray>this.form.get('headers')).push(new FormGroup({
+        enable: new FormControl(true),
         key: new FormControl(null),
         value: new FormControl(null)
       }));

@@ -1,3 +1,7 @@
-* {
-  text-shadow: 2px 2px 4px #000000;
+prettyjson pre {
+  color: #f6f6f6 !important;
+}
+
+.simplebar-scrollbar:before {
+  background-color: black;
 }

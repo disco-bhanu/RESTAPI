@@ -92,7 +92,7 @@ export class APIService {
   send(formData): Observable<any> {
     console.log(formData);
     this.favSelectedHeaders.forEach(h => {
-      if (!formData.headers.some(header => header.key === h.key)) {
+      if (!formData.headers.some(header => header.enable && header.key === h.key)) {
         formData.headers.push(h);
       }
     });

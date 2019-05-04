@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { PrettyJsonModule } from 'angular2-prettyjson';
 
 import { MatCardModule,
   MatFormFieldModule,
@@ -85,6 +86,7 @@ import { EditServicesComponent } from './edit-services/edit-services.component';
     MatRippleModule,
     MatMenuModule,
     MatChipsModule,
+    PrettyJsonModule,
     StoreModule.forRoot({appStore: appReducer})
   ],
   providers: [],
