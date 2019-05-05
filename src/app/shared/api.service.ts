@@ -68,6 +68,7 @@ export class APIService {
   }
 
   fetchById(id) {
+    console.log(id);
     const systemId = id.split('_')[0];
     const serviceId = id.split('_')[1];
     return {

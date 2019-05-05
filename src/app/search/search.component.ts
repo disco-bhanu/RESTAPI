@@ -22,11 +22,11 @@ export class SearchComponent implements OnInit {
     this.store
       .select(state => state.appStore.services)
       .subscribe(list => {
-        list.forEach(sys => {
-          sys.services.forEach(srv => {
+        list.forEach((sys, sysIdx) => {
+          sys.services.forEach((srv, srvIdx) => {
             this.searchableData.push({
               keyword: sys.name.toLowerCase() + ' | ' + srv.name.toLowerCase() + ' | ' + srv.url.toLowerCase(),
-              id: sys.id + '_' + srv.id,
+              id: sysIdx + '_' + srvIdx,
               srvName: srv.name
             });
           });
