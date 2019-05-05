@@ -4,9 +4,12 @@
 
 .sidenav {
   width: 15rem;
-  max-height: 90vh;
   margin-left: 0.5rem;
   overflow: auto;
+}
+
+mat-sidenav {
+  height: fit-content;
 }
 
 #sub-menu a:hover {

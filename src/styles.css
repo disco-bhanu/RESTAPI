@@ -116,6 +116,10 @@ button {
   /* color: rgba(255,255,255,.7) !important;*/
   color: #fff !important;
 }
+
+.mat-drawer-inner-container {
+  height: auto !important;
+}
 /*
 .mat-form-field-appearance-legacy .mat-form-field-underline {
   height:0px !important;
