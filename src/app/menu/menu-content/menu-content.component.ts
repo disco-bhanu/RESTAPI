@@ -42,6 +42,13 @@ export class MenuContentComponent implements OnInit {
           }
         }
       });
+    this.store.select(state => state.appStore.saveService)
+      .subscribe( savedService => {
+        if (savedService.sysId !== undefined && savedService.srvId !== undefined) {
+          this.tabs[this.selectedTab].name = savedService.srvName;
+          this.tabs[this.selectedTab].id = savedService.sysId + '_' + savedService.srvId;
+        }
+      });
   }
 
   onTabIndexChanged(e) {

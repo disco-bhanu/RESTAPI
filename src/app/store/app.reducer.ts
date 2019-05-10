@@ -10,6 +10,7 @@ export interface State {
   sideDrawer: boolean;
   activeTabIndex: number;
   servers: object[];
+  saveService: any;
 }
 
 const initState: State = {
@@ -19,7 +20,8 @@ const initState: State = {
   overrideHost: {check: false, hostname: 'initial'},
   sideDrawer: true,
   activeTabIndex: 0,
-  servers: []
+  servers: [],
+  saveService: {}
 };
 
 export function appReducer(
@@ -61,6 +63,11 @@ export function appReducer(
       return {
         ...state,
         servers: [...state.servers, ...action.payload]
+      };
+    case AppActions.SAVE_SERVICE:
+      return {
+        ...state,
+        saveService: action.payload
       };
     default:
       return state;

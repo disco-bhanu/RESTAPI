@@ -19,7 +19,7 @@ export class SaveServiceComponent implements OnInit {
     serviceName: new FormControl('', Validators.required),
     description: new FormControl('')
   });
-  menuItems: object[];
+  menuItems: any[];
   systemOptions;
   filterOptionsForSystem: Observable<any>;
 
@@ -47,12 +47,41 @@ export class SaveServiceComponent implements OnInit {
   }
 
   onSave() {
-    this.store.dispatch(new AppActions.SelectedService({srvName: this.form.get('serviceName').value}));
-    this.dialogRef.close({
-      ...this.data,
-      systemName: this.form.get('systemName').value,
-      serviceName: this.form.get('serviceName').value,
-      description: this.form.get('description').value
+    let sysId = this.data.systemId;
+    let srvId = this.data.serviceId;
+    if (this.data.systemId === null) {
+      console.log(this.systemOptions);
+      console.log(this.form.get('systemName').value);
+      const sysLookUp = this.systemOptions.findIndex((e) => e === this.form.get('systemName').value.trim());
+      if (sysLookUp === -1) {
+        console.log('sys if');
+        sysId = this.systemOptions.length;
+        srvId = 0;
+      } else {
+        console.log('sys else');
+        sysId = sysLookUp;
+        const srvLookUp = this.menuItems[sysId].services.findIndex((e) => {
+          return e === this.form.get('serviceName').value.trim();
+        });
+        if (srvLookUp === -1) {
+          srvId = this.menuItems[sysId].services.length;
+        } else {
+          srvId = srvLookUp;
+        }
+      }
+    }
+      // this.store.dispatch(new AppActions.SelectedService({sysId: sysId, srvId: srvId, srvName: this.form.get('serviceName').value}));
+    // } else {
+      // this.store.dispatch(new AppActions.SelectedService({srvName: this.form.get('serviceName').value}));
+    // }
+    this.dialogRef.close({ form: {
+        ...this.data,
+        systemName: this.form.get('systemName').value,
+        serviceName: this.form.get('serviceName').value,
+        description: this.form.get('description').value
+      },
+      sysId: sysId,
+      srvId: srvId
     });
   }
 

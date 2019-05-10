@@ -38,6 +38,7 @@ export class ApiDetailsComponent implements OnInit {
   tabPosition;
 
   @Input() set serviceContent(id) {
+    console.log(id);
     if (id === null) {
       this.newService = true;
     } else {
@@ -248,8 +249,10 @@ export class ApiDetailsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(data => {
       console.log(data);
       if (data !== undefined) {
-        this.apiService.save(data).subscribe(res => {
+        this.apiService.save(data.form).subscribe(res => {
           this.store.dispatch(new AppActions.APIList(res));
+          // this.store.dispatch(new AppActions.SelectedService({sysId: data.sysId, srvId: data.srvId, srvName: data.form.serviceName}));
+          this.store.dispatch(new AppActions.SaveService({sysId: data.sysId, srvId: data.srvId, srvName: data.form.serviceName}));
         });
       }
     });

@@ -120,6 +120,10 @@ button {
 .mat-drawer-inner-container {
   height: auto !important;
 }
+
+pre {
+  color: #f60029 !important;
+}
 /*
 .mat-form-field-appearance-legacy .mat-form-field-underline {
   height:0px !important;
