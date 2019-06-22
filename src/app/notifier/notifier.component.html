@@ -1,0 +1,5 @@
+<div class="alert col-md-2 shadow">
+  <alert *ngIf="show" type="md-color">{{message}}
+    <span class="pull-right" (click)="onHide()" style="cursor: pointer">&times;</span>
+  </alert>
+</div>

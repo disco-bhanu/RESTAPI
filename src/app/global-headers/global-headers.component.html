@@ -1,0 +1,34 @@
+  <div class="modal-header">
+    <strong class="modal-title pull-left">Global Headers</strong>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="row mt-2" style="justify-content: space-evenly">
+      <input class="form-control form-control-sm col-md-3" type="text" placeholder="Key" #headerKey [typeahead]="keyOptions" [(ngModel)]="keySelected"/>
+      <input class="form-control form-control-sm col-md-3" type="text" placeholder="Value" #headerValue [typeahead]="valueOptions" [(ngModel)]="valueSelected"/>
+      <input class="form-control form-control-sm col-md-3" type="text" placeholder="Description" #headerDesc/>
+      <button class="btn btn-sm btn-danger col-md-1 shadow" type="button" (click)="onAdd(headerKey, headerValue, headerDesc)">Add</button>
+    </div>
+    <div class="mt-2">
+      <table *ngIf="headers.length > 0" class="table table-hover table-dark table-sm table-responsive-sm shadow">
+        <thead>
+          <tr>
+            <th> <input type="checkbox" [checked]="true"></th>
+            <th> Key </th>
+            <th> Value </th>
+            <th> Description </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let header of headers; let i = index">
+            <td><input type="checkbox" [checked]="header.selected" (change)="onChange(i)"></td>
+            <td>{{header.key}}</td>
+            <td>{{header.value}}</td>
+            <td>{{header.desc}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

@@ -1,0 +1,30 @@
+<div class="modal-header">
+  <strong class="modal-title pull-left">Global Headers</strong>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="col-md-12">
+    <div class="row">
+      <div class="card bg-dark col-md-11 mt-2 ml-5 shadow" *ngFor="let system of items; let i = index">
+        <div class="card-body">
+          <strong>{{system.sysName}}</strong>
+          <div class="row ml-4 mt-2">
+            <span
+              *ngFor="let service of system.services; let j = index"
+              class="snack-bar shadow"
+              (click)="onDelete(i, j)"
+              [ngClass]="service.marked ? 'bg-info' : ''"
+              [ngStyle]="{color: service.marked ? 'white' : 'black'}"
+              >{{ service.name }}
+          </span>
+      </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-sm btn-warning" (click)="onSave()">Delete</button>
+</div>

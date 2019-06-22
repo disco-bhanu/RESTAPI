@@ -1,0 +1,14 @@
+.form-control:focus {
+  border-color: #00000090;
+}
+
+.form-control-sm {
+  border: none;
+  height: 1.5rem !important;
+  background-color: #6c8a8c;
+}
+
+::placeholder {
+  color: white;
+  opacity: 0.5;
+}

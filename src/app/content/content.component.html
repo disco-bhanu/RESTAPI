@@ -1,0 +1,16 @@
+<div class="card shadow" (click)="$event.preventDefault()">
+  <div class="card-body">
+    <i class="fa fa-plus-square new-tab mt-1 mr-1" (click)="onNewTab()"></i>
+    <tabset #serviceTabs [justified]="false">
+      <tab *ngFor="let tab of tabs; let i = index"
+        [heading]="tab.title"
+        [removable]="true"
+        (removed)="onRemove(i)"
+        [active]="i === selectedTab ? true : false">
+        <ng-template tabHeading><i class="fa fa-close ml-1" (click)="onRemove(i)"></i></ng-template>
+        <app-api-details [serviceContent]="tab.id" [position]="i"></app-api-details>
+        <app-notifier></app-notifier>
+      </tab>
+    </tabset>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<div class="modal-header">
+  <strong class="modal-title pull-left">Servers</strong>
+  <button
+    type="button"
+    class="close pull-right"
+    aria-label="Close"
+    (click)="bsModalRef.hide()"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="row" style="justify-content: space-evenly">
+    <input
+      class="form-control form-control-sm col-md-10 mt-2"
+      type="search"
+      placeholder="Add Server"
+      #addInput
+      (keyup)="onEnter($event, addInput)"
+    />
+    <button class="btn btn-sm btn-danger col-md-1 shadow" type="button" (click)="onAdd(addInput)">Add</button>
+  </div>
+  <div *ngIf="serversNames.length" class="mt-2">
+    <div class="row pl-4">
+          <span
+            *ngFor="let server of serversNames; let i = index"
+            class="snack-bar shadow"
+            (click)="onSet(i)"
+            [ngClass]="server.set ? 'bg-info' : ''"
+            [ngStyle]="{color: server.set ? 'white' : 'black'}"
+            >{{ server.name }}
+            <i class="fa fa-close ml-1 text-danger" (click)="onRemove(i)"></i>
+        </span>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <div class="row">
+    <button type="button" class="btn btn-sm btn-warning shadow ml-2" (click)="toCurrentTab()">Current Tab</button>
+    <button type="button" class="btn btn-sm btn-danger shadow ml-2" (click)="toAllTabs()">All Open Tabs</button>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+.card {
+  margin-top: 0.5rem;
+  background-color: #4c6263ad;
+  border-radius: 0;
+  height: 90vh;
+}
+
+.card-body {
+  padding: 0.1rem !important;
+  font-size: 13px;
+}
+
+.new-tab {
+  float: right;
+  outline: none;
+  font-size: 1.2rem;
+  color: #c5c5c5;
+}
+
+
+

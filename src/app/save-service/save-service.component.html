@@ -1,0 +1,35 @@
+<div class="modal-header">
+  <strong class="modal-title pull-left">Global Headers</strong>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+    <div class="col-md-12 mt-2">
+        <form [formGroup]="form">
+            <div class="row">
+              <div class="col-md-6">
+                  <input class="form-control form-control-sm" name="system" id="system" type="text" formControlName="systemName" [typeahead]="systemOptions" [typeaheadScrollable]="true" [typeaheadOptionsInScrollableView]="10">
+              </div>
+              <div class="col-md-6">
+                  <input class="form-control form-control-sm" name="service" id="service" type="text" formControlName="serviceName">
+              </div>
+            </div>
+          <div class="mt-2">
+                <textarea
+                  name="desc"
+                  id="desc"
+                  class="form-control form-control-sm"
+                  placeholder="(optional)"
+                  formControlName="description"
+                  autocomplete="off"
+                  autocorrect="off"
+                  autocapitalize="off"
+                  spellcheck="false"></textarea>
+          </div>
+        </form>
+      </div>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-sm btn-warning" (click)="onSave()">Save</button>
+</div>

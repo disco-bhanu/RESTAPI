@@ -1,0 +1,50 @@
+.menu {
+  margin-top: 0.5rem;
+}
+
+nav button {
+  padding: 10px 15px;
+  font-weight: 700;
+  line-height: 16px;
+  margin: 0;
+  font-size: 13px;
+  cursor: pointer;
+  position: relative;
+  display: block;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+}
+
+nav {
+  margin-left: 0.2rem;
+  margin-bottom: 0.2rem;
+  border-radius: 10px;
+}
+
+nav * {
+  background-color: #4c6263ad;
+  color: #cecece;
+}
+
+nav ul {
+  display: block;
+  list-style-type: none;
+  overflow: hidden;
+  padding: 0;
+  margin-bottom: 2px;
+}
+
+nav ul li {
+  font-size: 13px;
+  line-height: 16px;
+  margin: 0;
+  padding: 5px 5px 5px 30px;
+  cursor: pointer;
+}
+
+.col-md-2 {
+  padding-right: 0;
+  padding-left: 0;
+}

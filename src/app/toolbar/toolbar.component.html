@@ -1,0 +1,38 @@
+<div class="shadow">
+    <header>
+        <strong>RESTAPI</strong>
+        <div class="col-md-5">
+            <app-search></app-search>
+        </div>
+        <nav id="toolbar-menu">
+          <ul id="toolbar-menu-ul">
+            <li><a id="menu-link" (click)="onOpenServerModal()"><i class="fa fa-server" tooltip="Servers"></i></a></li>
+            <li><a id="menu-link" (click)="onOpenGlobalHeadersModal()"><i class="fa fa-globe" tooltip="Global Headers"></i></a></li>
+            <li><a id="menu-link" (click)="onOpenEditServicesModal()"><i class="fa fa-edit" tooltip="Edit Services"></i></a></li>
+            <li>
+              <span dropdown #dropdown="bs-dropdown" (onShown)="onShown()" (onHidden)="onHidden()">
+                <a href dropdownToggle id="basic-link" (click)="false" aria-controls="basic-link-dropdown" >
+                  <i class="fa fa-wrench" tooltip="Settings" placement="bottom"></i>
+                </a>
+                <ul id="basic-link-dropdown" *dropdownMenu class="dropdown-menu shadow" role="menu" aria-labelledby="basic-link">
+                  <li><a class="dropdown-item">
+                    <label for="upload" style="cursor: pointer">
+                      <small>
+                        <i class="fa fa-download"></i> &nbsp; Import
+                      </small>
+                    </label>
+                    <input type="file" name="upload" id="upload" hidden (change)="onUpload($event)">
+                  </a></li>
+                  <li>
+                    <a class="dropdown-item" (click)="onExportServices()">
+                      <small><i class="fa fa-upload"></i> &nbsp; Export</small>
+                    </a>
+                  </li>
+                </ul>
+              </span>
+            </li>
+          </ul>
+        </nav>
+      </header>
+</div>
+

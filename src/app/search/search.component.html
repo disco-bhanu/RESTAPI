@@ -1,0 +1,7 @@
+  <div class="col-md-12">
+    <input type="search" class="form-control form-control-sm text-light" placeholder="search"
+      [(ngModel)]="selected"
+      [typeahead]="searchableData"
+      (typeaheadOnSelect)="onSelect($event)"
+      typeaheadOptionField="keyword">
+  </div>

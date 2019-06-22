@@ -1,0 +1,13 @@
+.snack-bar {
+  border-radius: 15px;
+  background-color: #c3c3c3;
+  margin: 0.3rem;
+  padding: 0.2rem 0.5rem 0.2rem 0.5rem;
+  cursor: pointer;
+}
+
+.snack-bar-clicked {
+  background-color: black;
+}
+
+

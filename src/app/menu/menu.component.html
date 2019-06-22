@@ -1,0 +1,13 @@
+<div class="menu">
+    <nav class="shadow" *ngFor="let sys of items; let i = index">
+        <button (click)="onExpand(i)">
+          <fa-icon [icon]="faDesktop"></fa-icon>&nbsp;{{sys.name}}
+          <fa-icon [icon]="sys.expanded ? faChevronUp : faChevronDown" style="float: right"></fa-icon>
+        </button>
+        <ul *ngIf="sys.expanded === true">
+          <li *ngFor="let srv of sys.services; let j = index" (click)="onSelect(i,j)">
+            <fa-icon [icon]="faNetworkWired"></fa-icon>&nbsp;{{srv}}
+          </li>
+        </ul>
+      </nav>
+</div>
